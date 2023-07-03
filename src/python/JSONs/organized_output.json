@@ -1,0 +1,4268 @@
+[
+    {
+        "Sheet number": 1,
+        "Rows": 3,
+        "Original CSV data": "Date,Donor,Amount,,,,Category,Amount\n2023-01-01,John Smith,500,,,,Education,1000\n2023-01-05,Jane Doe,250,,,,Environment,500\n2023-01-15,Bob Johnson,1000,,,,Health,750\n,,,,,,\nCategory,Amount,,,,Date,Donor,Amount\nEducation,750,,,,2023-02-01,Alice Brown,300\nEnvironment,500,,,,2023-02-05,Jack Green,150\nHealth,1000,,,,2023-02-15,Mary White,500\n,,,,,,\nCategory,Amount,,,,Date,Donor,Amount\nEducation,500,,,,2023-03-01,John Smith,100\nEnvironment,750,,,,2023-03-05,Bob Johnson,200\nHealth,1000,,,,2023-03-15,Jane Doe,350",
+        "Chunks": [
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Date",
+                        "Donor",
+                        "Amount",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "2023-01-01",
+                        "John Smith",
+                        "500",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "2023-01-05",
+                        "Jane Doe",
+                        "250",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "2023-01-15",
+                        "Bob Johnson",
+                        "1000",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Date",
+                        "Donor",
+                        "Amount",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "2023-01-01",
+                        "John Smith",
+                        "500",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "2023-01-05",
+                        "Jane Doe",
+                        "250",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "2023-01-15",
+                        "Bob Johnson",
+                        "1000",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 129
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        "Category",
+                        "Amount"
+                    ],
+                    [
+                        " ",
+                        "Education",
+                        "1000"
+                    ],
+                    [
+                        " ",
+                        "Environment",
+                        "500"
+                    ],
+                    [
+                        " ",
+                        "Health",
+                        "750"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "Category",
+                        "Amount",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "Education",
+                        "1000",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "Environment",
+                        "500",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "Health",
+                        "750",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 135
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Category",
+                        "Amount",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Education",
+                        "750",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Environment",
+                        "500",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Health",
+                        "1000",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Category",
+                        "Amount",
+                        " ",
+                        " ",
+                        " ",
+                        "2023-01-15",
+                        "Bob Johnson",
+                        "1000",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Education",
+                        "750",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Environment",
+                        "500",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Health",
+                        "1000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        "2023-01-15",
+                        "Bob Johnson",
+                        "1000",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 196
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        "Date",
+                        "Donor",
+                        "Amount"
+                    ],
+                    [
+                        "2023-02-01",
+                        "Alice Brown",
+                        "300"
+                    ],
+                    [
+                        "2023-02-05",
+                        "Jack Green",
+                        "150"
+                    ],
+                    [
+                        "2023-02-15",
+                        "Mary White",
+                        "500"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        "Date",
+                        "Donor",
+                        "Amount",
+                        " ",
+                        "Health",
+                        "750"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-02-01",
+                        "Alice Brown",
+                        "300",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-02-05",
+                        "Jack Green",
+                        "150",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-02-15",
+                        "Mary White",
+                        "500",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        "Health",
+                        "750"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 186
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Category",
+                        "Amount",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Education",
+                        "500",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Environment",
+                        "750",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Health",
+                        "1000",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Category",
+                        "Amount",
+                        " ",
+                        " ",
+                        " ",
+                        "Health",
+                        "1000",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Education",
+                        "500",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Environment",
+                        "750",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Health",
+                        "1000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        "Health",
+                        "1000",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 158
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        "Date",
+                        "Donor",
+                        "Amount"
+                    ],
+                    [
+                        "2023-03-01",
+                        "John Smith",
+                        "100"
+                    ],
+                    [
+                        "2023-03-05",
+                        "Bob Johnson",
+                        "200"
+                    ],
+                    [
+                        "2023-03-15",
+                        "Jane Doe",
+                        "350"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        "Date",
+                        "Donor",
+                        "Amount",
+                        "2023-02-15",
+                        "Mary White",
+                        "500"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-03-01",
+                        "John Smith",
+                        "100",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-03-05",
+                        "Bob Johnson",
+                        "200",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-03-15",
+                        "Jane Doe",
+                        "350",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        "2023-02-15",
+                        "Mary White",
+                        "500"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 151
+            }
+        ]
+    },
+    {
+        "Sheet number": 2,
+        "Rows": 3,
+        "Original CSV data": "Company: ABC Inc.\nDatabase Created: 07/01/2023\nLocation: Main Office\n,,,,,,\nName,Email,Phone,City,State,Zip\nJohn Smith,johnsmith@example.com,555-123-4567,Chicago,IL,60601\nJane Doe,janedoe@example.com,555-234-5678,New York,NY,10001\nBob Johnson,bobjohnson@example.com,555-345-6789,San Francisco,CA,94101\n,,,,,,\nName,Email,Phone,City,State,Zip\nAlice Brown,alicebrown@example.com,555-456-7890,Atlanta,GA,30301\nJack Green,jackgreen@example.com,555-567-8901,Detroit,MI,48201\nMary White,marywhite@example.com,555-678-9012,Boston,MA,02101",
+        "Chunks": [
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Company: ABC Inc.",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Database Created: 07/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Location: Main Office",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Company: ABC Inc.",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Database Created: 07/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Location: Main Office",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 135
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Zip",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "City",
+                        "State",
+                        "Zip",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "City",
+                        "State"
+                    ]
+                ],
+                "Token count": 120
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "John Smith",
+                        "johnsmith@example.com",
+                        "555-123-4567",
+                        "Chicago",
+                        "IL"
+                    ],
+                    [
+                        "Jane Doe",
+                        "janedoe@example.com",
+                        "555-234-5678",
+                        "New York",
+                        "NY"
+                    ],
+                    [
+                        "Bob Johnson",
+                        "bobjohnson@example.com",
+                        "555-345-6789",
+                        "San Francisco",
+                        "CA"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "John Smith",
+                        "johnsmith@example.com",
+                        "555-123-4567",
+                        "Chicago",
+                        "IL",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Jane Doe",
+                        "janedoe@example.com",
+                        "555-234-5678",
+                        "New York",
+                        "NY",
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State"
+                    ],
+                    [
+                        " ",
+                        "Bob Johnson",
+                        "bobjohnson@example.com",
+                        "555-345-6789",
+                        "San Francisco",
+                        "CA",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 206
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        "60601",
+                        " "
+                    ],
+                    [
+                        "10001",
+                        " "
+                    ],
+                    [
+                        "94101",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Zip",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        "Chicago",
+                        "IL",
+                        "60601",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "New York",
+                        "NY",
+                        "10001",
+                        " ",
+                        "Zip",
+                        " "
+                    ],
+                    [
+                        "San Francisco",
+                        "CA",
+                        "94101",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "City",
+                        "State",
+                        "Zip",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Zip",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        "Chicago",
+                        "IL"
+                    ],
+                    [
+                        "New York",
+                        "NY"
+                    ],
+                    [
+                        "San Francisco",
+                        "CA"
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "City",
+                        "State"
+                    ]
+                ],
+                "Token count": 155
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Alice Brown",
+                        "alicebrown@example.com",
+                        "555-456-7890",
+                        "Atlanta",
+                        "GA"
+                    ],
+                    [
+                        "Jack Green",
+                        "jackgreen@example.com",
+                        "555-567-8901",
+                        "Detroit",
+                        "MI"
+                    ],
+                    [
+                        "Mary White",
+                        "marywhite@example.com",
+                        "555-678-9012",
+                        "Boston",
+                        "MA"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Alice Brown",
+                        "alicebrown@example.com",
+                        "555-456-7890",
+                        "Atlanta",
+                        "GA",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Jack Green",
+                        "jackgreen@example.com",
+                        "555-567-8901",
+                        "Detroit",
+                        "MI",
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State"
+                    ],
+                    [
+                        " ",
+                        "Mary White",
+                        "marywhite@example.com",
+                        "555-678-9012",
+                        "Boston",
+                        "MA",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "State"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 130
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        "30301",
+                        " "
+                    ],
+                    [
+                        "48201",
+                        " "
+                    ],
+                    [
+                        "02101",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        "Atlanta",
+                        "GA",
+                        "30301",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Detroit",
+                        "MI",
+                        "48201",
+                        " ",
+                        "Zip",
+                        " "
+                    ],
+                    [
+                        "Boston",
+                        "MA",
+                        "02101",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Zip",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        "Atlanta",
+                        "GA"
+                    ],
+                    [
+                        "Detroit",
+                        "MI"
+                    ],
+                    [
+                        "Boston",
+                        "MA"
+                    ]
+                ],
+                "Token count": 93
+            }
+        ]
+    },
+    {
+        "Sheet number": 3,
+        "Rows": 4,
+        "Original CSV data": "Company: XYZ Corporation\nDatabase Created: 07/15/2023\nLocation: Main Office\n,,,,,,\nDate,Item,Category,Amount,,,,Month,Total\n2023-01-01,Office Supplies,Office Expenses,250,,,,January,1000\n2023-01-05,Travel Expenses,Travel,500,,,,February,1500\n2023-01-10,Client Dinner,Meals and Entertainment,300,,,,March,2000\n,,,,,,\nMonth,Total,,,,Date,Item,Category,Amount\nJanuary,1000,,,,2023-02-01,Office Supplies,Office Expenses,150\nFebruary,1500,,,,2023-02-05,Travel Expenses,Travel,250\nMarch,2000,,,,2023-02-10,Client Dinner,Meals and Entertainment,1000\n,,,,,,\nMonth,Total,,,,Date,Item,Category,Amount\nJanuary,1000,,,,2023-03-01,Office Supplies,Office Expenses,100\nFebruary,1500,,,,2023-03-05,Travel Expenses,Travel,1000\nMarch,2000,,,,2023-03-10,Client Dinner,Meals and Entertainment,500",
+        "Chunks": [
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Company: XYZ Corporation",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Database Created: 07/15/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Location: Main Office",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Company: XYZ Corporation",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Database Created: 07/15/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Location: Main Office",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 135
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Month",
+                        "Total"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Amount",
+                        " ",
+                        " ",
+                        " ",
+                        "Month",
+                        "Total",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Amount",
+                        " "
+                    ]
+                ],
+                "Token count": 150
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "2023-01-01",
+                        "Office Supplies",
+                        "Office Expenses",
+                        "250",
+                        " "
+                    ],
+                    [
+                        "2023-01-05",
+                        "Travel Expenses",
+                        "Travel",
+                        "500",
+                        " "
+                    ],
+                    [
+                        "2023-01-10",
+                        "Client Dinner",
+                        "Meals and Entertainment",
+                        "300",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "2023-01-01",
+                        "Office Supplies",
+                        "Office Expenses",
+                        "250",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "2023-01-05",
+                        "Travel Expenses",
+                        "Travel",
+                        "500",
+                        " ",
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "2023-01-10",
+                        "Client Dinner",
+                        "Meals and Entertainment",
+                        "300",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 201
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " ",
+                        "January",
+                        "1000"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "February",
+                        "1500"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "March",
+                        "2000"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        "250",
+                        " ",
+                        " ",
+                        " ",
+                        "January",
+                        "1000",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "500",
+                        " ",
+                        " ",
+                        " ",
+                        "February",
+                        "1500",
+                        " ",
+                        " ",
+                        "Month",
+                        "Total"
+                    ],
+                    [
+                        "300",
+                        " ",
+                        " ",
+                        " ",
+                        "March",
+                        "2000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Month",
+                        "Total"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        "250",
+                        " "
+                    ],
+                    [
+                        "500",
+                        " "
+                    ],
+                    [
+                        "300",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 213
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "January",
+                        "1000",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "February",
+                        "1500",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "March",
+                        "2000",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "January",
+                        "1000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "February",
+                        "1500",
+                        " ",
+                        " ",
+                        " ",
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "March",
+                        "2000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 195
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        "2023-02-01",
+                        "Office Supplies",
+                        "Office Expenses",
+                        "150"
+                    ],
+                    [
+                        "2023-02-05",
+                        "Travel Expenses",
+                        "Travel",
+                        "250"
+                    ],
+                    [
+                        "2023-02-10",
+                        "Client Dinner",
+                        "Meals and Entertainment",
+                        "1000"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        "2023-02-01",
+                        "Office Supplies",
+                        "Office Expenses",
+                        "150",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-02-05",
+                        "Travel Expenses",
+                        "Travel",
+                        "250",
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-02-10",
+                        "Client Dinner",
+                        "Meals and Entertainment",
+                        "1000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 219
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "January",
+                        "1000",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "February",
+                        "1500",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "March",
+                        "2000",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "January",
+                        "1000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "February",
+                        "1500",
+                        " ",
+                        " ",
+                        " ",
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "March",
+                        "2000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Month",
+                        "Total",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 121
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        "2023-03-01",
+                        "Office Supplies",
+                        "Office Expenses",
+                        "100"
+                    ],
+                    [
+                        "2023-03-05",
+                        "Travel Expenses",
+                        "Travel",
+                        "1000"
+                    ],
+                    [
+                        "2023-03-10",
+                        "Client Dinner",
+                        "Meals and Entertainment",
+                        "500"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        "2023-03-01",
+                        "Office Supplies",
+                        "Office Expenses",
+                        "100",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-03-05",
+                        "Travel Expenses",
+                        "Travel",
+                        "1000",
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "2023-03-10",
+                        "Client Dinner",
+                        "Meals and Entertainment",
+                        "500",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Item",
+                        "Category",
+                        "Amount"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 135
+            }
+        ]
+    },
+    {
+        "Sheet number": 4,
+        "Rows": 4,
+        "Original CSV data": "Company: ABC Inc.\nReport Date: 08/01/2023\nLocation: Social Media Accounts\n,,,,,,\nDate,Platform,Engagement,Followers,,,,Platform,Total Posts,Avg. Engagement Rate\n2023-01-01,Facebook,500,10000,,,,Facebook,30,5%\n2023-01-05,Twitter,250,5000,,,,Twitter,20,3%\n2023-01-10,Instagram,300,8000,,,,Instagram,40,4%\n,,,,,,\nPlatform,Total Posts,Avg. Engagement Rate,,,,Date,Platform,Engagement,Followers\nFacebook,40,6%,,,,2023-02-01,Facebook,750,12000\nTwitter,30,4%,,,,2023-02-05,Twitter,300,6000\nInstagram,50,5%,,,,2023-02-10,Instagram,450,10000\n,,,,,,\nPlatform,Total Posts,Avg. Engagement Rate,,,,Date,Platform,Engagement,Followers\nFacebook,50,7%,,,,2023-03-01,Facebook,1000,15000\nTwitter,40,6%,,,,2023-03-05,Twitter,500,8000\nInstagram,60,6%,,,,2023-03-10,Instagram,600,12000",
+        "Chunks": [
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Company: ABC Inc.",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Report Date: 08/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Location: Social Media Accounts",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Company: ABC Inc.",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Report Date: 08/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Location: Social Media Accounts",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 136
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Followers",
+                        " ",
+                        " ",
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Followers",
+                        " "
+                    ]
+                ],
+                "Token count": 169
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "2023-01-01",
+                        "Facebook",
+                        "500",
+                        "10000",
+                        " "
+                    ],
+                    [
+                        "2023-01-05",
+                        "Twitter",
+                        "250",
+                        "5000",
+                        " "
+                    ],
+                    [
+                        "2023-01-10",
+                        "Instagram",
+                        "300",
+                        "8000",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "2023-01-01",
+                        "Facebook",
+                        "500",
+                        "10000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "2023-01-05",
+                        "Twitter",
+                        "250",
+                        "5000",
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "2023-01-10",
+                        "Instagram",
+                        "300",
+                        "8000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 199
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " ",
+                        "Facebook",
+                        "30",
+                        "5%"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Twitter",
+                        "20",
+                        "3%"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Instagram",
+                        "40",
+                        "4%"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        "10000",
+                        " ",
+                        " ",
+                        " ",
+                        "Facebook",
+                        "30",
+                        "5%",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "5000",
+                        " ",
+                        " ",
+                        " ",
+                        "Twitter",
+                        "20",
+                        "3%",
+                        " ",
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate"
+                    ],
+                    [
+                        "8000",
+                        " ",
+                        " ",
+                        " ",
+                        "Instagram",
+                        "40",
+                        "4%",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        "10000",
+                        " "
+                    ],
+                    [
+                        "5000",
+                        " "
+                    ],
+                    [
+                        "8000",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 253
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Facebook",
+                        "40",
+                        "6%",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Twitter",
+                        "30",
+                        "4%",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Instagram",
+                        "50",
+                        "5%",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Facebook",
+                        "40",
+                        "6%",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Twitter",
+                        "30",
+                        "4%",
+                        " ",
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Instagram",
+                        "50",
+                        "5%",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 209
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        "2023-02-01",
+                        "Facebook",
+                        "750",
+                        "12000"
+                    ],
+                    [
+                        " ",
+                        "2023-02-05",
+                        "Twitter",
+                        "300",
+                        "6000"
+                    ],
+                    [
+                        " ",
+                        "2023-02-10",
+                        "Instagram",
+                        "450",
+                        "10000"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "2023-02-01",
+                        "Facebook",
+                        "750",
+                        "12000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "2023-02-05",
+                        "Twitter",
+                        "300",
+                        "6000",
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "2023-02-10",
+                        "Instagram",
+                        "450",
+                        "10000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 243
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Facebook",
+                        "50",
+                        "7%",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Twitter",
+                        "40",
+                        "6%",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Instagram",
+                        "60",
+                        "6%",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Facebook",
+                        "50",
+                        "7%",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Twitter",
+                        "40",
+                        "6%",
+                        " ",
+                        " ",
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Instagram",
+                        "60",
+                        "6%",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Platform",
+                        "Total Posts",
+                        "Avg. Engagement Rate",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 131
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        "2023-03-01",
+                        "Facebook",
+                        "1000",
+                        "15000"
+                    ],
+                    [
+                        " ",
+                        "2023-03-05",
+                        "Twitter",
+                        "500",
+                        "8000"
+                    ],
+                    [
+                        " ",
+                        "2023-03-10",
+                        "Instagram",
+                        "600",
+                        "12000"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "2023-03-01",
+                        "Facebook",
+                        "1000",
+                        "15000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "2023-03-05",
+                        "Twitter",
+                        "500",
+                        "8000",
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        "2023-03-10",
+                        "Instagram",
+                        "600",
+                        "12000",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Date",
+                        "Platform",
+                        "Engagement",
+                        "Followers"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ]
+                ],
+                "Token count": 147
+            }
+        ]
+    },
+    {
+        "Sheet number": 5,
+        "Rows": 3,
+        "Original CSV data": "Company: XYZ Corporation\nDatabase Created: 08/15/2023\nLocation: Main Office\n,,,,,,\nTask,Assigned To,Priority,Status,Due Date,Completion Date\nFinish Project Report,John Smith,High,In Progress,09/01/2023,\nSend Follow-Up Emails,Jane Doe,Medium,Not Started,08/20/2023,\nSchedule Meeting,Bob Johnson,Low,Completed,08/14/2023,08/14/2023\n,,,,,,\nTask,Assigned To,Priority,Status,Due Date,Completion Date\nPrepare Budget,Alice Brown,High,Not Started,09/01/2023,\nHire New Employee,Jack Green,Medium,In Progress,08/25/2023,\nMake Travel Arrangements,Mary White,Low,Completed,08/11/2023,08/11/2023",
+        "Chunks": [
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Company: XYZ Corporation",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Database Created: 08/15/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Location: Main Office",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Company: XYZ Corporation",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Database Created: 08/15/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Location: Main Office",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 137
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Completion Date",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Status",
+                        "Due Date",
+                        "Completion Date",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ],
+                    [
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Status",
+                        "Due Date"
+                    ]
+                ],
+                "Token count": 122
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Finish Project Report",
+                        "John Smith",
+                        "High",
+                        "In Progress",
+                        "09/01/2023"
+                    ],
+                    [
+                        "Send Follow-Up Emails",
+                        "Jane Doe",
+                        "Medium",
+                        "Not Started",
+                        "08/20/2023"
+                    ],
+                    [
+                        "Schedule Meeting",
+                        "Bob Johnson",
+                        "Low",
+                        "Completed",
+                        "08/14/2023"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Finish Project Report",
+                        "John Smith",
+                        "High",
+                        "In Progress",
+                        "09/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Send Follow-Up Emails",
+                        "Jane Doe",
+                        "Medium",
+                        "Not Started",
+                        "08/20/2023",
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date"
+                    ],
+                    [
+                        " ",
+                        "Schedule Meeting",
+                        "Bob Johnson",
+                        "Low",
+                        "Completed",
+                        "08/14/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 209
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "08/14/2023",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Completion Date",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        "In Progress",
+                        "09/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Not Started",
+                        "08/20/2023",
+                        " ",
+                        " ",
+                        "Completion Date",
+                        " "
+                    ],
+                    [
+                        "Completed",
+                        "08/14/2023",
+                        "08/14/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Status",
+                        "Due Date",
+                        "Completion Date",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Completion Date",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        "In Progress",
+                        "09/01/2023"
+                    ],
+                    [
+                        "Not Started",
+                        "08/20/2023"
+                    ],
+                    [
+                        "Completed",
+                        "08/14/2023"
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Status",
+                        "Due Date"
+                    ]
+                ],
+                "Token count": 158
+            },
+            {
+                "Chunk number": 1,
+                "Data chunk": [
+                    [
+                        "Prepare Budget",
+                        "Alice Brown",
+                        "High",
+                        "Not Started",
+                        "09/01/2023"
+                    ],
+                    [
+                        "Hire New Employee",
+                        "Jack Green",
+                        "Medium",
+                        "In Progress",
+                        "08/25/2023"
+                    ],
+                    [
+                        "Make Travel Arrangements",
+                        "Mary White",
+                        "Low",
+                        "Completed",
+                        "08/11/2023"
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        " ",
+                        "Prepare Budget",
+                        "Alice Brown",
+                        "High",
+                        "Not Started",
+                        "09/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        "Hire New Employee",
+                        "Jack Green",
+                        "Medium",
+                        "In Progress",
+                        "08/25/2023",
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date"
+                    ],
+                    [
+                        " ",
+                        "Make Travel Arrangements",
+                        "Mary White",
+                        "Low",
+                        "Completed",
+                        "08/11/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Task",
+                        "Assigned To",
+                        "Priority",
+                        "Status",
+                        "Due Date"
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [],
+                "Token count": 133
+            },
+            {
+                "Chunk number": 2,
+                "Data chunk": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "08/11/2023",
+                        " "
+                    ]
+                ],
+                "Added Column": [
+                    [
+                        "Not Started",
+                        "09/01/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ],
+                    [
+                        "In Progress",
+                        "08/25/2023",
+                        " ",
+                        " ",
+                        "Completion Date",
+                        " "
+                    ],
+                    [
+                        "Completed",
+                        "08/11/2023",
+                        "08/11/2023",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Row context": [
+                    [
+                        " ",
+                        " "
+                    ],
+                    [
+                        "Completion Date",
+                        " "
+                    ],
+                    [
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                    ]
+                ],
+                "Column context": [
+                    [
+                        "Not Started",
+                        "09/01/2023"
+                    ],
+                    [
+                        "In Progress",
+                        "08/25/2023"
+                    ],
+                    [
+                        "Completed",
+                        "08/11/2023"
+                    ]
+                ],
+                "Token count": 96
+            }
+        ]
+    }
+]

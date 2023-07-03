@@ -1,0 +1,130 @@
+<coordinates>
+    -assembly:
+        <int "row">
+        <int "column">
+
+<task "light_block_identification">
+    -input:
+        <json "solid_tables_output">
+            -assembly:
+                <sheet>
+                    -name:
+                        <sheet_number>[value]
+                    -properties:
+                        <int "sheet_number">
+                        <solid_tables>
+                            -properties:
+                                <solid_block "data">,
+                                    -properties:
+                                        <pos>
+                                            ~cordinates for the top left and bottom right corners~
+                                            -properties:
+                                                <coordinates "start">
+                                                <coordinates "end">
+                                        <start_pos>
+                                            ~potential starting positions for labels connected to a given data block~
+                                            -properties
+                                                <coordinates "l0">
+                                                    ~immediate left~
+                                                <coordinates "l1">
+                                                    ~left offset by 1~
+                                                <coordinates "r0">
+                                                    ~immediate right~
+                                                <coordinates "r1">
+                                                    ~right offset by 1~
+                                                <coordinates "t0">
+                                                    ~immediate top~
+                                                <coordinates "t1">
+                                                    ~top offset by 1~
+                                                <coordinates "b0">
+                                                    ~immediate bottom~
+                                                <coordinates "b1">
+                                                    ~bottom offset by 1~
+                                <labels>
+                                    -assembly:
+                                        <solid_block "positioned_label">
+                                            -name:
+                                                <position_name>[value]
+                            <free_solid_blocks>
+                                -properties:
+                                    <LABEL>
+                                        -assembly:
+                                            <solid_block>
+                                    <DATA>
+                                        -assembly:
+                                            <solid_block>
+       
+    -output:
+        <json "light_block_output">
+            -assembly:
+                <sheet>
+                    -name:
+                        <sheet_number>[value]
+                    -properties:
+                        <int "sheet_number">
+                        <solid_tables>
+                            -properties:
+                                <solid_block "data">
+                                    -properties:
+                                        <pos>
+                                            ~cordinates for the top left and bottom right corners~
+                                            -properties:
+                                                <coordinates "start">
+                                                <coordinates "end">
+                                        <start_pos>
+                                            ~potential starting positions for labels connected to a given data block~
+                                            -properties:
+                                                <coordinates "l0">
+                                                    ~immediate left~
+                                                <coordinates "l1">
+                                                    ~left offset by 1~
+                                                <coordinates "r0">
+                                                    ~immediate right~
+                                                <coordinates "r1">
+                                                    ~right offset by 1~
+                                                <coordinates "t0">
+                                                    ~immediate top~
+                                                <coordinates "t1">
+                                                    ~top offset by 1~
+                                                <coordinates "b0">
+                                                    ~immediate bottom~
+                                                <coordinates "b1">
+                                                    ~bottom offset by 1~
+                                                
+                                <labels>
+                                    -assembly:
+                                        <solid_block "positioned_label">
+                                            -name:
+                                                <position_name>[value]
+                            <free_solid_blocks>
+                                -properties:
+                                    <LABEL>
+                                        -assembly:
+                                            <solid_block>
+                                    <DATA>
+                                        -assembly:
+                                            <solid_block>
+                                            <light_block>
+        
+    -subtasks:
+        pseudocode:
+        for every table:
+            add start_pos's to check for LB's
+        if LABEL in free_blocks:
+        Label LB search
+            look near tables or dsbs for free blocks of labels
+        if DATA in free_blocks:
+        for free labels:
+            look for AB: D: SBy LBx L: SBx LBy
+                under (then before) free label:
+                    DLBs: one or more DSBs not touching but in overlapping rows x
+                    DSBs touching but not connected y
+                search left for light box in L or R
+            look for BB, D: LBy SBx L: LBx SBy
+                left (then right) free label:
+                    DLBs: one or more DSBs not touching but in overlapping columns y
+                search up, down for light box label
+            look for CB, D: LBx LBy L: SBx SBy
+                look for solid label x with corresponding solid label in y
+                if data within potential table box
+

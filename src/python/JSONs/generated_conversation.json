@@ -1,0 +1,22 @@
+[
+    {
+        "user": "Generate an Real Estate Analysis Spreadsheet example with veritcal subtables  formatted in csv code ",
+        "assistant": "```\nProperty Name,Property Type,Price,Square Feet,Bedrooms,Bathrooms,,,,,,\nWhite House,Single Family,2000000,10000,6,8,,,,,,\nEmpire State,Apartment,1000000,4000,2,3,,,,,,\nSydney Tower,Condominium,3000000,15000,4,6,,,,,,\n,,,,,,,\nProperty Name,Location,Year Built,Occupancy Rate,Annual Rent,Monthly Mortgage Payment,Taxes,Insurance,Maintenance,Net Operating Income\nWhite House,Washington DC,1800,100%,200000,10000,10000,5000,5000,75000\nEmpire State,New York,1931,98%,150000,8000,6000,4000,3000,59000\nSydney Tower,Sydney,1981,85%,250000,12000,5000,7000,4000,205000\n```"
+    },
+    {
+        "user": "Generate an Client Database Spreadsheet example with horizontal subtables and with a header formatted in csv code ",
+        "assistant": "```\nCompany: ABC Corporation\nDate: June 15, 2023\nLocation: Main Office\n,,,,Date,Contact,Company,Phone,Email\n,,,,June 1,John Smith,XYZ Inc.,555-1234,john@xyz.com\n,,,,June 2,Jane Doe,LMN Corp.,555-5678,jane@lmn.com\n,,,,June 3,Bob Johnson,ABC Co.,555-9999,bob@abc.com\n,,,,,,\nDate,Contact,Company,Phone,Email,,,,,\nJune 4,Joseph Williams,XYZ Inc.,555-2222,joseph@xyz.com,,,,,\nJune 5,Samantha Lee,DEF Co.,555-6789,samantha@def.com,,,,,\nJune 6,David Brown,RST Inc.,555-4444,david@rst.com,,,,,\n```"
+    },
+    {
+        "user": "Generate an Expense Tracking Spreadsheet example with veritcal subtables  formatted in csv code ",
+        "assistant": "```\nCategory,Expense,Amount,Date,Location\nFood,Groceries,100,06/01/2023,Supermart\nFood,Restaurants,50,06/02/2023,Pizza House\nTransportation,Gasoline,30,06/03/2023,Gas Station\nTransportation,Taxi,25,06/05/2023,ABC Taxi\nHousing,Mortgage,1000,06/05/2023,XYZ Bank\nUtilities,Electricity,100,06/08/2023,Electricity Co.\nUtilities,Water,50,06/09/2023,Water Co.\n```"
+    },
+    {
+        "user": "Generate an Business Performance Dashboard example  and with a header formatted in csv code ",
+        "assistant": "```\nCompany: XYZ Corporation\nDate: June 15, 2023\nLocation: Main Office\n,,,,Category,Revenue,Expenses,Profit\nJune,Sales,10000,8000,2000\nJune,Marketing,8000,5000,3000\nJune,Operations,12000,10000,2000\n,,,,Total,30000,23000,7000\n```"
+    },
+    {
+        "user": "Generate an Student Gradebook Spreadsheet example with subtables  formatted in csv code ",
+        "assistant": "```\nSubject,Mathematics,,,,Subject,Science,,,,\nStudent Name,Test 1,Test 2,Test 3,Final Grade,Student Name,Test 1,Test 2,Test 3,Final Grade\nJohn,80,85,90,85,Samantha,90,92,95,92.33\nJill,70,75,80,75.01,David,85,88,90,87.66\n```"
+    }
+]
