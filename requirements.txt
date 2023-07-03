@@ -1,0 +1,6 @@
+openpyxl
+openai
+transformers
+torch
+tabulate
+itertools
