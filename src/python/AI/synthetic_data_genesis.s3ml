@@ -1,6 +1,0 @@
-<synth_model_framework>
-    ~uses a few shot learner to generate a dataset template, then generates a dataset, the generates ~
-    <few-shot_data_example_generator>
-    <few-shot_data_analasys_generator>
-    <model_selector>
-    <model_trainer>
