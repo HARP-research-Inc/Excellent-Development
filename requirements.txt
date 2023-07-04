@@ -4,3 +4,4 @@ transformers
 torch
 tabulate
 itertools
+pytest-dependency

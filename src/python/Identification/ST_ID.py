@@ -25,38 +25,41 @@ def read_in_json(json_file):
 def initialize_sheets(sheet):
     #initializes a sheet
     sheet['labels_by_x_y'] = {'x':{}, 'y':{}}
-    for block_type in sheet['blocks']:
-        for block in sheet['blocks'][block_type]:
-            # convert columns from string to int
-            block['start_column'] = excel_column_number(block['start_column'])
-            block['end_column'] = excel_column_number(block['end_column'])
-            # calculate the size of the block
-            block['x_size'] = block['end_column'] - block['start_column'] + 1
-            block['y_size'] = block['end_row'] - block['start_row'] + 1
-            block['pos'] = {'start':[block['start_column'], block['start_row']], 'end':[block['end_column'], block['end_row']]}
-            #organize labels into dictionaries by size
-            if str(block_type) == 'LABEL':
-                for coord in ['x','y']:
-                    if not (block[f'{coord}_size'] in sheet['labels_by_x_y'][coord]):
-                        sheet['labels_by_x_y'][coord][block[f'{coord}_size']] = []
-                    sheet['labels_by_x_y'][coord][block[f'{coord}_size']].append(block)
-            #set starting position for potential labels for data blocks
-            elif str(block_type) == 'DATA':
-                block['start_pos'] = {}
-                block['start_pos']['l0'] = [block['start_column'] - 1,  block['start_row']      ]
-                block['start_pos']['l1'] = [block['start_column'] - 2,  block['start_row']      ]
-                block['start_pos']['r0'] = [block['end_column'] + 1,    block['start_row']      ]
-                block['start_pos']['r1'] = [block['end_column'] + 2,    block['start_row']      ]
-                block['start_pos']['t0'] = [block['start_column'],      block['start_row'] - 1  ]
-                block['start_pos']['t1'] = [block['start_column'],      block['start_row'] - 2  ]
-                block['start_pos']['b0'] = [block['start_column'],      block['end_row'] + 1    ]
-                block['start_pos']['b1'] = [block['start_column'],      block['end_row'] + 2    ]
-                for pos in block['start_pos'].keys():
-                    for i in [0,1]:
-                        if block['start_pos'][pos][i] < 0:
-                            block['start_pos'][pos][i] = None
-            else:
-                raise ValueError("Unexpected Block Type")
+    if 'blocks' in sheet:
+        for block_type in sheet['blocks']:
+            for block in sheet['blocks'][block_type]:
+                # convert columns from string to int
+                block['start_column'] = excel_column_number(block['start_column'])
+                block['end_column'] = excel_column_number(block['end_column'])
+                # calculate the size of the block
+                block['x_size'] = block['end_column'] - block['start_column'] + 1
+                block['y_size'] = block['end_row'] - block['start_row'] + 1
+                block['pos'] = {'start':[block['start_column'], block['start_row']], 'end':[block['end_column'], block['end_row']]}
+                #organize labels into dictionaries by size
+                if str(block_type) == 'LABEL':
+                    for coord in ['x','y']:
+                        if not (block[f'{coord}_size'] in sheet['labels_by_x_y'][coord]):
+                            sheet['labels_by_x_y'][coord][block[f'{coord}_size']] = []
+                        sheet['labels_by_x_y'][coord][block[f'{coord}_size']].append(block)
+                #set starting position for potential labels for data blocks
+                elif str(block_type) == 'DATA':
+                    block['start_pos'] = {}
+                    block['start_pos']['l0'] = [block['start_column'] - 1,  block['start_row']      ]
+                    block['start_pos']['l1'] = [block['start_column'] - 2,  block['start_row']      ]
+                    block['start_pos']['r0'] = [block['end_column'] + 1,    block['start_row']      ]
+                    block['start_pos']['r1'] = [block['end_column'] + 2,    block['start_row']      ]
+                    block['start_pos']['t0'] = [block['start_column'],      block['start_row'] - 1  ]
+                    block['start_pos']['t1'] = [block['start_column'],      block['start_row'] - 2  ]
+                    block['start_pos']['b0'] = [block['start_column'],      block['end_row'] + 1    ]
+                    block['start_pos']['b1'] = [block['start_column'],      block['end_row'] + 2    ]
+                    for pos in block['start_pos'].keys():
+                        for i in [0,1]:
+                            if block['start_pos'][pos][i] < 0:
+                                block['start_pos'][pos][i] = None
+                else:
+                    raise ValueError("Empty Sheet")
+    else:
+        raise ValueError("Unexpected Block Type")
     #organize data blocks by size
     sheet['blocks'] = sorted(sheet['blocks']['DATA'], key=lambda k: (k['y_size'], k['x_size']))
     #organize label blocks by size
