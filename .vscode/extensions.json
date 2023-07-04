@@ -1,0 +1,18 @@
+{
+    "recommendations": [
+        "tradezonedevelopmentinc.s4-support",
+        "tradezonedevelopmentinc.s3ml-support",
+        "ms-python.python",
+        "littlefoxteam.vscode-python-test-adapter",
+        "pamaron.pytest-runner",
+        "ms-python.vscode-pylance",
+        "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+        "tomoyukim.vscode-mermaid-editor",
+        "bierner.markdown-mermaid",
+        "shd101wyy.markdown-preview-enhanced",
+        "ms-python.isort",
+        "github.vscode-github-actions",
+        "ms-python.flake8"
+    ]
+  }
+  
