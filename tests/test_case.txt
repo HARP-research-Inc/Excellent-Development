@@ -26,3 +26,5 @@ Please also add descriptive messages like: "Failed to handle empty sheets"
 ###Run Script:
 
 python3.9 -m pytest -v tests/TEST_<filename>.py
+
+Get-ChildItem . -Recurse -Filter "*.py" | Foreach-Object {python3.9 -m autopep8 --in-place --aggressive --aggressive $_.FullName}
