@@ -3,5 +3,4 @@ openai
 transformers
 torch
 tabulate
-itertools
 pytest-dependency
