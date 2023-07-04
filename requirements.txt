@@ -6,4 +6,4 @@ tabulate
 pytest
 pytest-dependency
 flake8
-autopepe8
+autopep8
