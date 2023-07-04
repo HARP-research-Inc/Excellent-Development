@@ -2,7 +2,11 @@ import openai
 import json
 import random
 
-subtable_type = ['with horizontal subtables', 'with veritcal subtables', 'with subtables', '']
+subtable_type = [
+    'with horizontal subtables',
+    'with veritcal subtables',
+    'with subtables',
+    '']
 header = ['and with a header', '']
 spreadsheet_types = [
     "Personal Budget Spreadsheet",
@@ -178,9 +182,11 @@ def generate_sheet(chat, count):
         selected_type = random.choice(spreadsheet_types)
         selected_subtable_type = random.choice(subtable_type)
         selected_header = random.choice(header)
-        prompt = {'role': 'user', 'content': f'Generate an {selected_type} example {selected_subtable_type} {selected_header} formatted in csv code '}
+        prompt = {
+            'role': 'user',
+            'content': f'Generate an {selected_type} example {selected_subtable_type} {selected_header} formatted in csv code '}
         chat.append(prompt)
-        
+
         # Generate a response using the conversation
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -192,11 +198,12 @@ def generate_sheet(chat, count):
         chat.append(assistant_reply)
 
         # Append the user and assistant messages to the generated_chat list
-        generated_chat.append({'user': prompt['content'], 'assistant': assistant_reply['content']})
+        generated_chat.append(
+            {'user': prompt['content'], 'assistant': assistant_reply['content']})
 
         # Print the assistant's reply
         print(assistant_reply['content'])
-    
+
     # Save the generated conversation to a JSON file
     with open('generated_conversation.json', 'w') as file:
         json.dump(generated_chat, file, indent=4)

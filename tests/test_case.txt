@@ -1,0 +1,30 @@
+###Prompt:
+
+Given the following steps, create a set of test cases in pytest for the module given:
+
+1) Identify the unit: Determine the specific unit or component of code that you want to test. It could be a function, method, class, or module.
+
+2) Understand the behavior: Gain a clear understanding of the expected behavior of the unit. Identify the inputs it accepts and the expected outputs or side effects.
+
+3) Define test cases:
+a. Positive test cases: Outline test cases that validate the expected behavior when the unit functions correctly. These cases verify that the unit produces the correct output or performs the expected actions for valid inputs.
+b. Negative test cases: Define test cases that verify the unit handles invalid or unexpected inputs appropriately. These cases test how the unit behaves when given invalid data or when faced with exceptional circumstances.
+c. Edge cases: Identify edge cases, boundary conditions, or special scenarios that could impact the unit's behavior. These cases help ensure the unit handles critical thresholds or unusual inputs correctly.
+
+4) Specify inputs and expected outputs: For each test case, specify the input values or conditions that will be used to exercise the unit. Also, define the expected outputs, behavior, or side effects that should occur as a result.
+
+5) Consider equivalence classes: Identify different equivalence classes of inputs and design test cases that cover each class. This helps ensure that you test a representative sample of inputs rather than exhaustively testing every possible input.
+
+6) Explore boundary conditions: Test scenarios that involve the upper and lower limits of input ranges or critical thresholds. These cases help verify how the unit behaves at the edges of its valid input space.
+
+7) Include negative scenarios: Think about invalid inputs, exceptional conditions, or error-handling scenarios. Test how the unit responds to such situations and ensure it behaves gracefully or produces the expected error messages.
+
+8) Consider special scenarios: Identify specific scenarios or conditions that might have unique behavior requirements. These could be cases where the unit interacts with external systems, relies on specific states, or handles exceptional events.
+
+Please also add descriptive messages like: "Failed to handle empty sheets"
+
+###Run Script:
+
+python3.9 -m pytest -v tests/TEST_<filename>.py
+
+Get-ChildItem . -Recurse -Filter "*.py" | Foreach-Object {python3.9 -m autopep8 --in-place --aggressive --aggressive $_.FullName}

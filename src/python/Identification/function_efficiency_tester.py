@@ -1,18 +1,21 @@
 import time
 from ST_ID import initialize_tabulate_and_export
-import os
 import sys
 
 # Custom NullWriter class to suppress output
+
+
 class NullWriter:
     def write(self, s):
         pass
 
 # Function to measure execution time
+
+
 def measure_execution_time(func):
     def wrapper(*args, **kwargs):
         start_time = time.time()  # Start the timer
-        
+
         # Suppress terminal output by redirecting stdout to NullWriter
         old_stdout = sys.stdout
         sys.stdout = NullWriter()
@@ -28,11 +31,14 @@ def measure_execution_time(func):
     return wrapper
 
 # Example functions to measure execution time
+
+
 @measure_execution_time
 def measure_output_func():
     print("testing original:")
     initialize_tabulate_and_export()
 
 # Call the functions with execution time measurement
+
 
 measure_output_func()

@@ -1,0 +1,10 @@
+openpyxl
+openai
+transformers
+torch
+tabulate
+pytest
+pytest-cov
+pytest-dependency
+flake8
+autopep8

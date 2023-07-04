@@ -1,6 +1,5 @@
 import json
 import csv
-from tabulate import tabulate
 from io import StringIO
 import sys
 import openai
@@ -33,6 +32,8 @@ Sydney Tower,Condominium,3000000,15000,4
 N
 
 """
+
+
 def read_json_file(file_path):
     # Read JSON file and convert it into a dictionary
     with open(file_path, 'r') as file:
@@ -41,7 +42,8 @@ def read_json_file(file_path):
 
 
 def get_annotated_chunk(chunk, current_cell_id, annotated_output):
-    # Generate a CSV string of the chunk with the current cell highlighted and annotations included
+    # Generate a CSV string of the chunk with the current cell highlighted and
+    # annotations included
     formatted_chunk = []
     for row in chunk:
         formatted_row = []
@@ -68,7 +70,8 @@ def get_annotated_chunk(chunk, current_cell_id, annotated_output):
 
 
 def annotate_cells_manual(output_dict):
-    # Iterate through each cell in the chunks and annotate them based on user input
+    # Iterate through each cell in the chunks and annotate them based on user
+    # input
     annotated_output = {}
     for sheet in output_dict.values():
         for row in sheet.values():
@@ -84,14 +87,17 @@ def annotate_cells_manual(output_dict):
                                 annotated_output[cell_id]['annotation'] = 'FORMULA'
                             continue
                         # Get the annotated chunk string
-                        chunk_str = get_annotated_chunk(chunk['contextualized_chunk'], cell_id, annotated_output)
+                        chunk_str = get_annotated_chunk(
+                            chunk['contextualized_chunk'], cell_id, annotated_output)
                         # Display the chunk to the user
                         reader = csv.reader(StringIO(chunk_str))
                         formatted_chunk = list(reader)
-                        writer = csv.writer(sys.stdout, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+                        writer = csv.writer(
+                            sys.stdout, delimiter=',', quoting=csv.QUOTE_MINIMAL)
                         writer.writerows(formatted_chunk)
                         # Prompt user for input
-                        is_label = input(f"Is cell {{{cell_value}}} a label cell? (Y/N) ")
+                        is_label = input(
+                            f"Is cell {{{cell_value}}} a label cell? (Y/N) ")
                         if is_label.lower() == 'y':
                             annotated_output[cell_id]['annotation'] = 'LABEL'
                         else:
@@ -99,13 +105,15 @@ def annotate_cells_manual(output_dict):
     return annotated_output
 
 # Add this function to make predictions using OpenAI
+
+
 def annotate_cells_ai(output_dict, openai_api_key):
     openai.api_key = openai_api_key
     sheet_annotations = []
     sheet_number = 0
     iterator = 0
     size = 0
-    
+
     for sheet in output_dict.values():
         for row in sheet.values():
             for chunk in row.values():
@@ -119,8 +127,11 @@ def annotate_cells_ai(output_dict, openai_api_key):
         sheet_number += 1
         annotated_output = {}
         original_csv_data = StringIO()
-        writer = csv.writer(original_csv_data, delimiter=',', quoting=csv.QUOTE_MINIMAL)
-        
+        writer = csv.writer(
+            original_csv_data,
+            delimiter=',',
+            quoting=csv.QUOTE_MINIMAL)
+
         row_count = 0
         for row in sheet.values():
             for chunk in row.values():
@@ -141,30 +152,36 @@ def annotate_cells_ai(output_dict, openai_api_key):
                             continue
 
                         # Get the annotated chunk string
-                        chunk_str = get_annotated_chunk(chunk['contextualized_chunk'], cell_id, annotated_output)
+                        chunk_str = get_annotated_chunk(
+                            chunk['contextualized_chunk'], cell_id, annotated_output)
 
                         # Display the chunk to the user
                         reader = csv.reader(StringIO(chunk_str))
                         formatted_chunk = list(reader)
 
                         # Write the CSV data to the StringIO object
-                        writer = csv.writer(csv_buffer, delimiter=',', quoting=csv.QUOTE_MINIMAL)
+                        writer = csv.writer(
+                            csv_buffer, delimiter=',', quoting=csv.QUOTE_MINIMAL)
                         writer.writerows(formatted_chunk)
 
-                        # Retrieve the CSV data from the StringIO object as a string
+                        # Retrieve the CSV data from the StringIO object as a
+                        # string
                         csv_data = csv_buffer.getvalue()
 
                         # Use OpenAI to predict if the cell is a label or data
-                        prompt = labeling_conversation + csv_data + f"Is cell {{{cell_value}}} in the following chunk a label cell? (Y/N)\n"
+                        prompt = labeling_conversation + csv_data + \
+                            f"Is cell {{{cell_value}}} in the following chunk a label cell? (Y/N)\n"
                         print(f"Cell {iterator}")
                         iterator += 1
-                        print(f"Prompt: {csv_data} Is cell {{{cell_value}}} in the following chunk a label cell? (Y/N)\n")
+                        print(
+                            f"Prompt: {csv_data} Is cell {{{cell_value}}} in the following chunk a label cell? (Y/N)\n")
                         print(f"Cell {iterator}/{size}")
-                        #response = openai.Completion.create(engine='text-davici-003', prompt=prompt, max_tokens=10)
-                        
+                        # response = openai.Completion.create(engine='text-davici-003', prompt=prompt, max_tokens=10)
+
                         # Generate a response using the conversation
                         completions = openai.Completion.create(
-                            model="text-davinci-003",  # Determines the quality, speed, and cost.
+                            model="text-davinci-003",
+                            # Determines the quality, speed, and cost.
                             temperature=0.5,            # Level of creativity in the response
                             prompt=prompt,           # What the user typed in
                             max_tokens=100,             # Maximum tokens in the prompt AND response
@@ -190,7 +207,7 @@ def annotate_cells_ai(output_dict, openai_api_key):
             "Rows": row_count,
             "Original CSV data": original_csv_data.getvalue().strip(),
             "Annotations": annotated_output
-        })            
+        })
     return sheet_annotations
 
 
@@ -199,8 +216,9 @@ file_path = 'output.json'  # specify the path to your JSON file here
 output_dict = read_json_file(file_path)
 
 # Replace this part to use OpenAI
-openai_api_key = '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' # Replace with your OpenAI API key
-#annoted = annotate_cells_manual(output_dict)
+# Replace with your OpenAI API key
+openai_api_key = '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'
+# annoted = annotate_cells_manual(output_dict)
 annotated_output = annotate_cells_ai(output_dict, openai_api_key)
 print(annotated_output)
 # Optionally, write the annotated_output to a JSON file
