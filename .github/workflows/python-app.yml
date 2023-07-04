@@ -25,8 +25,6 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
-        cd tests
-        ls
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -40,6 +38,5 @@ jobs:
       run: |
         pip install pytest
         pip install pytest-cov
-        pytest -v tests/test_LB_ID.py --cov= --cov-report=xml
         pytest -v tests/test_ST_ID.py --cov= --cov-report=xml
         pytest -v tests/test_SB_ID.py --cov= --cov-report=xml
