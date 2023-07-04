@@ -36,6 +36,5 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10  --statistics
     - name: Test with pytest
       run: |
-        import src
         pytest -v tests/test_ST_ID.py --cov= --cov-report=xml
         pytest -v tests/test_SB_ID.py --cov= --cov-report=xml
