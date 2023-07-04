@@ -38,5 +38,6 @@ jobs:
       run: |
         pip install pytest
         pip install pytest-cov
+        import src
         pytest -v tests/test_ST_ID.py --cov= --cov-report=xml
         pytest -v tests/test_SB_ID.py --cov= --cov-report=xml
