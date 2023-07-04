@@ -8,10 +8,13 @@ import sys
 file_path = "src/python/JSONs/annotated_output.json"
 with open(file_path, "r") as file:
     sheets = json.load(file)
-    
+
 # Function to extract the number from the cell name
+
+
 def extract_number(cell_name):
     return int(re.findall(r'\d+', cell_name)[0])
+
 
 def extract_column(cell_name):
     # The regular expression '[A-Z]+' matches one or more uppercase letters.
@@ -31,14 +34,27 @@ def generate_solid_blocks(sheet):
     block_start_row = None
     block_start_column = None
 
-    annots = {'DATA': ['DATA', 'FORMULA'], 'FORMULA': ['DATA', 'FORMULA'], 'LABEL': ['LABEL'], 'EMPTY': ['EMPTY']}
+    annots = {
+        'DATA': [
+            'DATA',
+            'FORMULA'],
+        'FORMULA': [
+            'DATA',
+            'FORMULA'],
+        'LABEL': ['LABEL'],
+        'EMPTY': ['EMPTY']}
 
-    for cell, info in sorted(sheet["Annotations"].items(), key=lambda x: (extract_number(x[0]), x[0])):
+    for cell, info in sorted(
+        sheet["Annotations"].items(), key=lambda x: (
+            extract_number(
+            x[0]), x[0])):
         row_number = extract_number(cell)
         column_letter = extract_column(cell)
 
-        # Check if it's the first cell or the cell is non-sequential or the cell has a different annotation
-        if current_row is None or row_number != current_row or current_annotation not in annots[info["annotation"]]:
+        # Check if it's the first cell or the cell is non-sequential or the
+        # cell has a different annotation
+        if current_row is None or row_number != current_row or current_annotation not in annots[
+                info["annotation"]]:
             # Save the current block if it's not empty and if it's not 'EMPTY'
             if current_block and current_annotation != 'EMPTY':
                 blocks[annots[current_annotation][0]].append({
@@ -70,16 +86,21 @@ def generate_solid_blocks(sheet):
 
     return blocks
 
+
 def merge_blocks(blocks):
     merged_blocks = defaultdict(list)
 
     for annotation, block_list in blocks.items():
         merged_block = None
 
-        for block in sorted(block_list, key=lambda x: (x["start_row"], x["start_column"])):
-            if merged_block is None or \
-                block["start_row"] != merged_block["end_row"] or \
-                (block["start_column"], block["end_column"]) != (merged_block["start_column"], merged_block["end_column"]):
+        for block in sorted(
+            block_list,
+            key=lambda x: (
+                x["start_row"],
+                x["start_column"])):
+            if merged_block is None or block["start_row"] != merged_block["end_row"] or (
+                    block["start_column"], block["end_column"]) != (
+                    merged_block["start_column"], merged_block["end_column"]):
                 if merged_block is not None:
                     merged_blocks[annotation].append(merged_block)
                 merged_block = block.copy()
@@ -91,7 +112,6 @@ def merge_blocks(blocks):
             merged_blocks[annotation].append(merged_block)
 
     return merged_blocks
-
 
 
 # Initialize a list to store the results.

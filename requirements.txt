@@ -3,4 +3,7 @@ openai
 transformers
 torch
 tabulate
+pytest
 pytest-dependency
+flake8
+autopepe8

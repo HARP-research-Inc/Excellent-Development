@@ -4,6 +4,7 @@ def pytest_report_teststatus(report):
     if report.when == "call":
         return report.outcome, "*", f"{report.nodeid} {report.outcome}"
 
+
 def pytest_terminal_summary(terminalreporter):
     terminalreporter.write_sep("-", "Test Results")
     for report in terminalreporter.stats.get("passed", []):
