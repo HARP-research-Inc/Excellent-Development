@@ -109,22 +109,26 @@
     -subtasks:
         pseudocode:
         for every table:
-            add start_pos's to check for LB's
+            add start_pos's (start positions l0 (immeidate left), l1 (one width gap on left), r0 (immeidate right), r1 (one width gap on right), t0 (immeidate top), t1 (one width gap on top), b0(immeidate bottom), b1(one width gap on bottom)) to check for Light Block locations
         if LABEL in free_blocks:
-        Label LB search
-            look near tables or dsbs for free blocks of labels
+        Label Light Block search:
+            look near tables or Data Solid Blocks for free blocks of labels
+            if a free label which is smaller than the tables data block is in any of the start_pos, add it to the table as a light_block, which has the same structure as a regular block with the exception that its start and enging position correspond with the width or height of the data of table it is next to, not the cells within
+
         if DATA in free_blocks:
         for free labels:
-            look for AB: D: SBy LBx L: SBx LBy
+            look for pattern AB: A set of Data Blocks made up of continuous (i.e. no gaps between the blocks) in the y direction, row by row, and  Blocks with gaps between them in the x direction, column by column connected with a set of Label blocks, continuous (i.e. no gaps between the blocks) in the x direction, column by column if a given label block is in t0, t1, b0, or b1 position, and Blocks with gaps between them in the y, row by row, with different heights if a given label block is in l0, l1, r0, or r1 position
                 under (then before) free label:
-                    DLBs: one or more DSBs not touching but in overlapping rows x
-                    DSBs touching but not connected y
-                search left for light box in L or R
-            look for BB, D: LBy SBx L: LBx SBy
+                    Data Light Blocks: one or more Data Solid Blocks not touching but in overlapping rows x
+                    Data Solid Blocks touching but not connected y
+                search l0, l1, r0, r1 positions in order to find label light box on Left or Right
+            look for pattern BB, A set of Data Blocks made up of Blocks with gaps between them in the y, row by row, with different heights and continuous (i.e. no gaps between the blocks) in the x direction, column by column, connected with a set of Label blocks, Blocks with gaps between them in the x direction, column by column if a given label block is in t0, t1, b0, or b1 position and continuous (i.e. no gaps between the blocks) in the y direction, row by row if a given label block is in l0, l1, r0, or r1 position
                 left (then right) free label:
-                    DLBs: one or more DSBs not touching but in overlapping columns y
-                search up, down for light box label
-            look for CB, D: LBx LBy L: SBx SBy
-                look for solid label x with corresponding solid label in y
+                    Data Light Blocks: one or more Data Solid Blocks not touching but in overlapping column in the y direction
+                search t0, t1, b0, b1 positions in order to find label light box on Top or Bottom
+            look for pattern CB, A set of Data Blocks made up of  Blocks with gaps between them in the x direction, column by column and Blocks with gaps between them in the y, row by row, with different heights connected with a set of Label blocks, continuous (i.e. no gaps between the blocks) in the x direction if a given label block is in l0, l1, r0, or r1 position, and column by column and continuous (i.e. no gaps between the blocks) in the y direction, row by row if a given label block is in l0, l1, r0, or r1 position
+                look for solid label oriented in the x direction with corresponding solid label oriented in the y direction
                 if data within potential table box
+                    add to a new data light block
+            after identifying new tables and light boxes which fit the pattern out of the free blocks, create new light tables within the sheet and move on to next sheet
 
