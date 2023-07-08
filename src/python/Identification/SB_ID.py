@@ -4,14 +4,14 @@ import re
 from collections import defaultdict
 import sys
 
+
 # Load the JSON data from file
 file_path = "src/python/JSONs/annotated_output.json"
 with open(file_path, "r") as file:
     sheets = json.load(file)
 
+
 # Function to extract the number from the cell name
-
-
 def extract_number(cell_name):
     return int(re.findall(r'\d+', cell_name)[0])
 
@@ -19,8 +19,6 @@ def extract_number(cell_name):
 def extract_column(cell_name):
     # The regular expression '[A-Z]+' matches one or more uppercase letters.
     # This time we ignore any non-alphabetic character
-    if 'pytest' in sys.modules:
-        print(re.search(r'[A-Z]+', re.sub(r'[^A-Z]', '', cell_name)).group())
     return re.search(r'[A-Z]+', re.sub(r'[^A-Z]', '', cell_name)).group()
 
 
@@ -33,6 +31,7 @@ def generate_solid_blocks(sheet):
     current_row = None
     block_start_row = None
     block_start_column = None
+    previous_column = None
 
     annots = {
         'DATA': [
@@ -51,10 +50,8 @@ def generate_solid_blocks(sheet):
         row_number = extract_number(cell)
         column_letter = extract_column(cell)
 
-        # Check if it's the first cell or the cell is non-sequential or the
-        # cell has a different annotation
-        if current_row is None or row_number != current_row or current_annotation not in annots[
-                info["annotation"]]:
+        # Check if it's the first cell or the cell is non-sequential or the cell has a different annotation
+        if current_row is None or row_number != current_row or (previous_column is not None and column_letter != chr(ord(previous_column) + 1)) or current_annotation not in annots[info["annotation"]]:
             # Save the current block if it's not empty and if it's not 'EMPTY'
             if current_block and current_annotation != 'EMPTY':
                 blocks[annots[current_annotation][0]].append({
@@ -71,8 +68,11 @@ def generate_solid_blocks(sheet):
             block_start_column = column_letter
         elif current_annotation in annots[info["annotation"]]:
             current_block[cell] = info
-
+        
         current_row = row_number
+    
+    # Update the previous_column after processing the cell
+    previous_column = column_letter
 
     # Save the last block if it's not empty and if it's not 'EMPTY'
     if current_block and current_annotation != 'EMPTY':

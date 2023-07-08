@@ -20,7 +20,7 @@ def close_excel():
 
 def label_visualize():
     # Read data from JSON file
-    with open('annotated_output.json', 'r') as json_file:
+    with open('src/python/JSONs/annotated_output.json', 'r') as json_file:
         data = json.load(json_file)
 
     # Create a new workbook and select the active sheet
@@ -61,7 +61,7 @@ def label_visualize():
     workbook.remove(workbook['Sheet'])
 
     # Save the workbook as an Excel file
-    workbook.save('visuals/label_visualized.xlsx')
+    workbook.save('src/python/JSONs/visuals/label_visualized.xlsx')
 
 
 def solid_block_visualize():
@@ -80,7 +80,7 @@ def solid_block_visualize():
         fill_type="solid")
 
     # Load JSON data
-    with open('blocks_output.json', 'r') as f:
+    with open('src/python/JSONs/blocks_output.json', 'r') as f:
         data = json.load(f)
 
     # Function to add data to a worksheet
@@ -115,12 +115,12 @@ def solid_block_visualize():
                             ws_sheet[cell.coordinate].fill = orange_fill
 
     # Save the workbook
-    filename = 'visuals/solid_block_visualized.xlsx'
+    filename = 'src/python/JSONs/visuals/solid_block_visualized.xlsx'
     wb.save(filename=filename)
 
     # Open the Excel file
     os.system('start excel.exe "{}"'.format(
-        'visuals/solid_block_visualized.xlsx'))
+        'src/python/JSONs/visuals/solid_block_visualized.xlsx'))
 
 
 def solid_table_visualize():
@@ -135,7 +135,7 @@ def solid_table_visualize():
         fill_type="solid")
 
     # Load JSON data
-    with open('solid_table_output.json', 'r') as f:
+    with open('src/python/JSONs/solid_table_output.json', 'r') as f:
         data = json.load(f)
 
     # Function to add data to a worksheet
@@ -187,11 +187,11 @@ def solid_table_visualize():
                     for place, label_data in table['labels'].items():
                         add_data_to_sheet(ws, label_data['cells'])
 
-    wb.save(filename='visuals/output_table_visualized_sheet.xlsx')
+    wb.save(filename='src/python/JSONs/visuals/output_table_visualized_sheet.xlsx')
 
     # Open the spreadsheet in Excel
     os.system('start excel.exe "{}"'.format(
-        'visuals/output_table_visualized_sheet.xlsx'))
+        'src/python/JSONs/visuals/output_table_visualized_sheet.xlsx'))
 
 
 # Call the function to close previou Excel
