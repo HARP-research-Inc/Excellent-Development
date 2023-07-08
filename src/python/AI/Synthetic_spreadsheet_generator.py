@@ -1,6 +1,11 @@
-import openai
+# import openai
 import json
 import random
+import requests
+try:
+  import cPickle as pickle
+except:
+  import pickle
 
 subtable_type = [
     'with horizontal subtables',
@@ -52,8 +57,57 @@ spreadsheet_types = [
 ]
 
 
-# Set up your OpenAI API key
-openai.api_key = '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'
+
+# For local streaming, the websockets are hosted without ssl - http://
+HOST = '9dcd-67-242-95-192.ngrok-free.app'
+URI = f'http://{HOST}/api/v1/generate'
+
+# For reverse-proxied streaming, the remote will likely host with ssl - https://
+# URI = 'https://your-uri-here.trycloudflare.com/api/v1/generate'
+
+
+def run(prompt):
+    request = {
+        'prompt': prompt,
+        'max_new_tokens': 250,
+
+        # Generation params. If 'preset' is set to different than 'None', the values
+        # in presets/preset-name.yaml are used instead of the individual numbers.
+        'preset': 'None',  
+        'do_sample': True,
+        'temperature': 0.7,
+        'top_p': 0.1,
+        'typical_p': 1,
+        'epsilon_cutoff': 0,  # In units of 1e-4
+        'eta_cutoff': 0,  # In units of 1e-4
+        'tfs': 1,
+        'top_a': 0,
+        'repetition_penalty': 1.18,
+        'repetition_penalty_range': 0,
+        'top_k': 40,
+        'min_length': 0,
+        'no_repeat_ngram_size': 0,
+        'num_beams': 1,
+        'penalty_alpha': 0,
+        'length_penalty': 1,
+        'early_stopping': False,
+        'mirostat_mode': 0,
+        'mirostat_tau': 5,
+        'mirostat_eta': 0.1,
+
+        'seed': -1,
+        'add_bos_token': True,
+        'truncation_length': 2048,
+        'ban_eos_token': False,
+        'skip_special_tokens': True,
+        'stopping_strings': []
+    }
+
+    response = requests.post(URI, json=request)
+
+    if response.status_code == 200:
+        result = response.json()['results'][0]['text']
+        return result
 
 # Define the conversation
 conversation = [
@@ -188,25 +242,24 @@ def generate_sheet(chat, count):
         chat.append(prompt)
 
         # Generate a response using the conversation
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=chat
-        )
+        response = run(prompt)
 
         # Get the assistant's reply
-        assistant_reply = response.choices[0].message
+        assistant_reply = response
         chat.append(assistant_reply)
 
         # Append the user and assistant messages to the generated_chat list
         generated_chat.append(
-            {'user': prompt['content'], 'assistant': assistant_reply['content']})
+            {prompt['content']})
+        generated_chat.append(
+            {assistant_reply})
 
         # Print the assistant's reply
-        print(assistant_reply['content'])
+        print(assistant_reply)
 
     # Save the generated conversation to a JSON file
-    with open('generated_conversation.json', 'w') as file:
-        json.dump(generated_chat, file, indent=4)
+    with open('generated_conversation.json', 'wb') as file:
+        pickle.dump(generated_chat, file)
 
 
 generate_sheet(chat=conversation, count=5)
