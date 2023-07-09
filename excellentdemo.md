@@ -30,7 +30,7 @@ The current algorithm steps are as follows:
 - Multi-Document DOF Comparison
 - Synthetic-Model Export
 
-##I/O
+## I/O
 *All 2 object lists and objects within "( )" are tuples*
 
 
