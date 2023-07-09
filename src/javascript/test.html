@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<body>
+    <script>
+        var data = {
+            "name": "Owned Properties",
+            "children": [
+                {
+                    "name": "El Ranchero",
+                    "value": 10
+                },
+                {
+                    "name": "Industrial",
+                    "value": 20,
+                    "children": [
+                        {
+                            "name": "Residential",
+                            "value": 30
+                        },
+                        {
+                            "name": "The Appartments on the Hudson",
+                            "value": 40
+                        }
+                    ]
+                }
+            ]
+        };
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", window.innerWidth)
+            .attr("height", window.innerHeight),
+            margin = {top: 40, right: 10, bottom: 10, left: 10},
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom;
+
+        var fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); },
+            color = d3.scaleOrdinal(d3.schemeCategory20.map(fader)),
+            format = d3.format(",d");
+
+        var treemap = d3.treemap()
+            .tile(d3.treemapResquarify)
+            .size([width, height])
+            .round(true)
+            .paddingInner(1);
+
+        var root = d3.hierarchy(data)
+            .eachBefore(function(d) { d.id = (d.parent ? d.parent.id + "." : "") + d.data.name; })
+            .sum(sumBySize)
+            .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
+
+        treemap(root);
+
+        var cell = svg.selectAll("g")
+            .data(root.leaves())
+            .enter().append("g")
+            .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; });
+
+        cell.append("rect")
+            .attr("id", function(d) { return d.id; })
+            .attr("width", function(d) { return d.x1 - d.x0; })
+            .attr("height", function(d) { return d.y1 - d.y0; })
+            .attr("fill", function(d) { return color(d.parent.id); });
+
+        cell.append("clipPath")
+            .attr("id", function(d) { return "clip-" + d.id; })
+            .append("use")
+            .attr("xlink:href", function(d) { return "#" + d.id; });
+
+        cell.append("text")
+            .attr("clip-path", function(d) { return "url(#clip-" + d.id + ")"; })
+            .selectAll("tspan")
+            .data(function(d) { return d.id.substring(d.id.lastIndexOf(".") + 1).split(/(?=[A-Z][^A-Z])/g); })
+            .enter().append("tspan")
+            .attr("x", 4)
+            .attr("y", function(d, i) { return 13 + i * 10; })
+            .text(function(d) { return d; });
+
+        function sumBySize(d) {
+            return d.value;
+        }
+    </script>
+</body>
