@@ -1,4 +1,5 @@
 import pytest
+import json
 import src.open_ai_demo_python.gen_tree as gt
 
 # Test cases for the Cell class
@@ -101,3 +102,45 @@ def test_table_relative_position():
     t = gt.table(data_block=b)
     relative_position = t.get_relative_position((2,2))
     assert relative_position == (-2,-2), "Failed to get correct relative position for table"
+
+
+@pytest.fixture
+def mock_sheets():
+    # A function to generate some mock sheets for testing.
+    c1 = gt.cell((1, 1), value="1")
+    c2 = gt.cell((1, 2), value="2")
+    b1 = gt.block([c1, c2])
+    t1 = gt.table(expected_position=(0, 0), expected_size=(1, 2), data_block=b1)
+    s1 = gt.Sheet("Sheet1", [t1])
+    return [s1]
+
+
+def test_gen_tree_init_with_sheets(mock_sheets):
+    gen_tree_obj = gt.gen_tree(mock_sheets)
+    assert gen_tree_obj.sheets == mock_sheets
+    assert gen_tree_obj.data == [sheet.to_json() for sheet in mock_sheets]
+
+def test_gen_tree_init_with_json(mock_sheets):
+    json_data = [sheet.to_json() for sheet in mock_sheets]
+    json_str = json.dumps(json_data)
+    gen_tree_obj = gt.gen_tree(json_data=json_str)
+    assert gen_tree_obj.data == json_data
+    # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
+    assert [sheet.to_json() for sheet in gen_tree_obj.sheets] == json_data
+
+def test_gen_tree_to_json(mock_sheets):
+    gen_tree_obj = gt.gen_tree(mock_sheets)
+    expected_json = json.dumps([sheet.to_json() for sheet in mock_sheets])
+    assert gen_tree_obj.to_json() == expected_json
+
+def test_gen_tree_get_unenclosed_tables(mock_sheets):
+    gen_tree_obj = gt.gen_tree(mock_sheets)
+    unenclosed_tables = gen_tree_obj.get_unenclosed_tables()
+    # Since the mock_sheets fixture only contains enclosed tables, the result should be empty.
+    assert unenclosed_tables == []
+
+def test_gen_tree_get_prime_width_tables(mock_sheets):
+    gen_tree_obj = gt.gen_tree(mock_sheets)
+    prime_width_tables = gen_tree_obj.get_prime_width_tables()
+    # Since the mock_sheets fixture only contains tables of size (1, 2), the result should be empty.
+    assert prime_width_tables == []

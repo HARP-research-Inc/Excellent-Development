@@ -124,6 +124,7 @@ class table:
 
     def is_prime(self):
         #checks if the size of the data block is prime, returns None, Horizontal, or Vertical
+        dims = []
         for dimension in [0,1]:
             dim = self.data_block.size[dimension]
             if dim < 2:
@@ -131,8 +132,8 @@ class table:
             for divisor in range(2, int(dim ** 0.5) + 1):
                 if dim % divisor == 0:
                     continue
-            return dimension
-        return None
+            dims.append(dimension)
+        return dims if dims[0] else None
 
 
     def get_relative_position(self, origin: tuple):
@@ -149,10 +150,10 @@ class table:
         for dim in ["same_height", "same_width"]:
             for block in self.label_blocks[dim].values():
                 if block:
-                    block.get_relative_position(origin=self.expected_position)
+                    block.get_relative_position(origin = self.expected_position)
         for table in self.subtables:
-            table.get_relative_position(origin=self.expected_position)
-            
+            table.get_relative_position(origin = self.expected_position)
+
     def to_json(self):
         data_block_json = self.data_block.to_json() if self.data_block else None
 
@@ -175,37 +176,78 @@ class table:
         }
 
         return table_json
-"""
-class gen_tree:
-    def __init__(self, json_data):
-        self.data = json.loads(json_data)
-        self.previous_data = None
-        self.csv = self.build_csv()
 
-    def build_csv(self):
-        csv_data = []
-        for sheet_name, sheet_data in self.data.items():
-            csv_data.append([sheet_name, sheet_data])
-        return csv_data
+class Sheet:
+    def __init__(self, name, tables=[]):
+        self.name = name
+        self.tables = tables
 
-    def store(self):
-        self.previous_data = self.data
-
-    def cleaned_hierarchy_output(self):
-        pass
+    def to_csv(self):
+        csv_data = [table.data_block.csv_data for table in self.tables]
+        return "\n".join(csv_data)
 
     def to_json(self):
+        tables_json = [table.to_json() for table in self.tables]
+        sheet_json = {
+            "name": self.name,
+            "tables": tables_json
+        }
+        return sheet_json
+
+    def get_unenclosed_tables(self):
+        unenclosed_tables = [table for table in self.tables if not table.is_enclosed()]
+        return unenclosed_tables
+
+    def get_prime_tables(self):
+        prime_tables = [table for table in self.tables if table.is_prime() is not None]
+        return prime_tables, [table.is_prime() for table in prime_tables if table.is_prime() is not None]
+
+class gen_tree:
+    def __init__(self, sheets=None, json_data=None):
+        if json_data:
+            self.data = json.loads(json_data)
+            # Assuming that the JSON data is a list of sheet JSONs.
+            self.sheets = [Sheet(sheet_data["name"], [table(json_data=table_data) for table_data in sheet_data["tables"]]) for sheet_data in self.data]
+        else:
+            self.sheets = sheets or []
+            self.data = [sheet.to_json() for sheet in self.sheets]
+
+    def cleaned_hierarchy_output(self):
+        # Assuming this method is supposed to pretty print the tree.
+        for sheet in self.sheets:
+            print(f"Sheet: {sheet.name}")
+            for table in sheet.tables:
+                print(f"  Table at {table.expected_position} with size {table.expected_size}")
+                if table.data_block:
+                    print(f"    Data block at {table.data_block.expected_position} with size {table.data_block.size}")
+                for label_blocks in table.label_blocks.values():
+                    for label_block in label_blocks.values():
+                        if label_block:
+                            print(f"    Label block at {label_block.expected_position} with size {label_block.size}")
+                for subtable in table.subtables:
+                    print(f"    Subtable at {subtable.expected_position} with size {subtable.expected_size}")
+
+    def to_json(self):
+        # Rebuilds the JSON data from the sheets and their contained tables.
+        self.data = [sheet.to_json() for sheet in self.sheets]
         return json.dumps(self.data)
 
-    def get_incomplete_tables(self):
-        pass
+    def get_unenclosed_tables(self):
+        unenclosed_tables = []
+        for sheet in self.sheets:
+            unenclosed_tables.extend(sheet.get_unenclosed_tables())
+        return unenclosed_tables
 
     def get_prime_width_tables(self):
-        pass
+        prime_width_tables = []
+        for sheet in self.sheets:
+            prime_tables, dimensions = sheet.get_prime_tables()
+            for table, dimension in zip(prime_tables, dimensions):
+                if dimension[0] == 0:  # If the width is prime.
+                    prime_width_tables.append(table)
+        return prime_width_tables
+
 """
-
-
-
 class eff_block:
     def __init__(self, cells: list[cell], annotation_type=None):
         self.cells = cells
@@ -239,3 +281,4 @@ class eff_block:
         self.csv_data = csv_string
         self.corners = tuple(tuple(min_coord),tuple(max_coord))
         self.size = [int(self.corners[1][0]) - int(self.corners[0][0]), int(self.corners[1][1]) - int(self.corners[0][1])]
+"""
