@@ -45,6 +45,32 @@ def test_csv_format():
     expected_csv = "1,1,test,DATA\n1,2,test2,DATA"
     assert b.csv_data == expected_csv, "Failed to format CSV data correctly"
 
+def test_block_relative_position():
+    c1 = gt.cell((1, 1), value="test", annotation="DATA")
+    c2 = gt.cell((1, 2), value="test2", annotation="DATA")
+    b = gt.block([c1, c2])
+    relative_position = b.get_relative_position((2,2))
+    assert relative_position == (-1,-1), "Failed to get correct relative position for block"
+
+@pytest.fixture
+def mock_sheets():
+    # A function to generate some mock sheets for testing.
+    c1 = gt.cell((1, 1), value="1")
+    c2 = gt.cell((1, 2), value="2")
+    b1 = gt.block([c1, c2])
+    t1 = gt.table(expected_position=(0, 0), data_block=b1)
+    s1 = gt.Sheet("Sheet1", [t1])
+    return [s1]
+
+@pytest.mark.dependency()
+def test_cell_to_json():
+    cell = gt.cell(location=(1,1), value="Value", annotation="ANNOTATION")
+    cell_json = cell.to_json()
+    expected_cell_json = {'coord': (1, 1), "value": "Value", "annotation": "ANNOTATION"}
+
+    assert cell_json == expected_cell_json, "Failed to correctly convert cell to JSON"
+
+@pytest.mark.dependency(depends=["test_cell_to_json"])
 def test_valid_block_to_json():
     c1 = gt.cell((1, 1), value="test", annotation="DATA")
     c2 = gt.cell((1, 2), value="test2", annotation="DATA")
@@ -57,19 +83,11 @@ def test_valid_block_to_json():
             "(1, 1)": {"value": "test", "annotation": "DATA"},
             "(1, 2)": {"value": "test2", "annotation": "DATA"}
         },
-        "size": "(0, 1)"
+        "size": "(0, 1)",
     }
     assert json_data == expected_json, "Failed to convert block to JSON correctly"
 
-def test_block_relative_position():
-    c1 = gt.cell((1, 1), value="test", annotation="DATA")
-    c2 = gt.cell((1, 2), value="test2", annotation="DATA")
-    b = gt.block([c1, c2])
-    relative_position = b.get_relative_position((2,2))
-    assert relative_position == (-1,-1), "Failed to get correct relative position for block"
-
-# Test cases for the table class
-
+@pytest.mark.dependency(depends=["test_valid_block_to_json"])
 def test_valid_table_to_json():
     c1 = gt.cell((1, 1), value="test", annotation="DATA")
     c2 = gt.cell((1, 2), value="test2", annotation="DATA")
@@ -91,10 +109,66 @@ def test_valid_table_to_json():
             "same_width": {"t0": None, "t1": None, "b0": None, "b1": None}
         },
         "subtables": [],
-        "free_blocks": {"LABEL": [], "DATA": []}
+        "free_blocks": {"LABEL": [], "DATA": []},
+        "size": "(0, 1)",
+        "start": "(0, 0)",
     }
     assert json_data == expected_json, "Failed to convert table to JSON correctly"
 
+@pytest.mark.dependency(depends=["test_valid_table_to_json"])
+def test_gen_tree_to_json(mock_sheets):
+    gen_tree_obj = gt.gen_tree(mock_sheets)
+    expected_json = json.dumps([sheet.to_json() for sheet in mock_sheets])
+    assert gen_tree_obj.to_json() == expected_json
+
+# Test cases for the table class
+@pytest.mark.dependency(depends=["test_gen_tree_to_json"])
+def test_cell_from_json():
+    # Arrange
+    original_cell = gt.cell(location="A1", value="test", annotation="DATA")
+    cell_json = original_cell.to_json()
+
+    # Act
+    final_cell = gt.cell.from_json(cell_json,"A1")
+
+    # Assert
+    assert original_cell.value == final_cell.value, f"Failed to correctly convert cell value from JSON, expected: {original_cell.to_json()}, got {final_cell.to_json()}"
+    assert original_cell.annotation == final_cell.annotation, "Failed to correctly convert cell annotation from JSON"
+    assert original_cell.block_type == final_cell.block_type, "Failed to correctly convert cell block type from JSON"
+    assert original_cell.coord == final_cell.coord, "Failed to correctly convert cell coordinates from JSON"
+
+@pytest.mark.dependency(depends=["test_cell_from_json"])
+def test_block_from_json():
+    # Arrange
+    cells = [gt.cell(location=(1,1), value="A1", annotation="DATA"), gt.cell(location=(1,2), value="A2", annotation="DATA")]
+    original_block = gt.block(cells)
+    block_json = original_block.to_json()
+
+    # Act
+    final_block = gt.block.from_json(block_json)
+
+    # Assert
+    assert len(original_block.cells) == len(final_block.cells), f"Failed to correctly convert block cells from JSON, expected {[cell.to_json() for cell in original_block.cells]} got {[cell.to_json() for cell in final_block.cells]}"
+    assert original_block.annotation_type == final_block.annotation_type, "Failed to correctly convert block annotation type from JSON"
+    assert original_block.corners == final_block.corners, "Failed to correctly convert block corners from JSON"
+
+@pytest.mark.dependency(depends=["test_block_from_json"])
+def test_table_from_json():
+    # Arrange
+    cells = [gt.cell(location=(1,1), value="A1", annotation="DATA"), gt.cell(location=(1,2), value="A2", annotation="DATA")]
+    block = gt.block(cells)
+    original_table = gt.table(expected_position=(0,0), data_block=block)
+    table_json = original_table.to_json()
+
+    # Act
+    final_table = gt.table.from_json(table_json)
+
+    # Assert
+    assert original_table.data_block.to_json() == final_table.data_block.to_json(), "Failed to correctly convert table data block from JSON"
+    assert original_table.expected_size == final_table.expected_size, f"Failed to correctly convert table expected size from JSON, expected {original_table.to_json()} but got {final_table.to_json()}"
+    assert original_table.expected_position == final_table.expected_position, "Failed to correctly convert table expected position from JSON"
+
+@pytest.mark.dependency(depends=["test_table_from_json"])
 def test_table_relative_position():
     c1 = gt.cell((1, 1), value="test", annotation="DATA")
     c2 = gt.cell((1, 2), value="test2", annotation="DATA")
@@ -103,23 +177,13 @@ def test_table_relative_position():
     relative_position = t.get_relative_position((2,2))
     assert relative_position == (-2,-2), "Failed to get correct relative position for table"
 
-
-@pytest.fixture
-def mock_sheets():
-    # A function to generate some mock sheets for testing.
-    c1 = gt.cell((1, 1), value="1")
-    c2 = gt.cell((1, 2), value="2")
-    b1 = gt.block([c1, c2])
-    t1 = gt.table(expected_position=(0, 0), expected_size=(1, 2), data_block=b1)
-    s1 = gt.Sheet("Sheet1", [t1])
-    return [s1]
-
-
+@pytest.mark.dependency(depends=["test_table_relative_position"])
 def test_gen_tree_init_with_sheets(mock_sheets):
     gen_tree_obj = gt.gen_tree(mock_sheets)
     assert gen_tree_obj.sheets == mock_sheets
     assert gen_tree_obj.data == [sheet.to_json() for sheet in mock_sheets]
 
+@pytest.mark.dependency(depends=["test_gen_tree_init_with_sheets"])
 def test_gen_tree_init_with_json(mock_sheets):
     json_data = [sheet.to_json() for sheet in mock_sheets]
     json_str = json.dumps(json_data)
@@ -128,17 +192,14 @@ def test_gen_tree_init_with_json(mock_sheets):
     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
     assert [sheet.to_json() for sheet in gen_tree_obj.sheets] == json_data
 
-def test_gen_tree_to_json(mock_sheets):
-    gen_tree_obj = gt.gen_tree(mock_sheets)
-    expected_json = json.dumps([sheet.to_json() for sheet in mock_sheets])
-    assert gen_tree_obj.to_json() == expected_json
-
+@pytest.mark.dependency(depends=["test_gen_tree_init_with_json"])
 def test_gen_tree_get_unenclosed_tables(mock_sheets):
     gen_tree_obj = gt.gen_tree(mock_sheets)
     unenclosed_tables = gen_tree_obj.get_unenclosed_tables()
     # Since the mock_sheets fixture only contains enclosed tables, the result should be empty.
     assert unenclosed_tables == []
 
+@pytest.mark.dependency(depends=["test_gen_tree_get_unenclosed_tables"])
 def test_gen_tree_get_prime_width_tables(mock_sheets):
     gen_tree_obj = gt.gen_tree(mock_sheets)
     prime_width_tables = gen_tree_obj.get_prime_width_tables()
