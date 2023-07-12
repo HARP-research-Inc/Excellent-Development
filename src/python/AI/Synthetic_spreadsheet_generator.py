@@ -2,6 +2,7 @@
 import json
 import random
 import requests
+import csv
 try:
   import cPickle as pickle
 except:
@@ -69,13 +70,13 @@ URI = f'http://{HOST}/api/v1/generate'
 def run(prompt):
     request = {
         'prompt': prompt,
-        'max_new_tokens': 250,
+        'max_new_tokens': 1000,
 
         # Generation params. If 'preset' is set to different than 'None', the values
         # in presets/preset-name.yaml are used instead of the individual numbers.
         'preset': 'None',  
         'do_sample': True,
-        'temperature': 0.7,
+        'temperature': 0.2,
         'top_p': 0.1,
         'typical_p': 1,
         'epsilon_cutoff': 0,  # In units of 1e-4
@@ -85,7 +86,7 @@ def run(prompt):
         'repetition_penalty': 1.18,
         'repetition_penalty_range': 0,
         'top_k': 40,
-        'min_length': 0,
+        'min_length': 1000,
         'no_repeat_ngram_size': 0,
         'num_beams': 1,
         'penalty_alpha': 0,
@@ -111,8 +112,8 @@ def run(prompt):
 
 # Define the conversation
 conversation = [
-    {'role': 'system', 'content': 'You are a spreadsheet data generation assistant which can generate realistic CSV code to create synthetic datasets. You will reply only in CSV code.'},
-    {'role': 'user', 'content': 'Generate a financial spreadsheet example formatted in csv code '},
+    {'role': 'system', 'content': 'You are a csv spreadsheet generator that makes realistic CSV code to create synthetic datasets. You will reply exclusivly in CSV code and no python code. Also separate the data produced with a seprate line that says "end of data".'},
+    {'role': 'user', 'content': 'Generate a financial csv spreadsheet example formatted in csv code and separate the data produced with a seprate line that says "end of data" '},
     {'role': 'assistant', 'content': '''```
 Name,Revenue,Expenses,Profit/Loss,Accounts Receivable,Accounts Payable,Inventory
 Brokemun,10000,5000,5000,20000,10000,5000
@@ -128,7 +129,7 @@ Alphabet Inc.,30000,15000,15000,40000,19000,14000
 Truckstop,32000,16000,16000,42000,20000,15000
 Forn,35000,17500,17500,45000,21000,16000
 ```'''},
-    {'role': 'user', 'content': 'Generate an accounting spreadsheet example formatted in csv code '},
+    {'role': 'user', 'content': 'Generate an accounting spreadsheet example formatted in csv code  and separate the data produced with a seprate line that says "end of data" '},
     {'role': 'assistant', 'content': '''```
 Date,Account,Debit,Credit
 01/01/2021,Cash,10000,
@@ -169,7 +170,7 @@ Date,Account,Debit,Credit
 12/01/2021,Sales Revenue,,35000
 12/01/2021,Accounts Payable,17500,
 ```'''},
-    {'role': 'user', 'content': 'Generate an accounting spreadsheet with vertical subtables example formatted in csv code '},
+    {'role': 'user', 'content': 'Generate an accounting spreadsheet with vertical subtables example formatted in csv code and separate the data produced with a seprate line that says "end of data" '},
     {'role': 'assistant', 'content': '''```
 Date,Transaction,Amount
 2023-01-01,Salary,5000
@@ -186,14 +187,14 @@ Date,Transaction,Amount
 2023-03-02,Rent,-1000
 2023-03-03,,Groceries,-250
     ```'''},
-    {'role': 'user', 'content': 'Generate an accounting spreadsheet with horizontal subtables example formatted in csv code '},
+    {'role': 'user', 'content': 'Generate an accounting spreadsheet with horizontal subtables example formatted in csv code and separate the data produced with a seprate line that says "end of data"'},
     {'role': 'assistant', 'content': '''```
 Date,Transaction,Amount,,,,Date,Transaction,Amount,,,,Date,Transaction,Amount
 2023-01-01,Salary,5000,,,,2023-02-01,Salary,5000,,,,2023-03-01,Salary,5000
 2023-01-02,Rent,-1000,,,,2023-02-02,Rent,-1000,,,,2023-03-02,Rent,-1000
 2023-01-03,Groceries,-200,,,,2023-02-03,Groceries,-300,,,,2023-03-03,Groceries,-250
 ```'''},
-    {'role': 'user', 'content': 'Generate an accounting spreadsheet with subtables example formatted in csv code '},
+    {'role': 'user', 'content': 'Generate an accounting spreadsheet with subtables example formatted in csv code and separate the data produced with a seprate line that says "end of data"'},
     {'role': 'assistant', 'content': '''```
 Date,Transaction,Amount,,,,Category,Expense,Amount
 2023-01-01,Salary,5000,,,,Groceries,-200,500
@@ -210,7 +211,7 @@ Groceries,-250,200,,,,2023-03-01,Salary,5000
 Utilities,-150,150,,,,2023-03-02,Rent,-1000
 Entertainment,-100,50,,,,,
 ```'''},
-    {'role': 'user', 'content': 'Generate an accounting spreadsheet example with verticle subtables and a header formatted in csv code '},
+    {'role': 'user', 'content': 'Generate an accounting spreadsheet example with verticle subtables and a header formatted in csv code and separate the data produced with a seprate line that says "end of data" '},
     {'role': 'assistant', 'content': '''```
 Company: XYZ Corporation
 Date: June 15, 2023
@@ -227,6 +228,24 @@ Desk,10,150,Furniture,E
 Bookshelf,5,100,Furniture,F
 ```'''}]
 
+conversation = [{'''```"You are a spreadsheet data generation assistant which can generate realistic CSV code to create synthetic datasets. You will reply only in CSV code.
+Generate a financial spreadsheet example formatted in csv code and separate the data produced with a seprate line that says "end of data"
+An example of a spreadsheet would be something along the lines of the following in csv format:
+Name,Revenue,Expenses,Profit/Loss,Accounts Receivable,Accounts Payable,Inventory
+Brokemun,10000,5000,5000,20000,10000,5000
+Corplum,12000,6000,6000,22000,11000,6000
+IndexTrade,15000,7500,7500,25000,12000,7000
+Build Ops Inc.,18000,9000,9000,28000,13000,8000
+Chevron,20000,10000,10000,30000,14000,9000
+Buildfire,22000,11000,11000,32000,15000,10000
+Verizon,24000,12000,12000,34000,16000,11000
+Bank of America,26000,13000,13000,36000,17000,12000
+Operations Mark,28000,14000,14000,38000,18000,13000
+Alphabet Inc.,30000,15000,15000,40000,19000,14000
+Truckstop,32000,16000,16000,42000,20000,15000
+Forn,35000,17500,17500,45000,21000,16000
+```'''}]
+
 
 def generate_sheet(chat, count):
     generated_chat = []
@@ -236,12 +255,13 @@ def generate_sheet(chat, count):
         selected_type = random.choice(spreadsheet_types)
         selected_subtable_type = random.choice(subtable_type)
         selected_header = random.choice(header)
+        
         prompt = {
             'role': 'user',
-            'content': f'Generate an {selected_type} example {selected_subtable_type} {selected_header} formatted in csv code '}
-        chat.append(prompt)
-
+            'content': f'Generate an {selected_type} example {selected_subtable_type} {selected_header} formatted in csv code, PROVIDE EXCLUSIVELY CSV CODE NO EXPLANATION, DO NOT PROVIDE ANY OTHER FORMAT {conversation}, also ensure the "end of data" tag is included in the csv code '}
+            
         # Generate a response using the conversation
+        # print(prompt)
         response = run(prompt)
 
         # Get the assistant's reply
@@ -257,9 +277,20 @@ def generate_sheet(chat, count):
         # Print the assistant's reply
         print(assistant_reply)
 
+    #take the generated chat and lint it
+    #the valid data is surrounded by ``` to indicate it is csv code
+    #so when ``` is found, it is the start of the csv code and that line is discounted
+    #every line after that is part of the necessary data until another line with ``` is found
+    #the data is then written to a csv file
+
     # Save the generated conversation to a JSON file
-    with open('generated_conversation.json', 'wb') as file:
+    with open('generated_conversation.csv', 'wb') as file:
         pickle.dump(generated_chat, file)
+        #write to csv with , as delimiter
+        # csv.writer(file, delimiter=',')
+        
 
 
 generate_sheet(chat=conversation, count=5)
+
+#make it a json file where every object is a list of csv files
