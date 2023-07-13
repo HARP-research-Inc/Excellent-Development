@@ -32,17 +32,12 @@ def analyze_file(filename):
     else:
         raise ValueError('Unsupported file type: {}'.format(file_type))
 
-    block_sheets = {}
+    sheets_list = {}
     for name, csv in sheets.items():
         cells = annotate_cells_ai(chunk_sheet(csv))
-        block_sheets[name] = sb_id(cells)
-
-    sheets_list =[]
-    for sheet_name, block_sheet in block_sheets.items():
-        sheets_list.append(sheet(free_labels = block_sheet['label_blocks'], free_data = block_sheet['data_blocks'], name = sheet_name))
+        sheets_list[name] = sb_id(cells, name)
 
     tree = gen_tree(sheets=sheets_list)
-    sb_id(tree)
     st_id(tree)
     st_id2(tree)
     lb_id_label(tree)

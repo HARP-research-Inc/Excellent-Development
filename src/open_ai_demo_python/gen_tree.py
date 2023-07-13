@@ -113,6 +113,9 @@ class block:
         self.csv_format()
         self.expected_position = self.corners[0]
 
+    def __str__(self):
+        return str(self.to_json())
+    
     # Function to serialize the block object into a JSON format
     def to_json(self):
         # Represent cells as a dictionary, where keys are their coordinates
@@ -136,7 +139,9 @@ class block:
                 if cell.coord[direction] < min_coord[direction]:
                     min_coord[direction] = cell.coord[direction]
         self.corners = (tuple(min_coord),tuple(max_coord))
-        self.size = (int(self.corners[1][0]) - int(self.corners[0][0]), int(self.corners[1][1]) - int(self.corners[0][1]))
+        self.size = (int(self.corners[1][0]) - int(self.corners[0][0]) + 1, 
+                    int(self.corners[1][1]) - int(self.corners[0][1]) + 1)
+
 
     # Function to check if all cells in the block are of the same type as the block
     def check_consistancy(self):
@@ -189,6 +194,10 @@ class table:
         self.pattern = pattern
         # Get the size of the table after initializing all the attributes
         self.get_size()
+
+
+    def __str__(self):
+        return str(self.to_json())
 
     def get_blocks(self):
         self.all_blocks = []
@@ -330,6 +339,10 @@ class sheet:
         self.free_labels = free_labels
         self.free_data = free_data
     
+
+    def __str__(self):
+        return str(self.to_json())
+    
     def get_blocks(self):
         self.all_blocks = []
         for table in self.tables:
@@ -352,9 +365,13 @@ class sheet:
     def to_json(self):
         # Converts the sheet to a JSON format
         tables_json = [table.to_json() for table in self.tables]
+        free_label_blocks_json = [block.to_json() for block in self.free_labels]
+        free_data_blocks_json = [block.to_json() for block in self.free_data]
         sheet_json = {
             "name": self.name,
-            "tables": tables_json
+            "tables": tables_json,
+            "free_labels": free_label_blocks_json,
+            "free_data": free_data_blocks_json
         }
         return sheet_json
 

@@ -35,7 +35,7 @@ def parse_prompt(variables, input_structure, examples):
     # Return all examples and the prompt, separated by two newlines
     return '\n\n'.join(example_list)
 
-def prompt_interface(openai_api_key, variables, input_structure, examples, system_message=None):
+def prompt_interface(openai_api_key, variables, input_structure, examples, system_message=None, max_tokens=1000, retry_count=3):
     # Configure OpenAI API key
     openai.api_key = openai_api_key
     
@@ -45,9 +45,6 @@ def prompt_interface(openai_api_key, variables, input_structure, examples, syste
     # Extract tag names from variable keys
     tag_names = variables["out"]
 
-    # Define retry count
-    retry_count = 3
-
     while retry_count > 0:
         try:
             # Generate a response using the conversation
@@ -55,7 +52,7 @@ def prompt_interface(openai_api_key, variables, input_structure, examples, syste
                 model="text-davinci-003",
                 temperature=0.5,         
                 prompt=prompt,
-                max_tokens=100,
+                max_tokens=max_tokens,
                 n=1,
             )
 
@@ -68,7 +65,12 @@ def prompt_interface(openai_api_key, variables, input_structure, examples, syste
                 pattern = f"<{tag}>(.*?)</{tag}>"
                 match = re.search(pattern, assistant_reply)
                 if match is None:
-                    raise ValueError(f"Output is missing tag {tag}")
+                    # Check for start tag without corresponding end tag
+                    if f"<{tag}>" in assistant_reply:
+                        max_tokens += 1000
+                        raise ValueError(f"Detected start tag without corresponding end tag for {tag}, increasing max tokens to {max_tokens}")
+                    else:
+                        raise ValueError(f"Output is missing tag {tag}, \n\nPrompt:\n\n{prompt}\n\nReply:\n\n{assistant_reply}")
                 response_dict[tag] = match.group(1)
             
             # If output is correctly formatted, return result
@@ -78,7 +80,7 @@ def prompt_interface(openai_api_key, variables, input_structure, examples, syste
             print(f"Error: {str(e)}")
             retry_count -= 1
             if retry_count == 0:
-                print("Failed to generate correctly formatted output after 3 attempts")
+                print("Failed to generate correctly formatted output after maximum attempts allowed")
                 return None
             else:
                 print(f"Retrying... {retry_count} attempts remaining")
