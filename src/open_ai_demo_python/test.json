@@ -1,0 +1,52 @@
+[
+    {
+        "start": "(1, 1)",
+        "end": "(1, 3)",
+        "cells": {
+            "(1, 1)": {
+                "value": "Name",
+                "annotation": "LABEL"
+            },
+            "(1, 2)": {
+                "value": "Age",
+                "annotation": "LABEL"
+            },
+            "(1, 3)": {
+                "value": "Occupation",
+                "annotation": "LABEL"
+            }
+        },
+        "size": "(1, 3)"
+    },
+    {
+        "start": "(2, 1)",
+        "end": "(3, 3)",
+        "cells": {
+            "(2, 1)": {
+                "value": "Alice",
+                "annotation": "DATA"
+            },
+            "(2, 2)": {
+                "value": "25",
+                "annotation": "DATA"
+            },
+            "(2, 3)": {
+                "value": "Engineer",
+                "annotation": "DATA"
+            },
+            "(3, 1)": {
+                "value": "Bob",
+                "annotation": "DATA"
+            },
+            "(3, 2)": {
+                "value": "30",
+                "annotation": "DATA"
+            },
+            "(3, 3)": {
+                "value": "Doctor",
+                "annotation": "DATA"
+            }
+        },
+        "size": "(2, 3)"
+    }
+]
