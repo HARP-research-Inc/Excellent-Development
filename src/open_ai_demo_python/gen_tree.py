@@ -2,11 +2,36 @@ import json
 import re
 import sys
 
+
 # Class to represent a single cell in the grid
 
 def tuple_string_to_tuple(tuple_string: str) -> tuple[int, int]:
     assert isinstance(tuple_string, str), f"not a tuple string: {tuple_string}"
     return tuple(map(int, tuple_string.replace("(", "").replace(")", "").split(', ')))
+
+def build_csv(cells, origin=(1,1)):
+    # Check if the origin is valid
+    if any(cell.coord[i] < origin[i] for i in range(2) for cell in cells):
+        raise ValueError("Origin is out of cells' range")
+    if len(cells) < 1:
+        raise ValueError("No Cells!")
+    
+    max_rows = max(cell.coord[1] for cell in cells)
+    max_cols = max(cell.coord[0] for cell in cells)
+
+    # Initialize an empty grid starting at the origin
+    grid = [["[EMPTY] ' '" for _ in range(origin[1]-1, max_cols)] for _ in range(origin[0]-1, max_rows)]
+    
+    for cell in cells:
+        row = cell.coord[1] - origin[1]
+        col = cell.coord[0] - origin[0]
+        grid[row][col] = str(cell)
+    
+    string_rows = []
+    for row in grid:
+        string_rows.append(', '.join(row))
+    
+    return '\n'.join(string_rows)
 
 class cell:
     def __init__(self, location: tuple, value=" ", annotation=None) -> None:
@@ -30,6 +55,10 @@ class cell:
             self.coord = location
         else:
             raise ValueError(f"Invalid Cell coordinate: expected tuple or 'A1' format, got {location}")
+    
+    def __str__(self):
+        # String representation of the cell in the desired format
+        return f"[{self.block_type}] '{self.value}'"
 
     # Function to convert Excel-like coordinates (e.g., 'A1') to numeric coordinates
     def coord_num(self):
@@ -148,8 +177,9 @@ class block:
     @classmethod
     def from_json(cls, json_data):
         return cls(cells=[cell.from_json(cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
+
 class table:
-    def __init__(self, expected_position=(0,0), free_labels=[],free_data=[],subtables=[],l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data = None, pattern=None):
+    def __init__(self, expected_position=(1,1), free_labels=[],free_data=[],subtables=[],l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data = None, pattern=None):
         assert isinstance(free_labels, list), f"expected a list, got f{free_labels}"
         self.data_block = data_block  # The main data block of the table
         self.label_blocks = {"same_height": {"l0": l0, "l1": l1, "r0": r0, "r1": r1}, "same_width": {"t0": t0, "t1": t1, "b0": b0, "b1": b1}}  # The labels of the table
@@ -158,6 +188,25 @@ class table:
         self.get_size()  # Calculate the size of the table
         self.expected_position = expected_position  # The expected position of the table in the parent table or sheet
         self.pattern = pattern
+
+    def get_blocks(self):
+        self.all_blocks = []
+        if self.data_block:
+            self.all_blocks.append(self.data_block)
+        for dim in self.label_blocks["same_height"],self.label_blocks["same_width"]:
+            for key, value in dim.items():
+                if value is not None:
+                    self.all_blocks.append(value)
+        for block_list in [self.free_blocks["lable_blocks"], self.free_blocks["data_blocks"]]:
+            self.all_blocks += block_list
+        return self.all_blocks
+
+    def get_csv(self):
+        self.get_blocks()
+        all_cells = []
+        for block in self.all_blocks:
+            all_cells += block.cells
+        return(build_csv(all_cells, self.expected_position))
 
     def is_enclosed(self):
         # Checks if the table is enclosed by labels from both height and width dimensions
@@ -268,7 +317,7 @@ class table:
 
         # parse tuple
         expected_position = tuple(map(int, json_data.get("start", "(0, 0)").strip("()").split(", ")))
-        
+
         data_block = block.from_json(json_data.get("data_block")) if json_data.get("data_block") else None  # Recreates the data block from JSON
 
         return cls(expected_position, free_labels, free_data, subtables, *label_blocks["same_height"].values(), *label_blocks["same_width"].values(), data_block=data_block)  # Returns the recreated table
@@ -277,9 +326,23 @@ class sheet:
     def __init__(self, name, tables=[], free_labels=[],free_data=[]):
         self.name = name  # The name of the sheet
         self.tables = tables  # The tables in the sheet
-        self.free_labels = []
-        self.free_data = []
+        self.free_labels = free_labels
+        self.free_data = free_data
+    
+    def get_blocks(self):
+        self.all_blocks = []
+        for table in self.tables:
+            self.all_blocks.table.get_blocks()
+        for block_list in [self.free_labels, self.free_data]:
+            self.all_blocks += block_list
 
+    def get_csv(self):
+        self.get_blocks()
+        all_cells = []
+        for block in self.all_blocks:
+            all_cells += block.cells
+        return(build_csv(cells=all_cells))
+    
     def to_csv(self):
         # Converts the data in the tables to a CSV format
         csv_data = [table.data_block.csv_data for table in self.tables]
