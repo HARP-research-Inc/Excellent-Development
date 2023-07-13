@@ -3,8 +3,13 @@ import re
 import sys
 
 # Class to represent a single cell in the grid
+
+def tuple_string_to_tuple(tuple_string: str) -> tuple[int, int]:
+    assert isinstance(tuple_string, str), f"not a tuple string: {tuple_string}"
+    return tuple(map(int, tuple_string.replace("(", "").replace(")", "").split(', ')))
+
 class cell:
-    def __init__(self, location: tuple, value=" ", annotation="EMPTY") -> None:
+    def __init__(self, location: tuple, value=" ", annotation=None) -> None:
         # Set the cell value and annotation (default is 'EMPTY')
         self.value = value
         self.annotation = annotation
@@ -144,13 +149,15 @@ class block:
     def from_json(cls, json_data):
         return cls(cells=[cell.from_json(cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
 class table:
-    def __init__(self, expected_position=(0,0), free_labels=[],free_data=[],subtables=[],l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data = None):
+    def __init__(self, expected_position=(0,0), free_labels=[],free_data=[],subtables=[],l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data = None, pattern=None):
+        assert isinstance(free_labels, list), f"expected a list, got f{free_labels}"
         self.data_block = data_block  # The main data block of the table
         self.label_blocks = {"same_height": {"l0": l0, "l1": l1, "r0": r0, "r1": r1}, "same_width": {"t0": t0, "t1": t1, "b0": b0, "b1": b1}}  # The labels of the table
         self.subtables = subtables  # Any subtables inside the table
         self.free_blocks = {"lable_blocks":free_labels,"data_blocks":free_data}  # Any additional data or label blocks not classified yet
         self.get_size()  # Calculate the size of the table
         self.expected_position = expected_position  # The expected position of the table in the parent table or sheet
+        self.pattern = pattern
 
     def is_enclosed(self):
         # Checks if the table is enclosed by labels from both height and width dimensions
@@ -234,31 +241,44 @@ class table:
         return table_json  # Return the JSON object
 
     @classmethod
+
     def from_json(cls, json_data):
         # Reconstructs the table from a JSON object
-        label_blocks = {"same_height": {"l0": block.from_json(json_data.get("l0")),
-                                        "l1": block.from_json(json_data.get("l1")),
-                                        "r0": block.from_json(json_data.get("r0")),
-                                        "r1": block.from_json(json_data.get("r1"))},
-                        "same_width": {"t0": block.from_json(json_data.get("t0")),
-                                    "t1": block.from_json(json_data.get("t1")),
-                                    "b0": block.from_json(json_data.get("b0")),
-                                    "b1": block.from_json(json_data.get("b1"))}}
-        # Above recreates the label blocks from JSON
+        label_blocks_json = json_data.get("label_blocks", {})
+        label_blocks = {
+            "same_height": {
+                "l0": block.from_json(label_blocks_json.get("same_height", {}).get("l0")),
+                "l1": block.from_json(label_blocks_json.get("same_height", {}).get("l1")),
+                "r0": block.from_json(label_blocks_json.get("same_height", {}).get("r0")),
+                "r1": block.from_json(label_blocks_json.get("same_height", {}).get("r1"))
+            },
+            "same_width": {
+                "t0": block.from_json(label_blocks_json.get("same_width", {}).get("t0")),
+                "t1": block.from_json(label_blocks_json.get("same_width", {}).get("t1")),
+                "b0": block.from_json(label_blocks_json.get("same_width", {}).get("b0")),
+                "b1": block.from_json(label_blocks_json.get("same_width", {}).get("b1"))
+            }
+        }  # Above recreates the label blocks from JSON
 
         subtables = [cls.from_json(subtable_data) for subtable_data in json_data.get("subtables", [])]  # Recreates the subtables from JSON
-        free_labels = [block.from_json(block_data) for block_data in json_data.get("free_blocks", {}).get("LABEL", [])]  # Recreates the free label blocks from JSON
-        free_data = [block.from_json(block_data) for block_data in json_data.get("free_blocks", {}).get("DATA", [])]  # Recreates the free data blocks from JSON
-        expected_position = tuple(json_data.get("expected_position", (0,0)))  # Gets the expected position from JSON
-        expected_size = tuple(json_data.get("expected_size", (0,0)))  # Gets the expected size from JSON
+
+        free_blocks_json = json_data.get("free_blocks", {})
+        free_labels = [block.from_json(block_data) for block_data in free_blocks_json.get("LABEL", [])]  # Recreates the free label blocks from JSON
+        free_data = [block.from_json(block_data) for block_data in free_blocks_json.get("DATA", [])]  # Recreates the free data blocks from JSON
+
+        # parse tuple
+        expected_position = tuple(map(int, json_data.get("start", "(0, 0)").strip("()").split(", ")))
+        
         data_block = block.from_json(json_data.get("data_block")) if json_data.get("data_block") else None  # Recreates the data block from JSON
 
-        return cls(expected_position, expected_size, free_labels, free_data, subtables, label_blocks, data_block=data_block)  # Returns the recreated table
+        return cls(expected_position, free_labels, free_data, subtables, *label_blocks["same_height"].values(), *label_blocks["same_width"].values(), data_block=data_block)  # Returns the recreated table
 
-class Sheet:
-    def __init__(self, name, tables=[]):
+class sheet:
+    def __init__(self, name, tables=[], free_labels=[],free_data=[]):
         self.name = name  # The name of the sheet
         self.tables = tables  # The tables in the sheet
+        self.free_labels = []
+        self.free_data = []
 
     def to_csv(self):
         # Converts the data in the tables to a CSV format
@@ -289,7 +309,7 @@ class gen_tree:
         # The tree can be initialized either with a list of sheets or a JSON data of the sheets
         if json_data:
             self.data = json.loads(json_data)
-            self.sheets = [Sheet(sheet_data["name"], [table(json_data=table_data) for table_data in sheet_data["tables"]]) for sheet_data in self.data]
+            self.sheets = [sheet(sheet_data["name"], [table(json_data=table_data) for table_data in sheet_data["tables"]]) for sheet_data in self.data]
         else:
             self.sheets = sheets or []
             self.data = [sheet.to_json() for sheet in self.sheets]
@@ -297,7 +317,7 @@ class gen_tree:
     def cleaned_hierarchy_output(self):
         # Prints the structure of the tree in a more readable format
         for sheet in self.sheets:
-            print(f"Sheet: {sheet.name}")
+            print(f"sheet: {sheet.name}")
             for table in sheet.tables:
                 print(f"  Table at {table.expected_position} with size {table.expected_size}")
                 if table.data_block:

@@ -1,8 +1,9 @@
-import json
+import os
 import csv
 from io import StringIO
-import sys
 import openai
+from src.open_ai_demo_python.chunker import chunk_sheet
+import json
 
 labeling_conversation = """{Property Name},Property Type,Price,Square Feet,Bedrooms
 White House,Single Family,2000000,10000,6
@@ -34,13 +35,6 @@ N
 """
 
 
-def read_json_file(file_path):
-    # Read JSON file and convert it into a dictionary
-    with open(file_path, 'r') as file:
-        output_dict = json.load(file)
-    return output_dict
-
-
 def get_annotated_chunk(chunk, current_cell_id, annotated_output):
     # Generate a CSV string of the chunk with the current cell highlighted and
     # annotations included
@@ -69,48 +63,9 @@ def get_annotated_chunk(chunk, current_cell_id, annotated_output):
     return si.getvalue().strip()
 
 
-def annotate_cells_manual(output_dict):
-    # Iterate through each cell in the chunks and annotate them based on user
-    # input
-    annotated_output = {}
-    for sheet in output_dict.values():
-        for row in sheet.values():
-            for chunk in row.values():
-                for cell in chunk['base_chunk']:
-                    for cell_id, cell_value in cell:
-                        # Skip if the cell is empty or a formula
-                        annotated_output[cell_id] = {'value': cell_value}
-                        if cell_value == ' ' or cell_value.startswith('='):
-                            if cell_value == ' ':
-                                annotated_output[cell_id]['annotation'] = 'EMPTY'
-                            elif cell_value.startswith('='):
-                                annotated_output[cell_id]['annotation'] = 'FORMULA'
-                            continue
-                        # Get the annotated chunk string
-                        chunk_str = get_annotated_chunk(
-                            chunk['contextualized_chunk'], cell_id, annotated_output)
-                        # Display the chunk to the user
-                        reader = csv.reader(StringIO(chunk_str))
-                        formatted_chunk = list(reader)
-                        writer = csv.writer(
-                            sys.stdout, delimiter=',', quoting=csv.QUOTE_MINIMAL)
-                        writer.writerows(formatted_chunk)
-                        # Prompt user for input
-                        is_label = input(
-                            f"Is cell {{{cell_value}}} a label cell? (Y/N) ")
-                        if is_label.lower() == 'y':
-                            annotated_output[cell_id]['annotation'] = 'LABEL'
-                        else:
-                            annotated_output[cell_id]['annotation'] = 'DATA'
-    return annotated_output
-
-# Add this function to make predictions using OpenAI
-
-
 def annotate_cells_ai(output_dict, openai_api_key):
     openai.api_key = openai_api_key
     sheet_annotations = []
-    sheet_number = 0
     iterator = 0
     size = 0
 
@@ -123,8 +78,7 @@ def annotate_cells_ai(output_dict, openai_api_key):
                             continue
                         size += 1
 
-    for sheet in output_dict.values():
-        sheet_number += 1
+    for sheet_name, sheet in output_dict.items():
         annotated_output = {}
         original_csv_data = StringIO()
         writer = csv.writer(
@@ -203,26 +157,25 @@ def annotate_cells_ai(output_dict, openai_api_key):
                     writer.writerow(row_data)
         # Append sheet details to the list
         sheet_annotations.append({
-            "Sheet number": sheet_number,
-            "Rows": row_count,
-            "Original CSV data": original_csv_data.getvalue().strip(),
-            "Annotations": annotated_output
+            sheet_name: annotated_output
         })
     return sheet_annotations
 
 
-# Main execution
-file_path = 'output.json'  # specify the path to your JSON file here
-output_dict = read_json_file(file_path)
+def test_annotator():
+    # Replace this part to use OpenAI
+    # Replace with your OpenAI API key
+    openai_api_key = os.getenv('openai_api_key')
+    # annoted = annotate_cells_manual(output_dict)
+    csv_data = """
+    column1,column2,column3
+    data1,data2,data3
+    data4,data5,data6
+    """
+    chunked_sheet = json.loads(chunk_sheet(csv_data=csv_data))
+    print(chunked_sheet)
+    annotated_output = annotate_cells_ai(chunked_sheet, openai_api_key)
+    print(annotated_output)
+    print("Finished annotating cells.")
 
-# Replace this part to use OpenAI
-# Replace with your OpenAI API key
-openai_api_key = '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'
-# annoted = annotate_cells_manual(output_dict)
-annotated_output = annotate_cells_ai(output_dict, openai_api_key)
-print(annotated_output)
-# Optionally, write the annotated_output to a JSON file
-with open('annotated_output.json', 'w') as f:
-    json.dump(annotated_output, f, indent=4)
-
-print("Finished annotating cells.")
+test_annotator()

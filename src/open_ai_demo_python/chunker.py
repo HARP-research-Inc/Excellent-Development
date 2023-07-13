@@ -4,18 +4,8 @@ from io import StringIO
 from itertools import zip_longest
 from tabulate import tabulate
 
-# Use a generator to yield conversations one at a time
-
-
-def import_conversations_from_json(file_path):
-    with open(file_path, 'r') as file:
-        conversations = json.load(file)
-    for entry in conversations:
-        yield entry['assistant'].strip('```').strip()
 
 # Merge join_with_proper_alignment and concat_with_empty_rows into one
-
-
 def join_or_concat_with_proper_alignment(list1, list2, action='join'):
     if not list1:
         return list2
@@ -34,7 +24,7 @@ def join_or_concat_with_proper_alignment(list1, list2, action='join'):
         return list1 + list2
 
 
-def cut_csv_into_chunks(csv_data, chunk_size, context_size):
+def cut_csv_into_chunks(csv_data, chunk_size , context_size):
     reader = csv.reader(StringIO(csv_data))
     data = list(reader)
     max_row_length = max(len(row) for row in data)
@@ -82,14 +72,14 @@ def cut_csv_into_chunks(csv_data, chunk_size, context_size):
     return chunked_rows
 
 
-def generate_output_json(file_path, chunk_size, context_size):
-    all_sheets = [
+def chunk_sheet(csv_data, chunk_size= 5, context_size = 2, name = "Sheet 1"):
+    all_sheets = {name:
         cut_csv_into_chunks(
-            data,
+            csv_data,
             chunk_size,
-            context_size) for data in import_conversations_from_json(file_path)]
+            context_size)}
     output_dict = {}
-    for sheet_num, sheet in enumerate(all_sheets):
+    for sheet_name, sheet in all_sheets.items():
         sheet_dict = {}
         for row_num, row in enumerate(sheet):
             row_dict = {}
@@ -103,20 +93,16 @@ def generate_output_json(file_path, chunk_size, context_size):
                 }
                 row_dict[f"Chunk {chunk_num+1}"] = chunk_dict
             sheet_dict[f"Row {row_num+1}"] = row_dict
-        output_dict[f"Sheet {sheet_num+1}"] = sheet_dict
+        output_dict[f"Sheet {sheet_name}"] = sheet_dict
     output_json = json.dumps(output_dict, indent=4)
-    with open('output.json', 'w') as file:
-        file.write(output_json)
     return output_json
 
 
-def print_output_json(output_json):
+def print_output_json(output_json, csv_data):
     output_dict = json.loads(output_json)
-    csv_data = list(import_conversations_from_json(
-        'JSONs/generated_conversation.json'))
     for sheet_key, sheet_value in output_dict.items():
         print(f"\n{sheet_key}:\n")
-        csv_data_index = int(sheet_key.split()[-1]) - 1
+        csv_data_index = 0
         print(csv_data[csv_data_index].replace(',', '\t'))
         for row_key, row_value in sheet_value.items():
             print(f"\n{row_key}:")
@@ -136,11 +122,15 @@ def print_output_json(output_json):
 
 
 def test_func():
-    file_path = 'JSONs/generated_conversation.json'
+    csv_data = """
+column1,column2,column3
+data1,data2,data3
+data4,data5,data6
+"""
     chunk_size = 5
     context_size = 2
-    output_json = generate_output_json(file_path, chunk_size, context_size)
-    print_output_json(output_json)
+    output_json = chunk_sheet(csv_data=csv_data, chunk_size=chunk_size, context_size=context_size)
+    print_output_json(output_json, csv_data)
 
 
 test_func()

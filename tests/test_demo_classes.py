@@ -59,7 +59,7 @@ def mock_sheets():
     c2 = gt.cell((1, 2), value="2")
     b1 = gt.block([c1, c2])
     t1 = gt.table(expected_position=(0, 0), data_block=b1)
-    s1 = gt.Sheet("Sheet1", [t1])
+    s1 = gt.sheet("sheet1", [t1])
     return [s1]
 
 @pytest.mark.dependency()
