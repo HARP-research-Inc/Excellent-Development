@@ -181,13 +181,14 @@ class block:
 class table:
     def __init__(self, expected_position=(1,1), free_labels=[],free_data=[],subtables=[],l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data = None, pattern=None):
         assert isinstance(free_labels, list), f"expected a list, got f{free_labels}"
-        self.data_block = data_block  # The main data block of the table
-        self.label_blocks = {"same_height": {"l0": l0, "l1": l1, "r0": r0, "r1": r1}, "same_width": {"t0": t0, "t1": t1, "b0": b0, "b1": b1}}  # The labels of the table
-        self.subtables = subtables  # Any subtables inside the table
-        self.free_blocks = {"lable_blocks":free_labels,"data_blocks":free_data}  # Any additional data or label blocks not classified yet
-        self.get_size()  # Calculate the size of the table
-        self.expected_position = expected_position  # The expected position of the table in the parent table or sheet
+        self.data_block = data_block
+        self.label_blocks = {"same_height": {"l0": l0, "l1": l1, "r0": r0, "r1": r1}, "same_width": {"t0": t0, "t1": t1, "b0": b0, "b1": b1}}
+        self.subtables = subtables
+        self.free_blocks = {"lable_blocks":free_labels,"data_blocks":free_data}
+        self.expected_position = expected_position
         self.pattern = pattern
+        # Get the size of the table after initializing all the attributes
+        self.get_size()
 
     def get_blocks(self):
         self.all_blocks = []
@@ -249,9 +250,9 @@ class table:
             table.get_relative_position(origin = self.expected_position)  # Calculate its relative position
 
     def get_size(self):
-        # Calculate the total size of the table
         print(self.free_blocks)
-        total_size = list(self.data_block.size)  # Make a copy of the size of the data block
+        # If data_block is not None, get its size, otherwise, initialize total_size as [0, 0]
+        total_size = list(self.data_block.size) if self.data_block else [0, 0]
         offsets = [[["same_height", "l0"], [1,0]], [["same_height","l1"], [2,0]], [["same_height","r0"], [1,0]], [["same_height","r1"], [2,0]], [["same_width","t0"], [0,1]], [["same_width","t1"], [0,2]], [["same_width","b0"], [0,1]], [["same_width","b1"], [0,2]]]
         # Above offsets specify how the size of each label block contributes to the total size of the table
 
@@ -341,8 +342,8 @@ class sheet:
         all_cells = []
         for block in self.all_blocks:
             all_cells += block.cells
-        return(build_csv(cells=all_cells))
-    
+        return build_csv(cells=all_cells)
+
     def to_csv(self):
         # Converts the data in the tables to a CSV format
         csv_data = [table.data_block.csv_data for table in self.tables]
@@ -373,9 +374,13 @@ class gen_tree:
         if json_data:
             self.data = json.loads(json_data)
             self.sheets = [sheet(sheet_data["name"], [table(json_data=table_data) for table_data in sheet_data["tables"]]) for sheet_data in self.data]
-        else:
+        elif sheets: 
             self.sheets = sheets or []
             self.data = [sheet.to_json() for sheet in self.sheets]
+        else:
+            raise ValueError("Either sheets or json_data must be provided")
+
+
 
     def cleaned_hierarchy_output(self):
         # Prints the structure of the tree in a more readable format
@@ -413,3 +418,41 @@ class gen_tree:
                 if dimension[0] == 0:  # If the width is prime.
                     prime_width_tables.append(table)
         return prime_width_tables
+
+
+# def mock_sheets():
+#     # A function to generate some mock sheets for testing.
+#     c1 = cell((1, 1), value="1")
+#     c2 = cell((1, 2), value="2")
+#     b1 = block([c1, c2])
+#     t1 = table(expected_position=(0, 0), data_block=b1)
+#     s1 = sheet("sheet1", [t1])
+#     return [s1]
+
+
+# def test_gen_tree_init_with_sheets(mock_sheets):
+#     gen_tree_obj = gen_tree(mock_sheets)
+#     assert gen_tree_obj.sheets == mock_sheets
+#     assert gen_tree_obj.data == [sheet.to_json() for sheet in mock_sheets]
+
+
+
+# def test_gen_tree_init_with_json(mock_sheets):
+#     json_data = [sheet.to_json() for sheet in mock_sheets]
+#     json_str = json.dumps(json_data)
+#     gen_tree_obj = gen_tree(json_data=json_str)
+#     assert gen_tree_obj.data == json_data
+#     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
+#     assert [sheet.to_json() for sheet in gen_tree_obj.sheets] == json_data
+
+# def test_gen_tree_init_with_json(mock_sheets):
+#     json_data = [sheet.to_json() for sheet in mock_sheets]
+#     json_str = json.dumps(json_data)
+#     gen_tree_obj = gen_tree(json_data=json_str)
+#     assert gen_tree_obj.data == json_data
+#     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
+#     assert [json.loads(sheet_str) for sheet_str in gen_tree_obj.data] == json_data
+
+
+# test_gen_tree_init_with_json(mock_sheets())
+# test_gen_tree_init_with_sheets(mock_sheets())
