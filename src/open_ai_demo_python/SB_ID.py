@@ -1,4 +1,4 @@
-from gen_tree import cell, sheet, block
+from gen_tree import cell, sheet, block, gen_tree
 from prompt_interface import prompt_interface
 import os
 import json
@@ -6,7 +6,7 @@ import json
 def sb_id(sheets):
     SB_sheets = {}
     for name, cell_dict in sheets.items():
-        labels =[]
+        labels = []
         data = []
         redo_dict = {}
         redo_dict.update(cell_dict)
@@ -69,5 +69,5 @@ def sb_id(sheets):
             if new_block.annotation_type == "LABEL":
                 SB_sheet.free_labels.append(new_block)
         SB_sheets[name] = SB_sheet
-    print(SB_sheet)
-    return SB_sheets
+    SB_tree = gen_tree(sheets = SB_sheets)
+    return SB_tree

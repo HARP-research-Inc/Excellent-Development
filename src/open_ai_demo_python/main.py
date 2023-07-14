@@ -92,8 +92,13 @@ csv_test_1 = """, "Date", "Time", "Country"
 , "Book Title", "Author"
 "Harper Giorgo", "1984", "George Orwell"
 """
+'''csv_test_1 = """, "Date", "Time", "Country"
+"George Costanza", "10/12/2023","10:15", "USA"
+"Bill Jeofry", "09/01/2002", "14:30", "UK"
+"Harper Giorgo", "11/22/1963", "13:45", "Canada"
+"""'''
 sheets_list = {}
 sheets_list.update(chunk_sheet(csv_test_1, name="Amazon Sheet"))
 
 SB_sheets = sb_id(annotate_cells_ai(sheets_list))
-#print(SB_sheets)
+print(SB_sheets.to_json())

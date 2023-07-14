@@ -35,7 +35,7 @@ def parse_prompt(variables, input_structure, examples):
     # Return all examples and the prompt, separated by two newlines
     return '\n\n'.join(example_list)
 
-def prompt_interface(openai_api_key, variables, input_structure, examples, system_message=None, max_tokens=1000, retry_count=3):
+def prompt_interface(openai_api_key, variables, input_structure, examples, system_message=None, max_tokens=1000, retry_count=4):
     # Configure OpenAI API key
     openai.api_key = openai_api_key
     

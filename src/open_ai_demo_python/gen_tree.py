@@ -60,6 +60,9 @@ class cell:
         # String representation of the cell in the desired format
         return f"[{self.block_type}] '{self.value}'"
 
+    def to_clean_json(self):
+        return f"{self.coord}: [{self.block_type}] '{self.value}'"
+    
     # Function to convert Excel-like coordinates (e.g., 'A1') to numeric coordinates
     def coord_num(self):
         match = re.match(r'([A-Z]+)(\d+)', self.coord_string)
@@ -116,6 +119,29 @@ class block:
     def __str__(self):
         return str(self.to_json())
     
+    def get_border_eps(self):
+        offsets = {
+            'same_height':{
+                "l0": (1,0),
+                "l1": (2,0),
+                "r0": (1,0),
+                "r1": (2,0)
+            }, 
+            "same_width": {
+                "t0": (0,1),
+                "t1": (0,2),
+                "b0": (0,1),
+                "b1": (0,2)
+                }
+            }
+        self.border_eps = {
+            'same_height':{}, 
+            "same_width": {}}
+        for directions, val in offsets.items():
+            for label, coord in val.items():
+                self.border_eps[directions][label] = tuple(x - y for x, y in zip(self.expected_position, coord))
+        return self.border_eps
+
     # Function to serialize the block object into a JSON format
     def to_json(self):
         # Represent cells as a dictionary, where keys are their coordinates
@@ -128,6 +154,13 @@ class block:
         }
         return block_json
 
+    def to_clean_json(self):
+        # Represent Block only as list of cells within
+        block_json = {
+            "cells": [Cell.to_clean_json() for Cell in self.cells],
+        }
+        return block_json
+    
     # Function to find the smallest and largest coordinates of cells in the block, effectively finding the corners
     def get_corners(self):
         max_coord = [float('-inf'), float('-inf')]
@@ -271,6 +304,7 @@ class table:
                 for coord in [0,1]:  # For each dimension
                     total_size[coord] += offset[1][coord]  # Add the contribution of the block to the total size
         self.expected_size = tuple(total_size)  # Set the expected size
+        return self.expected_size
 
     def to_json(self):
         # Converts the table to a JSON format for easy saving and loading
@@ -299,6 +333,30 @@ class table:
 
         return table_json  # Return the JSON object
 
+    def to_clean_json(self):
+        # Converts the table to a JSON format for easy saving and loading
+        data_block_clean_json = self.data_block.to_clean_json() if self.data_block else None  # Convert the data block to JSON if it exists
+
+        label_blocks_clean_json = {
+            outer_key: {inner_key: inner_value if inner_value else None 
+                        for inner_key, inner_value in outer_value.items()} 
+            for outer_key, outer_value in self.label_blocks.items()
+        }  # Convert the label blocks to JSON
+
+        subtables_clean_json = [subtable.to_cean_json() for subtable in self.subtables]  # Convert the subtables to JSON
+
+        print(self.free_blocks)
+        free_label_blocks_clean_json = [block.to_clean_json() for block in self.free_blocks["lable_blocks"]]  # Convert the free label blocks to JSON
+        free_data_blocks_clean_json = [block.to_clean_json() for block in self.free_blocks["data_blocks"]]  # Convert the free data blocks to JSON
+
+        table_clean_json = {
+            "data_block": data_block_clean_json,
+            "label_blocks": label_blocks_clean_json,
+            "subtables": subtables_clean_json,
+            "free_blocks": free_label_blocks_clean_json + free_data_blocks_clean_json
+        }  # Combine all the components into a JSON object
+
+        return table_clean_json  # Return the JSON object
     @classmethod
 
     def from_json(cls, json_data):
@@ -333,11 +391,29 @@ class table:
         return cls(expected_position, free_labels, free_data, subtables, *label_blocks["same_height"].values(), *label_blocks["same_width"].values(), data_block=data_block)  # Returns the recreated table
 
 class sheet:
-    def __init__(self, name, tables=[], free_labels=[],free_data=[]):
+    def __init__(self, name, tables=[], free_labels=[],free_data=[],cells=None,blocks=None):
         self.name = name  # The name of the sheet
+        self.cells = cells
+        self.blocks = blocks
         self.tables = tables  # The tables in the sheet
         self.free_labels = free_labels
         self.free_data = free_data
+        if self.cells:
+            self.blocks = []
+            for Cell in self.cells:
+                if Cell.annotation == 'EMPTY':
+                    continue
+                Block = block(cells=[Cell])
+                self.blocks.append(Block)
+        if self.blocks:
+            for Block in self.blocks:
+                if Block.annotation_type == "LABEL":
+                    self.free_labels.append(Block)
+                if Block.annotation_type == "DATA":
+                    self.free_data.append(Block)
+        else:
+            self.free_labels = free_labels
+            self.free_data = free_data
     
 
     def __str__(self):
@@ -367,14 +443,20 @@ class sheet:
         tables_json = [table.to_json() for table in self.tables]
         free_label_blocks_json = [block.to_json() for block in self.free_labels]
         free_data_blocks_json = [block.to_json() for block in self.free_data]
-        sheet_json = {
-            "name": self.name,
-            "tables": tables_json,
+        sheet_json = {self.name: {"tables": tables_json,
             "free_labels": free_label_blocks_json,
-            "free_data": free_data_blocks_json
-        }
+            "free_data": free_data_blocks_json}}
         return sheet_json
 
+    def to_clean_json(self):
+        # Converts the sheet to a JSON format
+        tables_clean_json = [table.to_clean_json() for table in self.tables]
+        free_label_blocks_clean_json = [block.to_clean_json() for block in self.free_labels]
+        free_data_blocks_clean_json = [block.to_clean_json() for block in self.free_data]
+        sheet_clean_json = {self.name: {"tables": tables_clean_json,
+            "free_blocks": free_label_blocks_clean_json + free_data_blocks_clean_json}}
+        return sheet_clean_json
+    
     def get_unenclosed_tables(self):
         # Returns the tables that are not enclosed by labels from both dimensions
         unenclosed_tables = [table for table in self.tables if not table.is_enclosed()]
@@ -386,18 +468,9 @@ class sheet:
         return prime_tables, [table.is_prime() for table in prime_tables if table.is_prime() is not None]
 
 class gen_tree:
-    def __init__(self, sheets=None, json_data=None):
-        # The tree can be initialized either with a list of sheets or a JSON data of the sheets
-        if json_data:
-            self.data = json.loads(json_data)
-            self.sheets = [sheet(sheet_data["name"], [table(json_data=table_data) for table_data in sheet_data["tables"]]) for sheet_data in self.data]
-        elif sheets: 
-            self.sheets = sheets or []
-            self.data = [sheet.to_json() for sheet in self.sheets]
-        else:
-            raise ValueError("Either sheets or json_data must be provided")
-
-
+    def __init__(self, sheets=None):
+        # The tree can be initialized either with a list of sheets or a dict of sheets
+        self.sheets = sheets if isinstance(sheets, dict) or not sheets else {Sheet.name: Sheet for Sheet in sheets} 
 
     def cleaned_hierarchy_output(self):
         # Prints the structure of the tree in a more readable format
@@ -416,60 +489,34 @@ class gen_tree:
 
     def to_json(self):
         # Converts the tree back to a JSON format
-        self.data = [sheet.to_json() for sheet in self.sheets]
-        return json.dumps(self.data)
+        json_out = {}
+        for Sheet in self.sheets.values():
+            json_out.update(Sheet.to_json())
+        self.data = json_out
+        return self.data
 
+    def to_clean_json(self):
+        # Converts the tree back to a JSON format
+        json_out = {}
+        for Sheet in self.sheets.values():
+            json_out.update(Sheet.to_clean_json())
+        self.clean_data = json_out
+        return self.clean_data
+    
     def get_unenclosed_tables(self):
         # Returns all the unenclosed tables in all the sheets
         unenclosed_tables = []
-        for sheet in self.sheets:
-            unenclosed_tables.extend(sheet.get_unenclosed_tables())
+        for Sheet in self.sheets:
+            unenclosed_tables.extend(Sheet.get_unenclosed_tables())
         return unenclosed_tables
 
     def get_prime_width_tables(self):
         # Returns all the tables in all the sheets that have a prime number of columns
         prime_width_tables = []
-        for sheet in self.sheets:
-            prime_tables, dimensions = sheet.get_prime_tables()
+        for Sheet in self.sheets:
+            prime_tables, dimensions = Sheet.get_prime_tables()
             for table, dimension in zip(prime_tables, dimensions):
                 if dimension[0] == 0:  # If the width is prime.
                     prime_width_tables.append(table)
         return prime_width_tables
 
-
-# def mock_sheets():
-#     # A function to generate some mock sheets for testing.
-#     c1 = cell((1, 1), value="1")
-#     c2 = cell((1, 2), value="2")
-#     b1 = block([c1, c2])
-#     t1 = table(expected_position=(0, 0), data_block=b1)
-#     s1 = sheet("sheet1", [t1])
-#     return [s1]
-
-
-# def test_gen_tree_init_with_sheets(mock_sheets):
-#     gen_tree_obj = gen_tree(mock_sheets)
-#     assert gen_tree_obj.sheets == mock_sheets
-#     assert gen_tree_obj.data == [sheet.to_json() for sheet in mock_sheets]
-
-
-
-# def test_gen_tree_init_with_json(mock_sheets):
-#     json_data = [sheet.to_json() for sheet in mock_sheets]
-#     json_str = json.dumps(json_data)
-#     gen_tree_obj = gen_tree(json_data=json_str)
-#     assert gen_tree_obj.data == json_data
-#     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
-#     assert [sheet.to_json() for sheet in gen_tree_obj.sheets] == json_data
-
-# def test_gen_tree_init_with_json(mock_sheets):
-#     json_data = [sheet.to_json() for sheet in mock_sheets]
-#     json_str = json.dumps(json_data)
-#     gen_tree_obj = gen_tree(json_data=json_str)
-#     assert gen_tree_obj.data == json_data
-#     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
-#     assert [json.loads(sheet_str) for sheet_str in gen_tree_obj.data] == json_data
-
-
-# test_gen_tree_init_with_json(mock_sheets())
-# test_gen_tree_init_with_sheets(mock_sheets())
