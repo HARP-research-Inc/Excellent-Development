@@ -10,7 +10,7 @@ from LB_ID_CB import lb_id_cb
 from Pattern_Splitting import pattern_splitting
 from Recursive_Table_ID import recursive_table_id
 from Template_Extraction import template_extraction
-from Synthetic_Model import Synthetic_Model
+from Synthetic_Model import synthetic_model
 from Multi_DOF_comparison import multi_dof_comparison
 from chunker import chunk_sheet
 from annotator import annotate_cells_ai
@@ -34,10 +34,11 @@ def analyze_file(filename):
 
     sheets_list = {}
     for name, csv in sheets.items():
-        cells = annotate_cells_ai(chunk_sheet(csv))
-        sheets_list[name] = sb_id(cells, name)
+        sheets_list.update(chunk_sheet(csv_data=csv, name=name))
+    
+    SB_sheets = sb_id(annotate_cells_ai(sheets_list), name)
 
-    tree = gen_tree(sheets=sheets_list)
+    tree = gen_tree(sheets=SB_sheets)
     st_id(tree)
     st_id2(tree)
     lb_id_label(tree)
@@ -61,11 +62,11 @@ def main(training_instances=None, format_json=None, instances=None, print_instan
         for file in files:
             trees.append(analyze_file(file))
         generalized_tree = multi_dof_comparison(trees)
-        model = Synthetic_Model(tree=generalized_tree) 
+        model = synthetic_model(tree=generalized_tree) 
         format_json = model.to_json()
         
     if format_json and all_instances:
-        model = Synthetic_Model(format_json=format_json) 
+        model = synthetic_model(format_json=format_json) 
     elif not all_instances:
         raise ValueError("No instances to organize")
     elif not format_json and not training_instances:
@@ -80,4 +81,19 @@ def main(training_instances=None, format_json=None, instances=None, print_instan
         with open('instances.json', 'w') as f:
             json.dump(instance_jsons, f)
 
-main()
+#main()
+
+csv_test_1 = """, "Date", "Time", "Country"
+"George Costanza", "10/12/2023","10:15", "USA"
+"Bill Jeofry", "09/01/2002", "14:30", "UK"
+"Harper Giorgo", "11/22/1963", "13:45", "Canada"
+, "Book Title", "Author"
+"George Costanza", "The Art of War", "Sun Tzu"
+, "Book Title", "Author"
+"Harper Giorgo", "1984", "George Orwell"
+"""
+sheets_list = {}
+sheets_list.update(chunk_sheet(csv_test_1, name="Amazon Sheet"))
+
+SB_sheets = sb_id(annotate_cells_ai(sheets_list))
+#print(SB_sheets)

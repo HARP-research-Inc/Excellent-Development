@@ -72,7 +72,7 @@ def cut_csv_into_chunks(csv_data, chunk_size , context_size):
     return chunked_rows
 
 
-def chunk_sheet(csv_data, chunk_size= 5, context_size = 2, name = "Sheet 1"):
+def chunk_sheet(csv_data, chunk_size= 5, context_size = 2, name= "Sheet 1"):
     all_sheets = {name:
         cut_csv_into_chunks(
             csv_data,
@@ -93,8 +93,8 @@ def chunk_sheet(csv_data, chunk_size= 5, context_size = 2, name = "Sheet 1"):
                 }
                 row_dict[f"Chunk {chunk_num+1}"] = chunk_dict
             sheet_dict[f"Row {row_num+1}"] = row_dict
-        output_dict[f"Sheet {sheet_name}"] = sheet_dict
-    output_json = json.dumps(output_dict, indent=4)
+        output_dict[sheet_name] = sheet_dict
+    output_json = output_dict
     return output_json
 
 
@@ -133,4 +133,4 @@ data4,data5,data6
     print_output_json(output_json, csv_data)
 
 
-test_func()
+#test_func()

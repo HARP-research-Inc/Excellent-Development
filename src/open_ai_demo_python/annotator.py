@@ -2,7 +2,7 @@ import os
 import csv
 from io import StringIO
 import openai
-from src.open_ai_demo_python.chunker import chunk_sheet
+from chunker import chunk_sheet
 import json
 
 labeling_conversation = """{Property Name},Property Type,Price,Square Feet,Bedrooms
@@ -63,9 +63,9 @@ def get_annotated_chunk(chunk, current_cell_id, annotated_output):
     return si.getvalue().strip()
 
 
-def annotate_cells_ai(output_dict, openai_api_key):
-    openai.api_key = openai_api_key
-    sheet_annotations = []
+def annotate_cells_ai(output_dict):
+    openai.api_key = os.getenv('openai_api_key')
+    sheet_annotations = {}
     iterator = 0
     size = 0
 
@@ -156,17 +156,11 @@ def annotate_cells_ai(output_dict, openai_api_key):
                     row_count += 1
                     writer.writerow(row_data)
         # Append sheet details to the list
-        sheet_annotations.append({
-            sheet_name: annotated_output
-        })
+        sheet_annotations[sheet_name]= annotated_output
     return sheet_annotations
 
 
 def test_annotator():
-    # Replace this part to use OpenAI
-    # Replace with your OpenAI API key
-    openai_api_key = os.getenv('openai_api_key')
-    # annoted = annotate_cells_manual(output_dict)
     csv_data = """
     column1,column2,column3
     data1,data2,data3
@@ -174,8 +168,8 @@ def test_annotator():
     """
     chunked_sheet = json.loads(chunk_sheet(csv_data=csv_data))
     print(chunked_sheet)
-    annotated_output = annotate_cells_ai(chunked_sheet, openai_api_key)
+    annotated_output = annotate_cells_ai(chunked_sheet)
     print(annotated_output)
     print("Finished annotating cells.")
 
-test_annotator()
+#test_annotator()
