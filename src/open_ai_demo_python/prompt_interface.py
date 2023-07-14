@@ -85,6 +85,9 @@ def prompt_interface(openai_api_key, variables, input_structure, examples, syste
             else:
                 print(f"Retrying... {retry_count} attempts remaining")
 
+def prompt_interface_gpt_3_5():
+    #same as above, just with gpt-3.5 instead of davinci, needs different syntax. Test with prompt_interface test file
+    pass
 
 # Usage
 openai_api_key = os.getenv('openai_api_key')
