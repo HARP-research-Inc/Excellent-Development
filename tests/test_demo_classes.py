@@ -231,7 +231,7 @@ def test_gen_tree_init_with_json(mock_sheets):
     gen_tree_obj = gen_tree(json_data=json_str)
     assert gen_tree_obj.data == json_data
     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
-    assert [json.loads(sheet_str) for sheet_str in gen_tree_obj.data] == json_data
+    assert [json.loads(json.dumps(sheet_dict)) for sheet_dict in gen_tree_obj.data] == json_data
 
 @pytest.mark.dependency(depends=["test_gen_tree_init_with_json"])
 def test_gen_tree_get_unenclosed_tables(mock_sheets):
