@@ -124,14 +124,14 @@ class block:
             'same_height':{
                 "l0": (1,0),
                 "l1": (2,0),
-                "r0": (1,0),
-                "r1": (2,0)
+                #"r0": (1,0), temp until demo
+                #"r1": (2,0)
             }, 
             "same_width": {
                 "t0": (0,1),
                 "t1": (0,2),
-                "b0": (0,1),
-                "b1": (0,2)
+                #"b0": (0,1),
+                #"b1": (0,2)
                 }
             }
         self.border_eps = {
@@ -337,11 +337,11 @@ class table:
         # Converts the table to a JSON format for easy saving and loading
         data_block_clean_json = self.data_block.to_clean_json() if self.data_block else None  # Convert the data block to JSON if it exists
 
-        label_blocks_clean_json = {
-            outer_key: {inner_key: inner_value if inner_value else None 
-                        for inner_key, inner_value in outer_value.items()} 
-            for outer_key, outer_value in self.label_blocks.items()
-        }  # Convert the label blocks to JSON
+        label_blocks_clean_json = {}
+        for dim in ['same_height','same_width']:
+            for Block in self.label_blocks[dim].values():
+                if Block:
+                    label_blocks_clean_json[Block.expected_position] = Block.to_clean_json()
 
         subtables_clean_json = [subtable.to_cean_json() for subtable in self.subtables]  # Convert the subtables to JSON
 
@@ -471,21 +471,6 @@ class gen_tree:
     def __init__(self, sheets=None):
         # The tree can be initialized either with a list of sheets or a dict of sheets
         self.sheets = sheets if isinstance(sheets, dict) or not sheets else {Sheet.name: Sheet for Sheet in sheets} 
-
-    def cleaned_hierarchy_output(self):
-        # Prints the structure of the tree in a more readable format
-        for sheet in self.sheets:
-            print(f"sheet: {sheet.name}")
-            for table in sheet.tables:
-                print(f"  Table at {table.expected_position} with size {table.expected_size}")
-                if table.data_block:
-                    print(f"    Data block at {table.data_block.expected_position} with size {table.data_block.size}")
-                for label_blocks in table.label_blocks.values():
-                    for label_block in label_blocks.values():
-                        if label_block:
-                            print(f"    Label block at {label_block.expected_position} with size {label_block.size}")
-                for subtable in table.subtables:
-                    print(f"    Subtable at {subtable.expected_position} with size {subtable.expected_size}")
 
     def to_json(self):
         # Converts the tree back to a JSON format
