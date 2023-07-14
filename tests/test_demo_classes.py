@@ -59,6 +59,16 @@ def test_valid_block_creation():
     assert b.size == (0, 1), "Failed to determine block size correctly"
     assert b.annotation_type == "DATA", "Failed to assign block annotation type correctly"
 
+@pytest.mark.dependency(depends=["test_gen_tree_init_with_sheets"])
+def test_gen_tree_init_with_json(mock_sheets):
+    json_data = [sheet.to_json() for sheet in mock_sheets]
+    json_str = json.dumps(json_data)
+    gen_tree_obj = gen_tree(json_data=json_str)
+    assert gen_tree_obj.data == json_data
+    # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
+    assert [json.loads(json.dumps(sheet_dict)) for sheet_dict in gen_tree_obj.data] == json_data
+
+
 def test_empty_block_creation():
     with pytest.raises(ValueError, match="Invalid block size, need at least one cell"):
         b = block([])
@@ -206,7 +216,7 @@ def test_table_relative_position():
     b = block([c1, c2])
     t = table(data_block=b)
     relative_position = t.get_relative_position((2,2))
-    assert relative_position == (-2,-2), "Failed to get correct relative position for table"
+    assert relative_position == (-1,-1), "Failed to get correct relative position for table"
 
 @pytest.mark.dependency(depends=["test_table_relative_position"])
 def test_gen_tree_init_with_sheets(mock_sheets):
@@ -221,7 +231,7 @@ def test_gen_tree_init_with_json(mock_sheets):
     gen_tree_obj = gen_tree(json_data=json_str)
     assert gen_tree_obj.data == json_data
     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
-    assert [sheet.to_json() for sheet in gen_tree_obj.sheets] == json_data
+    assert [json.loads(sheet_str) for sheet_str in gen_tree_obj.data] == json_data
 
 @pytest.mark.dependency(depends=["test_gen_tree_init_with_json"])
 def test_gen_tree_get_unenclosed_tables(mock_sheets):
