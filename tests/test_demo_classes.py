@@ -56,7 +56,7 @@ def test_valid_block_creation():
     b = block([c1, c2])
     assert b.cells == [c1, c2], "Failed to create block with cells"
     assert b.corners == ((1,1), (1,2)), "Failed to determine block corners correctly"
-    assert b.size == (0, 1), "Failed to determine block size correctly"
+    assert b.size == (1, 2), "Failed to determine block size correctly"
     assert b.annotation_type == "DATA", "Failed to assign block annotation type correctly"
 
 @pytest.mark.dependency(depends=["test_gen_tree_init_with_sheets"])
@@ -124,7 +124,7 @@ def test_valid_block_to_json():
             "(1, 1)": {"value": "test", "annotation": "DATA"},
             "(1, 2)": {"value": "test2", "annotation": "DATA"}
         },
-        "size": "(0, 1)",
+        "size": "(1, 2)",
     }
     assert json_data == expected_json, "Failed to convert block to JSON correctly"
 
@@ -143,7 +143,7 @@ def test_valid_table_to_json():
                 "(1, 1)": {"value": "test", "annotation": "DATA"},
                 "(1, 2)": {"value": "test2", "annotation": "DATA"}
             },
-            "size": "(0, 1)"
+            "size": "(1, 2)"
         },
         "label_blocks": {
             "same_height": {"l0": None, "l1": None, "r0": None, "r1": None},
@@ -151,7 +151,7 @@ def test_valid_table_to_json():
         },
         "subtables": [],
         "free_blocks": {"LABEL": [], "DATA": []},
-        "size": "(0, 1)",
+        "size": "(1, 2)",
         "start": "(1, 1)",
     }
     assert json_data == expected_json, "Failed to convert table to JSON correctly"
@@ -209,7 +209,7 @@ def test_table_from_json():
     assert original_table.expected_size == final_table.expected_size, f"Failed to correctly convert table expected size from JSON, expected {original_table.to_json()} but got {final_table.to_json()}"
     assert original_table.expected_position == final_table.expected_position, "Failed to correctly convert table expected position from JSON"
 
-@pytest.mark.dependency(depends=["test_table_from_json"])
+#@pytest.mark.dependency(depends=["test_table_from_json"])
 def test_table_relative_position():
     c1 = cell((1, 1), value="test", annotation="DATA")
     c2 = cell((1, 2), value="test2", annotation="DATA")
@@ -218,13 +218,13 @@ def test_table_relative_position():
     relative_position = t.get_relative_position((2,2))
     assert relative_position == (-1,-1), "Failed to get correct relative position for table"
 
-@pytest.mark.dependency(depends=["test_table_relative_position"])
+#@pytest.mark.dependency(depends=["test_table_relative_position"])
 def test_gen_tree_init_with_sheets(mock_sheets):
     gen_tree_obj = gen_tree(mock_sheets)
     assert gen_tree_obj.sheets == mock_sheets
     assert gen_tree_obj.data == [sheet.to_json() for sheet in mock_sheets]
 
-@pytest.mark.dependency(depends=["test_gen_tree_init_with_sheets"])
+#@pytest.mark.dependency(depends=["test_gen_tree_init_with_sheets"])
 def test_gen_tree_init_with_json(mock_sheets):
     json_data = [sheet.to_json() for sheet in mock_sheets]
     json_str = json.dumps(json_data)
