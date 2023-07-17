@@ -68,6 +68,7 @@ def prompt_interface(openai_api_key, variables, input_structure, examples, syste
                     # Check for start tag without corresponding end tag
                     if f"<{tag}>" in assistant_reply:
                         max_tokens += 1000
+                        print(f"Prompt:\n\n{prompt}\n\nReply:\n\n{assistant_reply}")
                         raise ValueError(f"Detected start tag without corresponding end tag for {tag}, increasing max tokens to {max_tokens}")
                     else:
                         raise ValueError(f"Output is missing tag {tag}, \n\nPrompt:\n\n{prompt}\n\nReply:\n\n{assistant_reply}")

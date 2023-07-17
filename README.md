@@ -79,6 +79,9 @@ Potential future improvements on this library include:
 - Add a hybrid naming AI which uses context to selectively name the data structures for ease of access
 - Training a second hybrid Compatibility Model, which be activated if a spreadsheet format doesnt mach the expected format to try and map the new data to the orginal format. If it isn't readily possible, it will return an error.
 - Adding a database format option which can create a vector database of data formats previously added to attempt to improve the compatibility model
+- Optional Natural Language Interface 
+    + explain structure
+    + make inferences on patterns in data
 
 
 © Copyright 2023 by HARP research group, a subsidiary of Tradezone Development, Inc.

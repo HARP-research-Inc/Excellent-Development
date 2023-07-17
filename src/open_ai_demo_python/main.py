@@ -17,7 +17,7 @@ from annotator import annotate_cells_ai
 import pandas as pd
 
 
-def analyze_file(filename):
+def analyze_file(filename = None):
     # Determine file type
     file_type = filename.split('.')[-1]
 
@@ -40,14 +40,14 @@ def analyze_file(filename):
 
     tree = gen_tree(sheets=SB_sheets)
     st_id(tree)
-    st_id2(tree)
-    lb_id_label(tree)
-    lb_id_ab(tree)
-    lb_id_bb(tree)
-    lb_id_cb(tree)
-    pattern_splitting(tree)
-    recursive_table_id(tree)
-    template_extraction(tree)
+    #st_id2(tree)
+    #lb_id_label(tree)
+    #lb_id_ab(tree)
+    #lb_id_bb(tree)
+    #lb_id_cb(tree)
+    #pattern_splitting(tree)
+    #recursive_table_id(tree)
+    #template_extraction(tree)
 
     return tree
 
@@ -101,4 +101,4 @@ sheets_list = {}
 sheets_list.update(chunk_sheet(csv_test_1, name="Amazon Sheet"))
 
 SB_sheets = sb_id(annotate_cells_ai(sheets_list))
-print(SB_sheets.to_json())
+print(SB_sheets)

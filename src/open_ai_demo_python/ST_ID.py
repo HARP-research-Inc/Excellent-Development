@@ -1,4 +1,4 @@
-from gen_tree import sheet, gen_tree, table, cell, block
+from gen_tree import sheet, gen_tree, table, cell, block #debug_print
 
 def st_id(tree: gen_tree):
     # Create a dictionary to store sheet information
@@ -18,7 +18,7 @@ def st_id(tree: gen_tree):
         # Create a hashmap mapping label coordinate tuples to free label blocks
         for label_block in Sheet.free_labels:
             leftover_labels[label_block.expected_position] = label_block
-
+        #debug_print(f"Leftover Labels: \n"+str({coord for coord in leftover_labels.keys()}))
         # Initialize a nested dictionary for storing position data
         pos_dict = {
             'same_height':{"l0": {}, "l1": {}, "r0": {}, "r1": {}}, 
@@ -29,7 +29,7 @@ def st_id(tree: gen_tree):
         for data_block in Sheet.free_data:
             # Get the border coordinates for each data block
             label_eps = data_block.get_border_eps()
-
+            #debug_print(f"Leftover Label Coords: \n"+str([coord for coord in leftover_labels.keys()]))
             # Create a hashmap mapping data coordinate tuples to data blocks
             data_coords[data_block.expected_position] = data_block
 
@@ -37,31 +37,39 @@ def st_id(tree: gen_tree):
             # If match is found, add the coordinate to the pos_dict 
             for dim in label_eps.keys():
                 for ep, coord in label_eps[dim].items():
+                    #print(f"Label ep: {ep}, coord: {coord}")
                     if coord in leftover_labels.keys():
+                        #debug_print("Label Match")
                         pos_dict[dim][ep][data_block.expected_position] = leftover_labels[coord]
+                        #debug_print(f"{ep}: {[{data: label.expected_position} for data, label in pos_dict[dim][ep].items()]}")
+        ##debug_print(f"pos_dict: \n"+str(pos_dict))
 
         # Iterate over possible positions
         for pos in (('same_height',"l0"), ('same_height',"l1"), ('same_width','t0'), ('same_width','t1'),
                     ('same_height',"r0"), ('same_height',"r1"), ('same_width','b0'), ('same_width','b1')):
             # Iterate over items in pos_dict corresponding to current position
-            for data_coord, label_coord in pos_dict[pos[0]][pos[1]].items():
-                if label_coord.expected_position in leftover_labels.keys():
+            for data_coord, label in pos_dict[pos[0]][pos[1]].items():
+                if label.expected_position in leftover_labels.keys():
+                    #debug_print(f"{label.expected_position} found unused")
 
                     # Create a new table if it doesn't already exist in the table dictionary
                     if not (data_coord in table_dict.keys()):
                         table_dict[data_coord] = table(data_block=data_coords[data_coord])
+                        #debug_print(f"Created new table for data at {data_coord}")
 
                     # Set the attribute of the table according to the current position
-                    setattr(table_dict[data_coord], pos[1], leftover_labels[label_coord.expected_position])
+                    #debug_print(f"Current position: {pos[1]}")
+                    #debug_print(f"Current position: {pos[1]} with value {getattr(table_dict[data_coord], 'label_blocks')[pos[0]][pos[1]]}")
+                    table_dict[data_coord].label_blocks[pos[0]][pos[1]] = leftover_labels[label.expected_position]
+                    #debug_print(f"Current position: {pos[1]} with value {getattr(table_dict[data_coord], 'label_blocks')[pos[0]][pos[1]]}")
                     # Remove used labels from leftover_labels
-                    leftover_labels.pop(label_coord.expected_position)
+                    leftover_labels.pop(label.expected_position)
 
         # Add processed sheet to sheet_dict
         sheet_dict[Sheet.name] = sheet(name=Sheet.name, tables=table_dict.values())
 
     # Return a new gen_tree object with processed sheets
     return gen_tree(sheets=sheet_dict)
-
 
 def testfunc():
     # Prepare input data
@@ -85,6 +93,4 @@ def testfunc():
 
     # Call the function with the prepared input
     print(st_id(input_tree).to_clean_json())
-    print(list(list(st_id(input_tree).sheets.values())[0].tables.values())[0].to_csv())
-
-testfunc()
+    print(list(list(st_id(input_tree).sheets.values())[0].tables)[0].get_csv())
