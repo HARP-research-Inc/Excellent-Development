@@ -84,12 +84,10 @@ class synthetic_model:
             for name, Sheet in self.tree.sheets.items():
                 if name in notebook.keys():
                     Sheet.populate(notebook[name])
-        
+
         self.instances.append(self.tree.to_clean_json())
-        
+
         return self.instances[-1]
-
-
 
 def initialize_and_populate_gen_tree():
     # Define cell data for label and data blocks

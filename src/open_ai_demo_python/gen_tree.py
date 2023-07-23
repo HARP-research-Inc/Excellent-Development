@@ -43,7 +43,7 @@ class cell:
         self.value = value
         self.annotation = annotation
         # Define block type based on annotation
-        if self.annotation == "FOMRULA":
+        if self.annotation == "FORMULA":
             self.block_type = "DATA"
         else:
             self.block_type = self.annotation
