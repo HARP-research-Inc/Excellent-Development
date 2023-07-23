@@ -9,6 +9,7 @@ from Multi_DOF_comparison import multi_dof_comparison
 #the top level object which can manipulate and compare spreadsheets
 class synthetic_model:
     def __init__(self, format_json = None, gen_tree = None, training_workbook = None, training_files = None, raw_instances = [], instances = []): #workbook is a dict of names and csv data
+        #raw instances = unprocessed
         self.raw_instances = [raw_instances] if not isinstance(instances, list) else instances
         self.instances = [instances] if not isinstance(instances, list) else instances
         #if an existing data format is passed in
