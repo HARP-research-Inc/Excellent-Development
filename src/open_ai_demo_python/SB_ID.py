@@ -9,7 +9,7 @@ data_examples = [
             {
                 "user": {"csv": """' ', [DATA] 'A'\n' ', [DATA] 'B'\n' ', [DATA] 'C'"""}, 
                 "assistant": {"json": """[{"start": "(1, 2)","end": "(1, 2)","cells": {"(2, 1)": {"value": "A", "annotation": "DATA"}, "(2, 2)": {"value": "B", "annotation": "DATA"},"(2, 3)": {"value": "C", "annotation": "DATA"}, "size": "(1, 1)"}}]"""}
-            },
+            }]
 #input: 
 """
 ' ', ' ', ' '
