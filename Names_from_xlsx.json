@@ -1,0 +1,146 @@
+{
+    "null": {
+        "Profit & Loss - Summary Consolidated": null,
+        "null": null
+    },
+    "Fiscal year 2019": {
+        "Profit & Loss - Summary Consolidated": "Fiscal year 2019",
+        "null": null
+    },
+    "Revenue": {
+        "Profit & Loss - Summary Consolidated": "Revenue",
+        "null": "=SUM(C47:N47)-P47"
+    },
+    "COGS": {
+        "Profit & Loss - Summary Consolidated": "COGS",
+        "null": "=SUM(C184:N184)-P184"
+    },
+    "Operating Expenses": {
+        "Profit & Loss - Summary Consolidated": "Operating Expenses",
+        "null": null
+    },
+    "General and Administrative": {
+        "Profit & Loss - Summary Consolidated": "General and Administrative",
+        "null": null
+    },
+    "    General and Administrative": {
+        "Profit & Loss - Summary Consolidated": "    General and Administrative",
+        "null": "=SUM(C258:N258)-P258"
+    },
+    "Selling": {
+        "Profit & Loss - Summary Consolidated": "Selling",
+        "null": null
+    },
+    "    Selling": {
+        "Profit & Loss - Summary Consolidated": "    Selling",
+        "null": "=SUM(C339:N339)-P339"
+    },
+    "Operations": {
+        "Profit & Loss - Summary Consolidated": "Operations",
+        "null": null
+    },
+    "    Operations": {
+        "Profit & Loss - Summary Consolidated": "    Operations",
+        "null": "=SUM(C456:N456)-P456"
+    },
+    "Total Operating Expenses": {
+        "Profit & Loss - Summary Consolidated": "Total Operating Expenses",
+        "null": "=SUM(C458:N458)-P458"
+    },
+    "Operating Income": {
+        "Profit & Loss - Summary Consolidated": "Operating Income",
+        "null": "=SUM(C460:N460)-P460"
+    },
+    "Incentive Compensation": {
+        "Profit & Loss - Summary Consolidated": "Incentive Compensation",
+        "null": "=SUM(C464:N464)-P464"
+    },
+    "Overhead Allocation": {
+        "Profit & Loss - Summary Consolidated": "Overhead Allocation",
+        "null": "=SUM(C469:N469)-P469"
+    },
+    "EBITDA (adjusted)": {
+        "Profit & Loss - Summary Consolidated": "EBITDA (adjusted)",
+        "null": "=SUM(C471:N471)-P471"
+    },
+    "Board/Management Fees": {
+        "Profit & Loss - Summary Consolidated": "Board/Management Fees",
+        "null": "=SUM(C473:N473)-P473"
+    },
+    "Guaranty Fees": {
+        "Profit & Loss - Summary Consolidated": "Guaranty Fees",
+        "null": "=SUM(C474:N474)-P474"
+    },
+    "Key Man Life Insurance": {
+        "Profit & Loss - Summary Consolidated": "Key Man Life Insurance",
+        "null": "=SUM(C475:N475)-P475"
+    },
+    "Transaction Costs": {
+        "Profit & Loss - Summary Consolidated": "Transaction Costs",
+        "null": "=SUM(C476:N476)-P476"
+    },
+    "Research & Development": {
+        "Profit & Loss - Summary Consolidated": "Research & Development",
+        "null": "=SUM(C477:N477)-P477"
+    },
+    "Non-Recurring Expense": {
+        "Profit & Loss - Summary Consolidated": "Non-Recurring Expense",
+        "null": "=SUM(C478:N478)-P478"
+    },
+    "(Gains)/Losses": {
+        "Profit & Loss - Summary Consolidated": "(Gains)/Losses",
+        "null": "=SUM(C479:N479)-P479"
+    },
+    "EBITDA (Unadjusted) as GAAP Reported": {
+        "Profit & Loss - Summary Consolidated": "EBITDA (Unadjusted) as GAAP Reported",
+        "null": "=SUM(C480:N480)-P480"
+    },
+    "Depreciation and Amortization": {
+        "Profit & Loss - Summary Consolidated": "Depreciation and Amortization",
+        "null": "=SUM(C491:N491)-P491"
+    },
+    "Deprec - Furniture & Fixtures": {
+        "Profit & Loss - Summary Consolidated": "Deprec - Furniture & Fixtures",
+        "null": null
+    },
+    "Deprec - Leasehold Imps": {
+        "Profit & Loss - Summary Consolidated": "Deprec - Leasehold Imps",
+        "null": null
+    },
+    "Deprec - Office/Computer Equip": {
+        "Profit & Loss - Summary Consolidated": "Deprec - Office/Computer Equip",
+        "null": null
+    },
+    "Deprec - Vehicles": {
+        "Profit & Loss - Summary Consolidated": "Deprec - Vehicles",
+        "null": null
+    },
+    "Deprec - Repair Shop Equip": {
+        "Profit & Loss - Summary Consolidated": "Deprec - Repair Shop Equip",
+        "null": null
+    },
+    "Deprec - Software": {
+        "Profit & Loss - Summary Consolidated": "Deprec - Software",
+        "null": null
+    },
+    "Deprec - Facility": {
+        "Profit & Loss - Summary Consolidated": "Deprec - Facility",
+        "null": null
+    },
+    "Amort Exp - Intangibles": {
+        "Profit & Loss - Summary Consolidated": "Amort Exp - Intangibles",
+        "null": null
+    },
+    "Interest": {
+        "Profit & Loss - Summary Consolidated": "Interest",
+        "null": "=SUM(C511:N511)-P511"
+    },
+    "Tax": {
+        "Profit & Loss - Summary Consolidated": "Tax",
+        "null": "=SUM(C513:N513)-P513"
+    },
+    "    Net Income": {
+        "Profit & Loss - Summary Consolidated": "    Net Income",
+        "null": "=P515-'[1]Consolidated Balance Sheet'!E236"
+    }
+}
