@@ -55,16 +55,16 @@ data_examples = [
     ]
 """
 
-        labels_examples = [
-            {
-                "user": {"csv": """[LABEL] '1', ' '\n[LABEL] '2', ' '\n' ', ' '"""}, 
-                "assistant": {"json": """[{"start": "(1, 1)","end": "(1, 2)","cells": {"(1, 1)": {"value": "1", "annotation": "LABEL"},"(1, 2)": {"value": "2","annotation": "LABEL"}},"size": "(1, 2)"},]"""}
-            },
-            {
-                "user": {"csv": """[LABEL] 'Property Name', [LABEL] 'Property Type', [LABEL] 'Date Acquired'\n' ', ' ', ' '\n' ', ' ', ' '"""}, 
-                "assistant": {"json": """[{"start": "(1, 1)","end": "(1, 3)","cells": {"(1, 1)": {"value": "Property Name","annotation": "LABEL"},"(1, 2)": {"value": "Property Type","annotation": "LABEL"},"(1, 3)": {"value": "Date Acquired","annotation": "LABEL"}},"size": "(1, 3)"}]"""}
-            }
-        ]
+labels_examples = [
+    {
+        "user": {"csv": """[LABEL] '1', ' '\n[LABEL] '2', ' '\n' ', ' '"""}, 
+        "assistant": {"json": """[{"start": "(1, 1)","end": "(1, 2)","cells": {"(1, 1)": {"value": "1", "annotation": "LABEL"},"(1, 2)": {"value": "2","annotation": "LABEL"}},"size": "(1, 2)"},]"""}
+    },
+    {
+        "user": {"csv": """[LABEL] 'Property Name', [LABEL] 'Property Type', [LABEL] 'Date Acquired'\n' ', ' ', ' '\n' ', ' ', ' '"""}, 
+        "assistant": {"json": """[{"start": "(1, 1)","end": "(1, 3)","cells": {"(1, 1)": {"value": "Property Name","annotation": "LABEL"},"(1, 2)": {"value": "Property Type","annotation": "LABEL"},"(1, 3)": {"value": "Date Acquired","annotation": "LABEL"}},"size": "(1, 3)"}]"""}
+    }
+]
 def sb_id(sheets):
     # SB_sheets will store the processed sheets
     SB_sheets = {}
