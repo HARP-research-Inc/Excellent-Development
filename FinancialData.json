@@ -1,0 +1,2280 @@
+{
+    "Revenue": {
+        "Jan": {
+            "value": 33365333.689999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 190364188.22000003,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 325882000.43,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 54024418.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 376080873.8,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 146072834.7,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 221376614.54999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 211125852.29999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 422334122.28000003,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C47:N47)",
+            "has_formula": true,
+            "formula": "=SUM(C47:N47)"
+        }
+    },
+    "COGS": {
+        "Jan": {
+            "value": 25162494.450000003,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 136288636.53000003,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 211209461.53999996,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 30754216.200000003,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 145091507.51999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 49116866.400000006,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 86000979.2,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 78749738.52,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 195127090.07999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C184:N184)",
+            "has_formula": true,
+            "formula": "=SUM(C184:N184)"
+        }
+    },
+    "Operating Expenses": {
+        "Jan": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        }
+    },
+    "General and Administrative": {
+        "Jan": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        }
+    },
+    "    General and Administrative": {
+        "Jan": {
+            "value": 28978255.68,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 41025843.16,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 32329568.03999999,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 13160158.079999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 10828570.319999997,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 42344187.99999999,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 15894943.959999995,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 42364950.24000001,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 20018986.240000002,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C258:N258)",
+            "has_formula": true,
+            "formula": "=SUM(C258:N258)"
+        }
+    },
+    "Selling": {
+        "Jan": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        }
+    },
+    "    Selling": {
+        "Jan": {
+            "value": 32865172.800000004,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 5112345.4,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 14987893.620000001,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 15212894,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 30350099.180000007,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 23006340.82,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 13679937.180000002,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 24329212.720000003,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 27779138.310000002,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C339:N339)",
+            "has_formula": true,
+            "formula": "=SUM(C339:N339)"
+        }
+    },
+    "Operations": {
+        "Jan": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        }
+    },
+    "    Operations": {
+        "Jan": {
+            "value": 4598190.77,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 18820469.549999997,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 6253278.2,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 18442215.27,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 3742395.45,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 15911242.77,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 10258222.760000002,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 15388271.600000001,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 16531370.6,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C456:N456)",
+            "has_formula": true,
+            "formula": "=SUM(C456:N456)"
+        }
+    },
+    "Total Operating Expenses": {
+        "Jan": {
+            "value": "=SUM(C258,C339,C456)",
+            "has_formula": true,
+            "formula": "=SUM(C258,C339,C456)"
+        },
+        "Feb": {
+            "value": "=SUM(D258,D339,D456)",
+            "has_formula": true,
+            "formula": "=SUM(D258,D339,D456)"
+        },
+        "Mar": {
+            "value": "=SUM(E258,E339,E456)",
+            "has_formula": true,
+            "formula": "=SUM(E258,E339,E456)"
+        },
+        "Apr": {
+            "value": "=SUM(F258,F339,F456)",
+            "has_formula": true,
+            "formula": "=SUM(F258,F339,F456)"
+        },
+        "May": {
+            "value": "=SUM(G258,G339,G456)",
+            "has_formula": true,
+            "formula": "=SUM(G258,G339,G456)"
+        },
+        "Jun": {
+            "value": "=SUM(H258,H339,H456)",
+            "has_formula": true,
+            "formula": "=SUM(H258,H339,H456)"
+        },
+        "Jul": {
+            "value": "=SUM(I258,I339,I456)",
+            "has_formula": true,
+            "formula": "=SUM(I258,I339,I456)"
+        },
+        "Aug": {
+            "value": "=SUM(J258,J339,J456)",
+            "has_formula": true,
+            "formula": "=SUM(J258,J339,J456)"
+        },
+        "Sep": {
+            "value": "=SUM(K258,K339,K456)",
+            "has_formula": true,
+            "formula": "=SUM(K258,K339,K456)"
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(P258,P339,P456)",
+            "has_formula": true,
+            "formula": "=SUM(P258,P339,P456)"
+        }
+    },
+    "Operating Income": {
+        "Jan": {
+            "value": "=C47-C184-C458",
+            "has_formula": true,
+            "formula": "=C47-C184-C458"
+        },
+        "Feb": {
+            "value": "=D47-D184-D458",
+            "has_formula": true,
+            "formula": "=D47-D184-D458"
+        },
+        "Mar": {
+            "value": "=E47-E184-E458",
+            "has_formula": true,
+            "formula": "=E47-E184-E458"
+        },
+        "Apr": {
+            "value": "=F47-F184-F458",
+            "has_formula": true,
+            "formula": "=F47-F184-F458"
+        },
+        "May": {
+            "value": "=G47-G184-G458",
+            "has_formula": true,
+            "formula": "=G47-G184-G458"
+        },
+        "Jun": {
+            "value": "=H47-H184-H458",
+            "has_formula": true,
+            "formula": "=H47-H184-H458"
+        },
+        "Jul": {
+            "value": "=I47-I184-I458",
+            "has_formula": true,
+            "formula": "=I47-I184-I458"
+        },
+        "Aug": {
+            "value": "=J47-J184-J458",
+            "has_formula": true,
+            "formula": "=J47-J184-J458"
+        },
+        "Sep": {
+            "value": "=K47-K184-K458",
+            "has_formula": true,
+            "formula": "=K47-K184-K458"
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=P47-P184-P458",
+            "has_formula": true,
+            "formula": "=P47-P184-P458"
+        }
+    },
+    "Incentive Compensation": {
+        "Jan": {
+            "value": 435500,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 1123153.28,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 10375000,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 990000,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 3465000,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 2414250,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 4230000,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 7505000,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 2610000,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C464:N464)",
+            "has_formula": true,
+            "formula": "=SUM(C464:N464)"
+        }
+    },
+    "Overhead Allocation": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": -8247807.88,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 1068437.159999989,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": -11159754.239999995,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C469:N469)",
+            "has_formula": true,
+            "formula": "=SUM(C469:N469)"
+        }
+    },
+    "EBITDA (adjusted)": {
+        "Jan": {
+            "value": "=C460-C464-C469",
+            "has_formula": true,
+            "formula": "=C460-C464-C469"
+        },
+        "Feb": {
+            "value": "=D460-D464-D469",
+            "has_formula": true,
+            "formula": "=D460-D464-D469"
+        },
+        "Mar": {
+            "value": "=E460-E464-E469",
+            "has_formula": true,
+            "formula": "=E460-E464-E469"
+        },
+        "Apr": {
+            "value": "=F460-F464-F469",
+            "has_formula": true,
+            "formula": "=F460-F464-F469"
+        },
+        "May": {
+            "value": "=G460-G464-G469",
+            "has_formula": true,
+            "formula": "=G460-G464-G469"
+        },
+        "Jun": {
+            "value": "=H460-H464-H469",
+            "has_formula": true,
+            "formula": "=H460-H464-H469"
+        },
+        "Jul": {
+            "value": "=I460-I464-I469",
+            "has_formula": true,
+            "formula": "=I460-I464-I469"
+        },
+        "Aug": {
+            "value": "=J460-J464-J469",
+            "has_formula": true,
+            "formula": "=J460-J464-J469"
+        },
+        "Sep": {
+            "value": "=K460-K464-K469",
+            "has_formula": true,
+            "formula": "=K460-K464-K469"
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=P460-P464-P469",
+            "has_formula": true,
+            "formula": "=P460-P464-P469"
+        }
+    },
+    "Board/Management Fees": {
+        "Jan": {
+            "value": 1397916.8699999999,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 1054166.8199999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 618749.82,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 1352083.5299999998,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 2016666.96,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 2838360.54,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 831249.93,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 593749.9500000001,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 4182291.85,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C473:N473)",
+            "has_formula": true,
+            "formula": "=SUM(C473:N473)"
+        }
+    },
+    "Guaranty Fees": {
+        "Jan": {
+            "value": 2506019,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 1893969,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 1526583,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": -734825,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C474:N474)",
+            "has_formula": true,
+            "formula": "=SUM(C474:N474)"
+        }
+    },
+    "Key Man Life Insurance": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 1068711.8,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C475:N475)",
+            "has_formula": true,
+            "formula": "=SUM(C475:N475)"
+        }
+    },
+    "Transaction Costs": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 915000,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 470639878.1,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 177142,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 537200,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 4631661,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C476:N476)",
+            "has_formula": true,
+            "formula": "=SUM(C476:N476)"
+        }
+    },
+    "Research & Development": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C477:N477)",
+            "has_formula": true,
+            "formula": "=SUM(C477:N477)"
+        }
+    },
+    "Non-Recurring Expense": {
+        "Jan": {
+            "value": 376114.80000000005,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 857747.7999999999,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 219958.05,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 14233.920000000013,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 38994856.94000002,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 1101954,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 4912500,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 1294173.18,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C478:N478)",
+            "has_formula": true,
+            "formula": "=SUM(C478:N478)"
+        }
+    },
+    "(Gains)/Losses": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": -65000,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C479:N479)",
+            "has_formula": true,
+            "formula": "=SUM(C479:N479)"
+        }
+    },
+    "EBITDA (Unadjusted) as GAAP Reported": {
+        "Jan": {
+            "value": "=C471-SUM(C473:C479)",
+            "has_formula": true,
+            "formula": "=C471-SUM(C473:C479)"
+        },
+        "Feb": {
+            "value": "=D471-SUM(D473:D479)",
+            "has_formula": true,
+            "formula": "=D471-SUM(D473:D479)"
+        },
+        "Mar": {
+            "value": "=E471-SUM(E473:E479)",
+            "has_formula": true,
+            "formula": "=E471-SUM(E473:E479)"
+        },
+        "Apr": {
+            "value": "=F471-SUM(F473:F479)",
+            "has_formula": true,
+            "formula": "=F471-SUM(F473:F479)"
+        },
+        "May": {
+            "value": "=G471-SUM(G473:G479)",
+            "has_formula": true,
+            "formula": "=G471-SUM(G473:G479)"
+        },
+        "Jun": {
+            "value": "=H471-SUM(H473:H479)",
+            "has_formula": true,
+            "formula": "=H471-SUM(H473:H479)"
+        },
+        "Jul": {
+            "value": "=I471-SUM(I473:I479)",
+            "has_formula": true,
+            "formula": "=I471-SUM(I473:I479)"
+        },
+        "Aug": {
+            "value": "=J471-SUM(J473:J479)",
+            "has_formula": true,
+            "formula": "=J471-SUM(J473:J479)"
+        },
+        "Sep": {
+            "value": "=K471-SUM(K473:K479)",
+            "has_formula": true,
+            "formula": "=K471-SUM(K473:K479)"
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=P471-SUM(P473:P479)",
+            "has_formula": true,
+            "formula": "=P471-SUM(P473:P479)"
+        }
+    },
+    "Depreciation and Amortization": {
+        "Jan": {
+            "value": 5430453.21,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 21222763.83,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 16027540.2,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 12985226.879999999,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 17907057.3,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 11666145.530000001,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 60142180.760000005,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 37246773.300000004,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 45451171.9,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C491:N491)",
+            "has_formula": true,
+            "formula": "=SUM(C491:N491)"
+        }
+    },
+    "Deprec - Furniture & Fixtures": {
+        "Jan": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 1029.91,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 1157.51,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B483,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B483,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Deprec - Leasehold Imps": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B484,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B484,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Deprec - Office/Computer Equip": {
+        "Jan": {
+            "value": 6604.59,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 6687.22,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 6345.87,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 6345.87,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 6383.93,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 5152.56,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 6107.37,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 4466.32,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 4308.36,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B485,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B485,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Deprec - Vehicles": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B486,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B486,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Deprec - Repair Shop Equip": {
+        "Jan": {
+            "value": 212069.62,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 215403.41,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 220861,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 224260.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 225016.32,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 226234.35,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 231228.53,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 226841.95,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 228033.95,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B487,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B487,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Deprec - Software": {
+        "Jan": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 0,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B488,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B488,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Deprec - Facility": {
+        "Jan": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 22638.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B489,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B489,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Amort Exp - Intangibles": {
+        "Jan": {
+            "value": 16250,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 16250,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 16250,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 16250,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 16250,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 16250,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 414750.14,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 422236.99,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 422236.99,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=IFERROR(VLOOKUP(B490,'[1]Consolidated Trial Balance'!B:E,4,),0)",
+            "has_formula": true,
+            "formula": "=IFERROR(VLOOKUP(B490,'[1]Consolidated Trial Balance'!B:E,4,),0)"
+        }
+    },
+    "Interest": {
+        "Jan": {
+            "value": 6886801.5,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 6064803.989999999,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 3764572.2,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 2395745.3000000003,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": 4466367.33,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": 4402914.45,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 29599830.96,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 14429583.520000001,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 30645915.999999996,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C511:N511)",
+            "has_formula": true,
+            "formula": "=SUM(C511:N511)"
+        }
+    },
+    "Tax": {
+        "Jan": {
+            "value": 269219.55,
+            "has_formula": false,
+            "formula": null
+        },
+        "Feb": {
+            "value": 44655,
+            "has_formula": false,
+            "formula": null
+        },
+        "Mar": {
+            "value": 741690.9,
+            "has_formula": false,
+            "formula": null
+        },
+        "Apr": {
+            "value": 657687.8,
+            "has_formula": false,
+            "formula": null
+        },
+        "May": {
+            "value": -1921629.96,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jun": {
+            "value": -46593.36,
+            "has_formula": false,
+            "formula": null
+        },
+        "Jul": {
+            "value": 469789.89,
+            "has_formula": false,
+            "formula": null
+        },
+        "Aug": {
+            "value": 4014.880000000009,
+            "has_formula": false,
+            "formula": null
+        },
+        "Sep": {
+            "value": 219784.49999999997,
+            "has_formula": false,
+            "formula": null
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=SUM(C513:N513)",
+            "has_formula": true,
+            "formula": "=SUM(C513:N513)"
+        }
+    },
+    "    Net Income": {
+        "Jan": {
+            "value": "=C480-C491-C511-C513",
+            "has_formula": true,
+            "formula": "=C480-C491-C511-C513"
+        },
+        "Feb": {
+            "value": "=D480-D491-D511-D513",
+            "has_formula": true,
+            "formula": "=D480-D491-D511-D513"
+        },
+        "Mar": {
+            "value": "=E480-E491-E511-E513",
+            "has_formula": true,
+            "formula": "=E480-E491-E511-E513"
+        },
+        "Apr": {
+            "value": "=F480-F491-F511-F513",
+            "has_formula": true,
+            "formula": "=F480-F491-F511-F513"
+        },
+        "May": {
+            "value": "=G480-G491-G511-G513",
+            "has_formula": true,
+            "formula": "=G480-G491-G511-G513"
+        },
+        "Jun": {
+            "value": "=H480-H491-H511-H513",
+            "has_formula": true,
+            "formula": "=H480-H491-H511-H513"
+        },
+        "Jul": {
+            "value": "=I480-I491-I511-I513",
+            "has_formula": true,
+            "formula": "=I480-I491-I511-I513"
+        },
+        "Aug": {
+            "value": "=J480-J491-J511-J513",
+            "has_formula": true,
+            "formula": "=J480-J491-J511-J513"
+        },
+        "Sep": {
+            "value": "=K480-K491-K511-K513",
+            "has_formula": true,
+            "formula": "=K480-K491-K511-K513"
+        },
+        "Oct": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Nov": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "Dec": {
+            "value": null,
+            "has_formula": false,
+            "formula": null
+        },
+        "YTD": {
+            "value": "=P480-P491-P511-P513",
+            "has_formula": true,
+            "formula": "=P480-P491-P511-P513"
+        }
+    }
+}
