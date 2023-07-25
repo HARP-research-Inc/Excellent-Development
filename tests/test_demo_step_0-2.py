@@ -1,8 +1,8 @@
 import pytest
-import openai
+#import openai
 import os
-from src.open_ai_demo_python.chunker import join_or_concat_with_proper_alignment, cut_csv_into_chunks, chunk_sheet, print_output_json
-from src.open_ai_demo_python.annotator import get_annotated_chunk, annotate_cells_ai
+from src.python.chunker import join_or_concat_with_proper_alignment, cut_csv_into_chunks, chunk_sheet, print_output_json
+from src.python.annotator import get_annotated_chunk, annotate_cells_ai
 
 def test_join_or_concat_with_proper_alignment_positive():
     assert join_or_concat_with_proper_alignment(

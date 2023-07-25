@@ -1,11 +1,11 @@
+
 import json
 from collections import defaultdict
 import pytest
-from src.python.Identification.SB_ID import extract_number, extract_column
-from src.python.Identification.SB_ID import generate_solid_blocks, merge_blocks
+from SB_ID import extract_number, extract_column
+from SB_ID import generate_solid_blocks, merge_blocks
 
 # python3.9 -m pytest
-
 
 def test_01_extract_number():
     assert extract_number('A1') == 1

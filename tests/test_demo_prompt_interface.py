@@ -1,8 +1,8 @@
 import pytest
-import openai
+#import openai
 import os
 from unittest.mock import Mock, patch
-from src.open_ai_demo_python.prompt_interface import parse_prompt, prompt_interface
+from src.python.prompt_interface import parse_prompt, prompt_interface
 
 def test_parse_prompt_single_example():
     variables = {"in":{"x": "5", "y": "3"},"out":["result"]}

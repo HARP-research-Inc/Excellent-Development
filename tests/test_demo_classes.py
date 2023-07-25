@@ -1,6 +1,10 @@
 import pytest
 import json
-from src.open_ai_demo_python.gen_tree import cell, block, table, sheet, gen_tree
+from src.python.cell import Cell as cell
+from src.python.block import Block as block
+from src.python.table import Table as table
+from src.python.sheet import Sheet as sheet
+from src.python.gen_tree import Gen_Tree as gen_tree
 
 # Test cases for the Cell class
 def test_valid_cell_creation():

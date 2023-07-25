@@ -1,9 +1,13 @@
-from src.open_ai_demo_python.gen_tree import cell, block, sheet, table, gen_tree
-from src.open_ai_demo_python.ST_ID import st_id
-from src.open_ai_demo_python.SB_ID import sb_id
-from src.open_ai_demo_python.Synthetic_Model import synthetic_model
-from src.open_ai_demo_python.chunker import chunk_sheet
-from src.open_ai_demo_python.annotator import annotate_cells_ai
+from src.python.cell import Cell as cell
+from src.python.block import Block as block
+from src.python.table import Table as table
+from src.python.sheet import Sheet as sheet
+from src.python.gen_tree import Gen_Tree as gen_tree
+from src.python.ST_ID import st_id
+from src.python.SB_ID import sb_id
+from src.python.Synthetic_Model import synthetic_model
+from src.python.chunker import chunk_sheet
+from src.python.annotator import annotate_cells_ai
 import pandas as pd
 
 def test_st_id():
