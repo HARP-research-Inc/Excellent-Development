@@ -4,11 +4,11 @@ from src.python.table import Table as table
 from src.python.sheet import Sheet as sheet
 from src.python.gen_tree import Gen_Tree as gen_tree
 import pandas as pd
-from SB_ID import sb_id
-from ST_ID import st_id
-from chunker import chunk_sheet
-from annotator import annotate_cells_ai
-from Multi_DOF_comparison import multi_dof_comparison
+from src.python.SB_ID import sb_id
+from src.python.ST_ID import st_id
+from src.python.chunker import chunk_sheet
+from src.python.annotator import annotate_cells_ai
+from src.python.Multi_DOF_comparison import multi_dof_comparison
 
 #the top level object which can manipulate and compare spreadsheets
 class synthetic_model:

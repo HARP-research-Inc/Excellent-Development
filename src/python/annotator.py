@@ -2,7 +2,7 @@ import os
 import csv
 from io import StringIO
 import openai
-from chunker import chunk_sheet
+from src.python.chunker import chunk_sheet
 import json
 
 labeling_conversation = """{Property Name},Property Type,Price,Square Feet,Bedrooms

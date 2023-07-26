@@ -4,18 +4,17 @@ if 'pytest' in sys.modules:
     from src.python.cell import Cell as cell
     from src.python.sheet import Sheet as sheet
     from src.python.block import Block as block
-   
 else:
     from src.python.gen_tree import Gen_Tree as gen_tree
     from src.python.cell import Cell as cell
     from src.python.sheet import Sheet as sheet
     from src.python.block import Block as block
     
-from src.python.prompt_interface import prompt_interface
+#from src.python.prompt_interface import prompt_interface
 import os
 import json
 
-#python3.9 -m pytest -vv tests/test_demo_step_0-2.py 
+#python3.9 -m pytest -vv tests/test_demo_step_3-8.py 
 #examples of I/O
 data_examples = [
             {
@@ -200,14 +199,7 @@ def sb_id(sheets):
     #! =========================================================================================
     #! Starting from here, this is the beginning of the algorithmic method to sheet blocks
     #! =========================================================================================
-    
-    def find_groups_of_ones(K_map):
-        rows = len(K_map)
-        cols = len(K_map[0])
-        visited = [[False for _ in range(cols)] for _ in range(rows)]
-        groups = []
-
-        def dfs(row, col, group):
+    def dfs(row, col, group):
             if row < 0 or row >= rows or col < 0 or col >= cols:
                 return
             if visited[row][col] or K_map[row][col] == 0:
@@ -219,6 +211,12 @@ def sb_id(sheets):
             # Check neighboring cells
             for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 dfs(row + dr, col + dc, group)
+
+    def find_groups_of_ones(K_map):
+        rows = len(K_map)
+        cols = len(K_map[0])
+        visited = [[False for _ in range(cols)] for _ in range(rows)]
+        groups = []
 
         for row in range(rows):
             for col in range(cols):
@@ -234,10 +232,10 @@ def sb_id(sheets):
     def print_K_map(K_map):
         for row in K_map:
             print(" ".join(map(str, row)))
-    '''
+    
     groups_of_ones = find_groups_of_ones(k_map)
 
     print("\nGroups of Ones:")
     for group in groups_of_ones:
         print(group)
-    '''
+    
