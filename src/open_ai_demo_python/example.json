@@ -1,0 +1,42 @@
+{
+    "Sheet1": {
+        "tables": [
+            {
+                "data_block": {
+                    "cells": [
+                        "(2, 2): [DATA] '10/12/2023'",
+                        "(2, 3): [DATA] '10:15'",
+                        "(2, 4): [DATA] 'USA'",
+                        "(3, 2): [DATA] '09/01/2002'",
+                        "(3, 3): [DATA] '14:30'",
+                        "(3, 4): [DATA] 'UK'",
+                        "(4, 2): [DATA] '11/22/1963'",
+                        "(4, 3): [DATA] '13:45'",
+                        "(4, 4): [DATA] 'Canada'"
+                    ]
+                },
+                "label_blocks": {
+                    "(1, 2)": {
+                        "cells": [
+                            "(1, 2): [LABEL] 'George Costanza'",
+                            "(1, 3): [LABEL] 'Bill Jeofry'",
+                            "(1, 4): [LABEL] 'Harper Giorgo'"
+                        ]
+                    },
+                    "(2, 1)": {
+                        "cells": [
+                            "(2, 1): [LABEL] 'Date'",
+                            "(3, 1): [LABEL] 'Time'",
+                            "(4, 1): [LABEL] 'Country'"
+                        ]
+                    }
+                },
+                "subtables": [],
+                "free_blocks": []
+            }
+        ],
+        "free_blocks": []
+    }
+}
+
+ 
