@@ -1,0 +1,35 @@
+{
+    "AMAZON BOOKS": {
+        "Purchase Locations": [
+            {
+                "George Costanza": {
+                    "Date": "10/12/2023",
+                    "Time": "10:15",
+                    "Country": "USA",
+                },
+                "Harper Giorgio": {
+                    "Date": "11/22/1963",
+                    "Time": "13:45",
+                    "Country": "Canada",
+                },
+                "Bill Jeofry":{
+                    "Date": "09/01/2002",
+                    "Time": "14:30",
+                    "Country": "UK",
+                }
+            }
+        ],
+        "Books" : [
+            {
+                "Harper Giorgo" : {
+                    "Book Title": "1984",
+                    "Author": "George Orwell"
+                },
+                "George Costanza" : {
+                    "Book Title": "The Art of War",
+                    "Author": "Sun Tzu"
+                }
+            }
+        ]
+    }
+}
