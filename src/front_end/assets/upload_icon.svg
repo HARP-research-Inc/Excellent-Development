@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   viewBox="0 0 500 500"
+   id="svg6"
+   sodipodi:docname="upload_icon.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.438"
+     inkscape:cx="249.65229"
+     inkscape:cy="249.65229"
+     inkscape:window-width="2400"
+     inkscape:window-height="1494"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <path
+     fill="#141414"
+     d="   M 254.31 62.85   Q 272.00 80.08 299.33 106.44   Q 326.77 132.91 339.66 145.60   Q 343.41 149.29 344.26 152.12   Q 346.25 158.71 341.33 163.50   Q 336.41 168.28 329.92 166.15   Q 327.09 165.22 323.48 161.61   Q 292.82 130.97 262.12 100.26   Q 261.49 99.63 261.49 100.51   Q 261.50 221.77 261.50 343.27   Q 261.50 348.62 260.16 351.37   Q 257.81 356.17 252.49 357.32   Q 247.23 358.46 243.01 355.26   Q 238.51 351.86 238.51 343.79   Q 238.48 221.90 238.51 100.70   Q 238.51 99.65 237.77 100.39   Q 207.23 130.90 176.77 161.38   Q 173.26 164.90 170.38 165.94   Q 161.56 169.15 156.88 161.15   Q 152.21 153.15 159.07 146.82   Q 204.59 104.88 250.03 62.84   A 1.33 1.30 -65.9 0 1 250.92 62.49   L 253.47 62.51   A 1.21 1.20 -22.8 0 1 254.31 62.85   Z"
+     id="path2"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     fill="#141414"
+     d="   M 102.48 414.75   Q 102.63 414.76 102.73 414.64   A 0.41 0.40 19.6 0 1 103.04 414.50   L 397.20 414.50   A 0.80 0.80 0.0 0 0 398.00 413.70   Q 398.00 331.38 398.00 248.56   Q 398.00 243.67 399.35 241.20   Q 402.69 235.04 409.52 235.02   Q 416.35 235.01 419.49 241.19   Q 420.76 243.69 420.76 248.04   Q 420.74 335.85 420.75 423.66   Q 420.76 431.39 417.10 434.56   Q 413.72 437.49 405.90 437.49   Q 248.83 437.51 91.75 437.50   Q 79.01 437.50 79.01 423.55   Q 79.00 337.07 79.00 250.58   Q 79.00 244.52 80.04 242.06   Q 82.92 235.25 90.33 235.05   Q 97.73 234.84 100.63 241.43   Q 102.03 244.61 102.02 252.76   Q 101.97 333.50 102.01 414.24   A 0.51 0.51 0.0 0 0 102.48 414.75   Z"
+     id="path4"
+     style="fill:#ffffff;fill-opacity:1" />
+</svg>
