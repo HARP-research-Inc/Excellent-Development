@@ -39,10 +39,10 @@ class Sheet:
 
     def __str__(self):
         return str(self.to_json())
-
-    def __repr__(self):
-        return str(self.to_json())
     
+    def __repr__(self):
+        return str("\n\tName:  {} \n\tCells: {} \n\tBlocks: {} \n\tTables: {} \n\tFree Labels: {} \n\tFree Data: {}").format(self.name, self.cells, self.blocks, self.tables, self.free_labels, self.free_data)
+
     def check_df_ep(self, df):
         # Initialize a dictionary to store the mismatches
         mismatches = {}
@@ -114,13 +114,13 @@ class Sheet:
                                         "free_blocks": free_label_blocks_clean_json + free_data_blocks_clean_json}}
         return sheet_clean_json
 
-    def get_unenclosed_tables(self):
+    def get_unenclosed_tables(self) -> list:
         # Returns the tables that are not enclosed by labels from both dimensions
         unenclosed_tables = [
             table for table in self.tables if not table.is_enclosed()]
         return unenclosed_tables
 
-    def get_prime_tables(self):
+    def get_prime_tables(self) -> list:
         # Returns the tables that have a prime number of rows or columns
         prime_tables = [
             table for table in self.tables if table.is_prime() is not None]

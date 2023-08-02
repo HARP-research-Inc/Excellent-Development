@@ -1,10 +1,12 @@
 # Class to represent a block of cells in the grid
 import re
+import pandas as pd
 class Cell:
     def __init__(self, location: tuple, value=" ", annotation=None) -> None:
         # Set the cell value and annotation (default is 'EMPTY')
         self.value = value
         self.annotation = annotation
+        self.relative_position = (0,0)
         # Define block type based on annotation
         if self.annotation == "FOMRULA":
             self.block_type = "DATA"
@@ -66,7 +68,6 @@ class Cell:
 
     # Function to serialize the cell object into a JSON format
     def to_json(self):
-        self.get_size()
         return {"coord": self.coord, "value": self.value, "annotation": self.annotation}
 
     # Class method to create a cell object from a JSON data
@@ -83,6 +84,7 @@ class Cell:
         relative_position = []
         for dimension in [0, 1]:
             relative_position.append(
-                self.expected_position[dimension] - origin[dimension])
+                self.coord[dimension] - origin[dimension])
         self.relative_position = tuple(relative_position)
         return self.relative_position
+        

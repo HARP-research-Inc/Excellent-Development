@@ -2,8 +2,11 @@ import pandas as pd
 import sys
 if 'pytest' in sys.modules:
     from src.python.gen_tree_helper import Gen_Tree_Helper as gth
+    from src.python.block import Block as block
 else:
     from gen_tree_helper import Gen_Tree_Helper as gth
+    from block import Block as block
+
 class Table:
     def __init__(self, expected_position=(1, 1), free_labels=[], free_data=[], subtables=[], l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data=None, pattern=None):
         assert isinstance(
@@ -15,6 +18,7 @@ class Table:
         self.free_blocks = {
             "lable_blocks": free_labels, "data_blocks": free_data}
         self.expected_position = expected_position
+        self.expected_size = (1,1)
         self.pattern = pattern
         # Get the size of the table after initializing all the attributes
         self.get_size()
@@ -109,6 +113,7 @@ class Table:
         # First we will create an empty DataFrame with sizes according to the table size
         df = pd.DataFrame('', index=range(
             self.expected_size[0]), columns=range(self.expected_size[1]))
+        gth.debug_print(f"Data in DF in tble to_df: \n{self.expected_size}\n")
         self.get_child_rel_pos()
         # Initialize with the maximum possible size
         label_columns = [""] * self.expected_size[1]
@@ -149,6 +154,7 @@ class Table:
         gth.debug_print(f"Data in DF in tble to_df: \n{df}\n")
         # Convert the DataFrame to have the correct labels as column names and indexes
         #Set the first row as the column names
+        
         df.columns = df.iloc[0]
 
         # Remove the first row from the DataFrame
@@ -178,7 +184,7 @@ class Table:
         all_cells = []
         for Block in self.all_blocks:
             all_cells += Block.cells
-        return (build_csv(all_cells, self.expected_position))
+        return (gth.build_csv(all_cells, self.expected_position))
 
     def is_enclosed(self):
         # Checks if the table is enclosed by labels from both height and width dimensions

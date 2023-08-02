@@ -1,15 +1,17 @@
 import sys
+
+
 if 'pytest' in sys.modules:
     from src.python.gen_tree_helper import Gen_Tree_Helper as gth
     from src.python.gen_tree import Gen_Tree as gt
-    from src.python.cell import Cell as cell
+    from src.python.cell import Cell
 else:
     from gen_tree_helper import Gen_Tree_Helper as gth
     from gen_tree import Gen_Tree as gt
-    from cell import Cell as cell
+    from cell import Cell
 
 class Block:
-    def __init__(self, cells: list[cell] = [], annotation_type=None):
+    def __init__(self, cells: list[Cell] = [], annotation_type=None):
         self.cells = cells
         # Ensure that there is at least one cell in the block
         if len(cells) < 1:
@@ -70,6 +72,8 @@ class Block:
                     x - y for x, y in zip(self.expected_position, coord))
         return self.border_eps
 
+    def get_size(self):
+        return self.size
     # Function to serialize the block object into a JSON format
     def to_json(self):
         self.get_corners()
@@ -142,10 +146,11 @@ class Block:
             relative_position.append(
                 self.expected_position[dimension] - origin[dimension])
         self.relative_position = tuple(relative_position)
-        for Cell in self.cells:
-            Cell.get_relative_position(origin=self.expected_position) if not Cell.relative_position else None
+        for cell in self.cells:
+            cell.get_relative_position(origin=self.expected_position) if not cell.relative_position else None
         return self.relative_position
 
     # Class method to create a block object from a JSON data
-    def from_json(cls, json_data):
-        return cls(cells=[cell.from_json(cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
+    def from_json(self, cls, json_data):
+        self.get_size()
+        return cls(cells=[Cell.from_json(cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
