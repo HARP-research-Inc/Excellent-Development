@@ -75,3 +75,50 @@ def excel_to_json(excel_file, json_file):
 
 # Usage
 excel_to_json("E:\GDrive\Harpers Startup\Excellent-Development\src\python\single_test.xlsx", "new.json")
+
+
+import os
+from langchain import HuggingFacePipeline
+from transformers import AutoTokenizer, pipeline, LlamaForCausalLM, AutoModelForCausalLM
+import torch
+from langchain import PromptTemplate,  LLMChain
+import requests
+from torch.nn import DataParallel
+
+model_path = "here_we_go_again/text-generation-webui/models/psmathur_wizardlm_alpaca_dolly_orca_open_llama_13b" #tiiuae/falcon-40b-instruct
+model = DataParallel(AutoModelForCausalLM.from_pretrained(model_path, device_map='auto'))
+tokenizer = AutoTokenizer.from_pretrained(model_path) 
+device = torch.device("cuda")
+model.to(device)
+
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:16" 
+pipeline = pipeline(
+    "text-generation", #task
+    model=model,
+    tokenizer=tokenizer,
+    # device= -1,
+    torch_dtype=torch.bfloat16,
+    trust_remote_code=True,
+    device_map="auto",
+    max_length=100,
+    do_sample=True,
+    top_k=10,
+    num_return_sequences=1,
+    eos_token_id=tokenizer.eos_token_id,
+    
+)
+
+llm = HuggingFacePipeline(pipeline = pipeline, model_kwargs = {'temperature':0})
+
+template = """
+You are an intelligent chatbot. Help the following question with brilliant answers.
+Question: {question}
+Answer:"""
+prompt = PromptTemplate(template=template, input_variables=["question"])
+
+llm_chain = LLMChain(prompt=prompt, llm=llm)
+
+question = "Explain what is Artificial Intelligence as Nursery Rhymes"
+
+print(llm_chain.run(question))
+
