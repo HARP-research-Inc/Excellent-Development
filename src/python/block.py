@@ -3,11 +3,9 @@ import sys
 
 if 'pytest' in sys.modules:
     from src.python.gen_tree_helper import Gen_Tree_Helper as gth
-    from src.python.gen_tree import Gen_Tree as gt
     from src.python.cell import Cell
 else:
     from gen_tree_helper import Gen_Tree_Helper as gth
-    from gen_tree import Gen_Tree as gt
     from cell import Cell
 
 class Block:
@@ -152,5 +150,5 @@ class Block:
 
     # Class method to create a block object from a JSON data
     def from_json(self, cls, json_data):
-        self.get_size()
-        return cls(cells=[Cell.from_json(cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
+        cls.get_size(cls)
+        return cls(cells=[Cell.from_json(cls, cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None

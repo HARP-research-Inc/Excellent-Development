@@ -3,21 +3,31 @@ Version:                2.0
 Last Edit:              7/24/2023
 Last Author:            Dana Solitaire
 """
+import json
+import sys 
+if 'pytest' in sys.modules:
+    from src.python.sheet import Sheet as Sheet
+    from src.python.table import Table as Table
+else:
+    from sheet import Sheet as Sheet
+
 
 class Gen_Tree:
     def __init__(self, sheets=None, json_data=None):
         # The tree can be initialized either with a list of sheets or a dict of sheets
-        """ if json_data:
+        if json_data:
             self.data = json.loads(json_data)
-            self.sheets = [sheet(sheet_data["name"], 
-                [table(json_data=table_data) for table_data in sheet_data["tables"]]) 
-                for sheet_data in self.data] """
-        
-        self.sheets = sheets if isinstance(sheets, dict) or not sheets else {
-            sheet_instance.name: sheet_instance for sheet_instance in sheets}
-        self.data = self.to_json()
+            self.sheets = [( 
+                [Sheet(sheet).name for sheet in sheet_data],
+                [Table(json_data=table_data) for table_data in [Sheet(sheet).tables for sheet in sheet_data]]
+                ) for sheet_data in self.data]
+            print(type(self.sheets.values()))
+        else:
+            self.sheets = sheets if isinstance(sheets, dict) or not sheets else {
+                sheet_instance.name: sheet_instance for sheet_instance in sheets}
+            self.data = self.to_json()
         self.clean_data = self.to_clean_json()
-
+        
     def __iter__(self):
         if isinstance(self.sheets, dict):
             return iter(self.sheets.values())
@@ -61,8 +71,8 @@ class Gen_Tree:
         # Returns all the tables in all the sheets that have a prime number of columns
         prime_width_tables = []
         for sheet in self.sheets.keys():
-            current_sheet = self.sheets.get(sheet)
-            prime_tables, dimensions = current_sheet
+            sheet = Sheet(sheet)
+            prime_tables, dimensions = sheet.get_prime_tables()
             for table, dimension in zip(prime_tables, dimensions):
                 if dimension[0] == 0:  # If the width is prime.
                     prime_width_tables.append(table)

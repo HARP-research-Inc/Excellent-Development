@@ -1,13 +1,11 @@
 import sys
 if 'pytest' in sys.modules:
     from src.python.gen_tree_helper import Gen_Tree_Helper as gth
-    from src.python.gen_tree import Gen_Tree as gt
     from src.python.cell import Cell as cell
     from src.python.block import Block as block
     from src.python.table import Table as table
 else:
     from gen_tree_helper import Gen_Tree_Helper as gth
-    from gen_tree import Gen_Tree as gt
     from cell import Cell as cel
     from block import Block as blk
     from table import Table as tbl

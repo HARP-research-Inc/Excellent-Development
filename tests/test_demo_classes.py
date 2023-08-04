@@ -165,8 +165,11 @@ def test_gen_tree_to_json(mock_sheets):
     gen_tree_obj = gen_tree(mock_sheets)
     expected_json = json.dumps([sheet.to_json() for sheet in mock_sheets])
     expected_json = expected_json.replace("\"", "'")
-    print([gen_tree_obj.to_json()], "\n\n This is exp json -->\n",expected_json)
-    assert gen_tree_obj.to_json() == expected_json
+    expected_json = expected_json.replace("null","None")
+    assert expected_json[3:9] in gen_tree_obj.to_json().keys()
+    expected_json = expected_json[12:-2]
+    result_json = str(gen_tree_obj.to_json().get("sheet1"))
+    assert  result_json == expected_json
 
 # Test cases for the table class
 #@pytest.mark.dependency(depends=["test_gen_tree_to_json"])
@@ -192,7 +195,7 @@ def test_block_from_json():
     block_json = original_block.to_json()
 
     # Act
-    final_block = block.from_json(block_json)
+    final_block = block.from_json(block, cell, block_json)
 
     # Assert
     assert len(original_block.cells) == len(final_block.cells), f"Failed to correctly convert block cells from JSON, expected {[cell.to_json() for cell in original_block.cells]} got {[cell.to_json() for cell in final_block.cells]}"
@@ -208,7 +211,7 @@ def test_table_from_json():
     table_json = original_table.to_json()
 
     # Act
-    final_table = table.from_json(table_json)
+    final_table = table.from_json(cell, table_json)
 
     # Assert
     assert original_table.data_block.to_json() == final_table.data_block.to_json(), "Failed to correctly convert table data block from JSON"

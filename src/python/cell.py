@@ -66,6 +66,9 @@ class Cell:
 
         self.coord = (x, y)
 
+    def get_size(self):
+        return 1
+    
     # Function to serialize the cell object into a JSON format
     def to_json(self):
         return {"coord": self.coord, "value": self.value, "annotation": self.annotation}
