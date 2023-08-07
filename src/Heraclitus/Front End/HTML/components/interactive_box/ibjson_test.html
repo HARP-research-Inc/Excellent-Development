@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive JSON Box Test</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    <script src="interactive_box.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Your hierarchical JSON structure
+        let json = {
+            'Parent Box': [
+                'Child Box 1',
+                'Child Box 2',
+                {
+                    'Child Box 3': [
+                        'Child Box 4',
+                        'Child Box 5'
+                    ]
+                }
+            ],
+            'Parent Box 2': [
+                'Child Box 6',
+                'Child Box 7'
+            ]
+        };
+        // Create an array of colors for the child boxes
+        let colors = ['#FF5733', '#AF7AC5', '#5499C7', '#48C9B0', '#F4D03F', '#F39C12', '#D35400', '#B3B6B7', '#2ECC71', '#E74C3C'];
+        let boxIdCounter = 0;
+        function parseJsonToInteractiveBoxes(jsonObject, parentBox = null) {
+            let box = null;
+            if (Array.isArray(jsonObject)) {
+                // If it's a list, create boxes with the values as titles and no children
+                for (let title of jsonObject) {
+                    box = createBox(title, parentBox);
+                    if (parentBox) {
+                        parentBox.addChildBox(box);
+                    }
+                }
+            } else {
+                // If it's an object, the keys are the titles and the values are the children
+                for (let title in jsonObject) {
+                    box = createBox(title, parentBox);
+                    if (parentBox) {
+                        parentBox.addChildBox(box);
+                    }
+                    let children = jsonObject[title];
+                    if (children && typeof children === "object") {
+                        parseJsonToInteractiveBoxes(children, box);
+                    }
+                }
+            }
+            return box;
+        }
+        function createBox(title, parentBox) {
+            let color = colors[boxIdCounter % colors.length];
+            let box = new InteractiveBox(
+                'box' + boxIdCounter++, 
+                title, 
+                color[0], 
+                color[1], 
+                color[2], 
+                parentBox
+            );
+            if (parentBox) {
+                parentBox.addChildBox(box);
+            }
+            return box;
+        }
+        // Parse the JSON and create the InteractiveBoxes
+        let rootBox = parseJsonToInteractiveBoxes(json);
+        rootBox.generate();
+    });
+    </script>
+</body>
+</html>

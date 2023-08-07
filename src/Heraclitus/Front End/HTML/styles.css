@@ -1,0 +1,69 @@
+#main-box {
+    width: 235px;
+    height: 200px;
+    border: 2px solid #FF7E7E;
+    border-radius: 2px;
+    background-color: #FFF3F3;
+    position: relative;
+}
+
+#corner-box {
+    min-width: 80px;
+    min-height: 30px;
+    background-color: #FF7E7E;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    border-radius: 2px;
+    color: #000;
+    border: 2px solid #FF7E7E;
+    border-radius: 2px;
+    padding: 5px 15px 5px 5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1em;
+}
+
+#corner-box span {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;  /* prevents text from wrapping to new line */
+}
+
+#corner-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    width: 70px;  /* fixed width to match corner box */
+    height: 35px;  /* fixed height to match corner box */
+}
+
+#collapse-button, #expand-button {
+    padding: 5px 15px 5px 5px;
+    background: transparent;
+    color: #A95454;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+#collapse-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#expand-button {
+    margin-left: 115px;
+    margin-right: -15px;
+    vertical-align: middle;
+}

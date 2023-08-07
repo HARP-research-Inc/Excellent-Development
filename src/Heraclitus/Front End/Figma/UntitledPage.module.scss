@@ -1,0 +1,315 @@
+@use "utils" as *;
+@use "global" as *;
+
+$color_type_0: rgb(0, 0, 0);
+$color_type_1: rgb(255, 255, 255);
+
+$bg_color_type_0: rgb(0, 0, 0);
+$bg_color_type_1: rgb(239, 239, 239);
+$bg_color_type_2: rgb(255, 255, 255);
+
+$border_radius_type_0: 2px 2px 2px 2px;
+
+$font_type_0: 400 50px/1.18 "Nasalization", Helvetica, Arial, serif;
+$font_type_1: 400 18px/1.16 "Nasalization", Helvetica, Arial, serif;
+$font_type_2: 400 14px/1.21 "Nasalization", Helvetica, Arial, serif;
+
+.root {
+  background-color: $bg_color_type_2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.box {
+  background-color: $bg_color_type_0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.image {
+  flex-grow: 1;
+  height: 42px;
+  margin: 7px 75% 7px 3.13%;
+  min-height: 42px;
+  object-fit: cover;
+  width: 70px;
+}
+.hero_title {
+  bottom: -2px;
+  color: $color_type_1;
+  font: $font_type_0;
+  letter-spacing: 0px;
+  position: absolute;
+  right: 3.13%;
+  top: -1px;
+  width: 115px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  position: relative;
+}
+.flex_row {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  gap: 0px 14px;
+  margin: 5px 5px 4px;
+  position: relative;
+}
+.wrapper1 {
+  align-items: center;
+  display: flex;
+  flex: 0 0 260px;
+  gap: 0px 10px;
+  position: relative;
+}
+.box1 {
+  background-color: $bg_color_type_0;
+  border-radius: $border_radius_type_0;
+  display: flex;
+  flex: 0 0 80px;
+  flex-direction: column;
+  outline: 4px solid rgb(0, 0, 0);
+  outline-offset: -4px;
+  overflow: hidden;
+  position: relative;
+}
+.highlights {
+  align-items: center;
+  color: $color_type_1;
+  display: flex;
+  flex-grow: 1;
+  font: $font_type_1;
+  justify-content: center;
+  letter-spacing: 0px;
+  margin: 7px 12px;
+  text-align: center;
+}
+.box2 {
+  border-radius: $border_radius_type_0;
+  display: flex;
+  flex: 0 0 80px;
+  flex-direction: column;
+  outline: 2px solid rgb(130, 130, 130);
+  outline-offset: -2px;
+  overflow: hidden;
+  position: relative;
+}
+.highlights1 {
+  align-items: center;
+  color: $color_type_0;
+  display: flex;
+  flex-grow: 1;
+  font: $font_type_1;
+  justify-content: center;
+  letter-spacing: 0px;
+  margin: 7px 12px;
+  text-align: center;
+}
+.flex_row__cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 36px;
+}
+.image1 {
+  border-radius: $border_radius_type_0;
+  flex-grow: 1;
+  height: 30px;
+  margin: 2px 0px 3px;
+  min-height: 30px;
+  object-fit: cover;
+  width: 36px;
+}
+.box3 {
+  background-color: $bg_color_type_2;
+  border-color: $color_type_0;
+  border-style: solid;
+  border-width: 4px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+  overflow: hidden;
+  position: relative;
+}
+.wrapper2 {
+  display: flex;
+  flex: 1 1 100px;
+  flex-direction: column;
+  margin: 0px 0px 0px 1px;
+  overflow: hidden;
+  position: relative;
+}
+.wrapper21 {
+  background: var(--src) center center / cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+}
+.flex_col {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 307px 0px;
+  position: relative;
+}
+.icon1 {
+  height: 43px;
+  margin: 0px 0% 0px 86.52%;
+  min-height: 43px;
+  object-fit: cover;
+  width: 43px;
+}
+.flex_row1 {
+  align-items: center;
+  display: flex;
+  position: relative;
+  @include mq-between(tn, xs) {
+    column-gap: 0px;
+  }
+}
+.flex_row1__cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 34px;
+}
+.icon {
+  flex-grow: 1;
+  height: 35px;
+  margin: 20px 0px 0px;
+  min-height: 35px;
+  object-fit: cover;
+  width: 34px;
+}
+.flex_row1__spacer {
+  flex: 0 1 183px;
+  @include mq-between(tn, xs) {
+    display: flex;
+    flex: 1 1 183px;
+  }
+}
+.flex_row1__cell1 {
+  display: flex;
+  flex-direction: column;
+  min-width: 102px;
+}
+.image2 {
+  flex-grow: 1;
+  height: 55px;
+  min-height: 55px;
+  object-fit: cover;
+  width: 102px;
+}
+.box3__cell {
+  display: flex;
+  flex: 1 1 133px;
+  flex-direction: column;
+}
+.box4 {
+  border-color: $color_type_0;
+  border-style: solid;
+  border-width: 4px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 0px 0px 5px;
+  min-height: 128px;
+  overflow: hidden;
+  position: relative;
+  @include mq-between(tn, xs) {
+    aspect-ratio: auto;
+    margin: 0px;
+  }
+}
+.flex_col1 {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 9px 0px;
+  margin: 5px 15px 6px 16px;
+  position: relative;
+}
+.flex_col2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0px;
+  position: relative;
+}
+.image3 {
+  border-radius: $border_radius_type_0;
+  margin: 0px 17.65% 0px 0%;
+  min-height: 42px;
+  object-fit: cover;
+  width: 82.35%;
+}
+.box5 {
+  background-color: $bg_color_type_0;
+  border-radius: $border_radius_type_0;
+  display: flex;
+  flex-direction: column;
+  margin: 0px 0% 0px 52.94%;
+  overflow: hidden;
+  position: relative;
+  width: 47.06%;
+}
+.text1 {
+  align-items: flex-end;
+  color: $color_type_1;
+  display: flex;
+  flex-grow: 1;
+  font: $font_type_2;
+  justify-content: center;
+  letter-spacing: 0px;
+  margin: 7px 20px 7px 6px;
+  text-align: center;
+}
+.wrapper3 {
+  align-items: center;
+  display: flex;
+  gap: 0px 10px;
+  min-height: 25px;
+  position: relative;
+  @include mq-between(tn, xs) {
+    column-gap: 10px;
+  }
+}
+.wrapper3__cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  @include mq-between(tn, xs) {
+    flex: 1 1 240px;
+    min-width: unset;
+  }
+}
+.rect {
+  background-color: $bg_color_type_1;
+  border-color: $color_type_0;
+  border-style: solid;
+  border-width: 0px 0px 2px 0px;
+  flex-grow: 1;
+  min-height: 25px;
+}
+.wrapper3__cell1 {
+  display: flex;
+  flex-direction: column;
+  min-width: 39px;
+  @include mq-between(tn, xs) {
+    flex: 0 0 70px;
+    min-width: 70px;
+  }
+}
+.text {
+  align-items: flex-end;
+  color: $color_type_0;
+  display: flex;
+  flex-grow: 1;
+  font: $font_type_2;
+  justify-content: center;
+  letter-spacing: 0px;
+  margin: 8px 0px 0px;
+  text-align: center;
+}
