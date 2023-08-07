@@ -1,5 +1,5 @@
 """
-Version:                2.0
+Version:                2.0 This verison includes 
 Last Edit:              7/24/2023
 Last Author:            Dana Solitaire
 """
@@ -17,11 +17,10 @@ class Gen_Tree:
         # The tree can be initialized either with a list of sheets or a dict of sheets
         if json_data:
             self.data = json.loads(json_data)
-            self.sheets = [( 
+            self.sheets = {( 
                 [Sheet(sheet).name for sheet in sheet_data],
                 [Table(json_data=table_data) for table_data in [Sheet(sheet).tables for sheet in sheet_data]]
-                ) for sheet_data in self.data]
-            print(type(self.sheets.values()))
+                ) for sheet_data in self.data}
         else:
             self.sheets = sheets if isinstance(sheets, dict) or not sheets else {
                 sheet_instance.name: sheet_instance for sheet_instance in sheets}
@@ -57,21 +56,23 @@ class Gen_Tree:
         # Converts the tree back to a JSON format
         json_out = {}
         for sheet in self.sheets.values():
+            sheet: Sheet
             json_out.update(sheet.to_clean_json())
         return json_out
 
     def get_unenclosed_tables(self):
         # Returns al l the unenclosed tables in all the sheets
         unenclosed_tables = []
-        for sheet in self.sheets.keys():
-            unenclosed_tables.append(self.sheets.get(sheet))
+        for sheet in self.sheets.values():
+            sheet: Sheet
+            unenclosed_tables.extend(sheet.get_unenclosed_tables())
         return unenclosed_tables
 
     def get_prime_width_tables(self):
         # Returns all the tables in all the sheets that have a prime number of columns
         prime_width_tables = []
-        for sheet in self.sheets.keys():
-            sheet = Sheet(sheet)
+        for sheet in self.sheets.values():
+            sheet: Sheet
             prime_tables, dimensions = sheet.get_prime_tables()
             for table, dimension in zip(prime_tables, dimensions):
                 if dimension[0] == 0:  # If the width is prime.

@@ -318,21 +318,21 @@ class Table:
 
         return table_clean_json  # Return the JSON object
 
-    def from_json(cls, json_data):
+    def from_json(cls,json_data):
         # Reconstructs the table from a JSON object
         label_blocks_json = json_data.get("label_blocks", {})
         label_blocks = {
             "same_height": {
-                "l0": block.from_json(block, cell, json_data=label_blocks_json.get("same_height", {}).get("l0")),
-                "l1": block.from_json(block, cell, label_blocks_json.get("same_height", {}).get("l1")),
-                "r0": block.from_json(block, cell, label_blocks_json.get("same_height", {}).get("r0")),
-                "r1": block.from_json(block, cell, label_blocks_json.get("same_height", {}).get("r1"))
+                "l0": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("l0")),
+                "l1": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("l1")),
+                "r0": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("r0")),
+                "r1": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("r1"))
             },
             "same_width": {
-                "t0": block.from_json(block, cell, label_blocks_json.get("same_width", {}).get("t0")),
-                "t1": block.from_json(block, cell, label_blocks_json.get("same_width", {}).get("t1")),
-                "b0": block.from_json(block, cell, label_blocks_json.get("same_width", {}).get("b0")),
-                "b1": block.from_json(block, cell, label_blocks_json.get("same_width", {}).get("b1"))
+                "t0": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("t0")),
+                "t1": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("t1")),
+                "b0": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("b0")),
+                "b1": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("b1"))
             }
         }  # Above recreates the label blocks from JSON
 
@@ -340,17 +340,17 @@ class Table:
             "subtables", [])]  # Recreates the subtables from JSON
 
         free_blocks_json = json_data.get("free_blocks", {})
-        free_labels = [block.from_json(block, cell, block_data) for block_data in free_blocks_json.get(
+        free_labels = [block.from_json(json_data=block_data) for block_data in free_blocks_json.get(
             "LABEL", [])]  # Recreates the free label blocks from JSON
-        free_data = [block.from_json(block, cell, block_data) for block_data in free_blocks_json.get(
+        free_data = [block.from_json(json_data=block_data) for block_data in free_blocks_json.get(
             "DATA", [])]  # Recreates the free data blocks from JSON
 
         # parse tuple
         expected_position = tuple(map(int, json_data.get(
             "start", "(0, 0)").strip("()").split(", ")))
 
-        data_block = block.from_json(block, cell, json_data.get("data_block")) if json_data.get(
+        data_block = block.from_json(json_data=json_data.get("data_block")) if json_data.get(
             "data_block") else None  # Recreates the data block from JSON
 
         # Returns the recreated table
-        return cls(expected_position, free_labels, free_data, subtables, *label_blocks["same_height"].values(), *label_blocks["same_width"].values(), data_block=data_block)
+        return Table(expected_position, free_labels, free_data, subtables, *label_blocks["same_height"].values(), *label_blocks["same_width"].values(), data_block=data_block)

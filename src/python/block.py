@@ -149,6 +149,5 @@ class Block:
         return self.relative_position
 
     # Class method to create a block object from a JSON data
-    def from_json(self, cls, json_data):
-        cls.get_size(cls)
-        return cls(cells=[Cell.from_json(cls, cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
+    def from_json(json_data):
+        return Block(cells=[Cell.from_json(Cell, cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None

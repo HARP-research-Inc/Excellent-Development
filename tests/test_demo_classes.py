@@ -195,7 +195,7 @@ def test_block_from_json():
     block_json = original_block.to_json()
 
     # Act
-    final_block = block.from_json(block, cell, block_json)
+    final_block = block.from_json(block_json)
 
     # Assert
     assert len(original_block.cells) == len(final_block.cells), f"Failed to correctly convert block cells from JSON, expected {[cell.to_json() for cell in original_block.cells]} got {[cell.to_json() for cell in final_block.cells]}"
@@ -235,14 +235,16 @@ def test_gen_tree_init_with_sheets(mock_sheets):
 
 # @pytest.mark.dependency(depends=["test_gen_tree_init_with_sheets"])
 def test_gen_tree_init_with_json(mock_sheets):
-    json_data = [sheet.to_json() for sheet in mock_sheets]
+    json_data = {}
+    [json_data.update(sheet.to_json()) for sheet in mock_sheets]
+    print("JSON DATA: ",json_data)
     json_str = json.dumps(json_data)
     gen_tree_obj = gen_tree(json_data=json_str)
     #assert gen_tree_obj.data == json_data
     # Assert that the sheets in gen_tree_obj are correct by comparing their JSON representations.
     assert [json.loads(json.dumps(sheet_dict)) for sheet_dict in gen_tree_obj.data] == json_data
 
-# @pytest.mark.dependency(depends=["test_gen_tree_init_with_json"])
+@pytest.mark.dependency(depends=["test_gen_tree_init_with_json"])
 def test_gen_tree_get_unenclosed_tables(mock_sheets):
     gen_tree_obj = gen_tree(mock_sheets)
     unenclosed_tables = gen_tree_obj.get_unenclosed_tables()

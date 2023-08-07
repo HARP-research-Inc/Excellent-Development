@@ -8,7 +8,7 @@ class Cell:
         self.annotation = annotation
         self.relative_position = (0,0)
         # Define block type based on annotation
-        if self.annotation == "FOMRULA":
+        if self.annotation == "FORMULA":
             self.block_type = "DATA"
         else:
             self.block_type = self.annotation
@@ -74,12 +74,12 @@ class Cell:
         return {"coord": self.coord, "value": self.value, "annotation": self.annotation}
 
     # Class method to create a cell object from a JSON data
-    def from_json(cls, json_data, coord):
+    def from_json(self, json_data, coord):
         if not coord:
             coord = json_data.get("coord")
         value = json_data.get("value")
         annotation = json_data.get("annotation")
-        return cls(coord, value, annotation)
+        return Cell(coord, value, annotation)
 
     # Function to get the position of the block relative to an origin
     def get_relative_position(self, origin: tuple):

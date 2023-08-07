@@ -28,7 +28,7 @@ label_block_2 = block(cells=[cell_3])
 tbl_test = table(expected_position=(1,1), free_labels=[label_block_1, label_block_2], free_data=[data_block])
 
 def test_to_dataframe_data_block(df):
-    print("Data block: {}, block 1: {}, block 2: data_block)
+    print("Data block: {}, block 1: {}, block 2: data_block")
     df = tbl_test.to_dataframe()
 
     assert df.at[0, 'a'] == 1, "Failed to correctly populate dataframe with data block values"
