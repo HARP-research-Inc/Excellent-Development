@@ -70,6 +70,42 @@ describe('DOM environment tests', () => {
         draggableElement.remove();
     });
 
+    test('$ jQuery UI draggable is available', () => {
+        // Add the test-element to the body
+        const testElement = $('<div id="draggable-test"></div>');
+        $('body').append(testElement);
+
+        // Make the test-element draggable
+        $('#draggable-test').draggable();
+
+        // Verify that the test-element is draggable
+        expect($('#draggable-test').draggable("instance")).toBeTruthy();
+    });
+
+    test('$ jQuery UI resizable is available', () => {
+        // Add the test-element to the body
+        const testElement = $('<div id="resizable-test"></div>');
+        $('body').append(testElement);
+
+        // Make the test-element resizable
+        $('#resizable-test').resizable();
+
+        // Verify that the test-element is resizable
+        expect($('#resizable-test').resizable("instance")).toBeTruthy();
+    });
+
+    test('$ jQuery UI sortable is available', () => {
+        // Add the test-element to the body
+        const testElement = $('<ul id="sortable-test"><li class="ui-state-default">Item 1</li><li class="ui-state-default">Item 2</li></ul>');
+        $('body').append(testElement);
+
+        // Make the test-element sortable
+        $('#sortable-test').sortable();
+
+        // Verify that the test-element is sortable
+        expect($('#sortable-test').sortable("instance")).toBeTruthy();
+    });
+
     // Add more tests for specific DOM features as needed
 });
 
@@ -198,31 +234,6 @@ describe('BoxBase', () => {
     let boxBase;
     const { BoxBase } = require('./../InteractiveBox');
 
-    beforeAll((done) => {
-        JSDOM.fromFile("index.html", {}).then(dom => {
-            window = dom.window;
-            document = window.document;
-            navigator = window.navigator;
-            $ = jQuery(window);
-    
-            // Add jQuery, document, window, and navigator to the global scope
-            global.jQuery = $;
-            global.document = document;
-            global.window = window;
-            global.navigator = navigator;
-    
-            global.$ = $;
-            require("jquery-ui-dist/jquery-ui");
-            require("jquery-ui/ui/widgets/mouse");
-            require("jquery-ui/ui/widgets/sortable");
-    
-            // Explicitly set the HTML of the body element
-            $('body').html('<div id="test-element"></div>');
-    
-            done();
-        });
-    }); 
-
     beforeEach(() => {
         boxBase = new BoxBase('box1', 'Title', '#000', '#fff', '#f00', null, null, $);
         $(boxBase.generateHTML()).appendTo('body');
@@ -269,39 +280,13 @@ describe('BoxBase', () => {
     });
 });
 
-
 describe('ResizableBox', () => {
     let resizableBox;
     const { ResizableBox } = require('./../InteractiveBox');
 
-    beforeAll((done) => {
-        JSDOM.fromFile("index.html", {}).then(dom => {
-            window = dom.window;
-            document = window.document;
-            navigator = window.navigator;
-            $ = jQuery(window);
-    
-            // Add jQuery, document, window, and navigator to the global scope
-            global.jQuery = $;
-            global.document = document;
-            global.window = window;
-            global.navigator = navigator;
-    
-            global.$ = $;
-            require("jquery-ui-dist/jquery-ui");
-            require("jquery-ui/ui/widgets/mouse");
-            require("jquery-ui/ui/widgets/sortable");
-    
-            // Explicitly set the HTML of the body element
-            $('body').html('<div id="test-element"></div>');
-    
-            done();
-        });
-    });    
-
     beforeEach(() => {
         resizableBox = new ResizableBox('box1', 'Title', '#000', '#fff', '#f00', null, null, $);
-        $(resizableBox.toDOMElement()).appendTo('body');
+        $(resizableBox.generateHTML()).appendTo('body');
         // Log the innerHTML before the update
         ////console.log("'document' HTML: \n"+window.document.documentElement.innerHTML);
         // Update JSDOM's representation of the document
@@ -329,153 +314,6 @@ describe('ResizableBox', () => {
         expect(resizableBox.expanded).toBeTruthy();
         expect(resizableBox.childBoxes).toEqual([]);
         expect(resizableBox.jsonChildren).toBeNull();
-    });
-
-    describe('JQuery', () => {
-
-        test('jQuery can select an element', async () => {
-            // Add the test-element to the body
-            const testElement = document.createElement('div');
-            testElement.id = 'test-element';
-            document.body.appendChild(testElement);
-        
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-        
-            // Try to select the test-element with the native method
-            const selectedElement = document.getElementById('test-element');
-        
-            // Check that the native method was able to select the element
-            expect(selectedElement).not.toBeNull();
-        });
-        
-        test('jQuery can select an element by id', () => {
-            // Add the test-element to the body
-            const testElement = document.createElement('div');
-            testElement.id = 'test-element';
-            document.body.appendChild(testElement);
-        
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-        
-            // Try to select the test-element with jQuery
-            const selectedElement = $('#test-element');
-        
-            // Check that jQuery was able to select the element
-            expect(selectedElement.length).toBe(1);
-        });
-        
-        test('jQuery can append an element to the body', () => {
-            // Create a new element with jQuery
-            const newElement = $('<div id="new-element"></div>');
-        
-            // Append the new element to the body
-            $('body').append(newElement);
-        
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-        
-            // Try to select the new element with the native method
-            const selectedElement = document.getElementById('new-element');
-        
-            // Check that the new element was added to the body
-            expect(selectedElement).not.toBeNull();
-        });
-        
-        test('jQuery can remove an element from the body', () => {
-            // Add the test-element to the body
-            const testElement = document.createElement('div');
-            testElement.id = 'test-element';
-            document.body.appendChild(testElement);
-        
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-        
-            // Remove the test-element with jQuery
-            $('#test-element').remove();
-        
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-        
-            // Try to select the test-element with the native method
-            const selectedElement = document.getElementById('test-element');
-        
-            // Check that the test-element was removed from the body
-            expect(selectedElement).toBeNull();
-        });
-
-        test('jQuery is available within class methods', () => {
-            class TestClass {
-                constructor() {
-                    this.element = $('<div id="class-element"></div>');
-                }
-        
-                appendElementToBody() {
-                    $('body').append(this.element);
-                }
-        
-                removeElementFromBody() {
-                    $('#class-element').remove();
-                }
-            }
-        
-            const testClass = new TestClass();
-        
-            // Append the element to the body
-            testClass.appendElementToBody();
-        
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-        
-            // Try to select the element with the native method
-            let selectedElement = document.getElementById('class-element');
-        
-            // Check that the element was added to the body
-            expect(selectedElement).not.toBeNull();
-        
-            // Remove the element from the body
-            testClass.removeElementFromBody();
-        
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-        
-            // Try to select the element with the native method
-            selectedElement = document.getElementById('class-element');
-        
-            // Check that the element was removed from the body
-            expect(selectedElement).toBeNull();
-        }); 
-
-        test('jQuery is available WITH PASS IN within external class methods', () => {
-            // Import the external class
-            const { ExternalClassDolla }  = require('./ExternalClass');
-            const externalClass = new ExternalClassDolla($);
-
-            // Append the element to the body
-            externalClass.appendElementToBody();
-
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-
-            // Try to select the element with the native method
-            let selectedElement = document.getElementById('class-element');
-
-            // Check that the element was added to the body
-            expect(selectedElement).not.toBeNull();
-
-            // Remove the element from the body
-            externalClass.removeElementFromBody();
-
-            // Update JSDOM's representation of the document
-            window.document.documentElement.innerHTML = $('body').html();
-
-            // Try to select the element with the native method
-            selectedElement = document.getElementById('class-element');
-
-            // Check that the element was removed from the body
-            expect(selectedElement).toBeNull();
-        });
-
     });
     
     test('calculates minimum size correctly', () => {
@@ -512,34 +350,114 @@ describe('ResizableBox', () => {
     });
 });
 
+describe('EventBox', () => {
+    let resizableBox;
+    const { EventBox } = require('./../InteractiveBox');
+
+    beforeEach(() => {
+        eventBox = new EventBox('event1', 'EventTitle', '#123', '#456', '#789', null, null, $);
+        eventBox.render();  // Use the new render method here
+        window.document.documentElement.innerHTML = $('body').html();
+    });    
+    
+    afterEach(() => {
+        while (document.body.firstChild) {
+            document.body.firstChild.remove();
+        }
+    });
+
+    test('constructs properly', () => {
+        expect(eventBox.boxId).toBe('event1');
+        expect(eventBox.title).toBe('EventTitle');
+        expect(eventBox.mainColor).toBe('#123');
+        expect(eventBox.secondaryColor).toBe('#456');
+        expect(eventBox.tertiaryColor).toBe('#789');
+    });
+    
+    test('resizing works', () => {
+        const initialWidth = $('#event1').width();
+        const initialHeight = $('#event1').height();
+    
+        // Simulate a resize event
+        $('#event1').width(initialWidth + 10);
+        $('#event1').height(initialHeight + 10);
+    
+        const newWidth = $('#event1').width();
+        const newHeight = $('#event1').height();
+    
+        expect(newWidth).toBe(initialWidth + 10);
+        expect(newHeight).toBe(initialHeight + 10);
+    });
+
+    test('draggable works', () => {
+        expect($('#event1').draggable('instance')).toBeTruthy();
+    });
+
+    test('resizing and collapse/expand works', () => {
+        jest.useFakeTimers();
+        const initialWidth = $('#event1').width();
+        const initialHeight = $('#event1').height();
+
+        // Simulate a resize event
+        $('#event1').width(initialWidth + 10);
+        $('#event1').height(initialHeight + 10);
+
+        const resizedWidth = $('#event1').width();
+        const resizedHeight = $('#event1').height();
+
+        expect(resizedWidth).toBe(initialWidth + 10);
+        expect(resizedHeight).toBe(initialHeight + 10);
+
+        // Simulate a collapse event
+        $('#event1-collapse-button').click();
+        
+        // Run all timers to instantly complete the animation
+        jest.runAllTimers();
+        
+        const collapsedWidth = $('#event1').width();
+        const collapsedHeight = $('#event1').height();
+
+        expect(collapsedWidth).toBeLessThan(resizedWidth);
+        expect(collapsedHeight).toBeLessThan(resizedHeight);
+
+        // Simulate an expand event
+        $('#event1-expand-button').click();
+        
+        // Run all timers to instantly complete the animation
+        jest.runAllTimers();
+        
+        const expandedWidth = $('#event1').width();
+        const expandedHeight = $('#event1').height();
+
+        expect(expandedWidth).toBe(resizedWidth);
+        expect(expandedHeight).toBe(resizedHeight);
+        jest.useRealTimers();
+    });
+
+    test('adds and removes child boxes', () => {
+        const childBox = new EventBox('child1', 'ChildTitle', '#aaa', '#bbb', '#ccc', null, null, $);
+        eventBox.addChildBox(childBox);
+    
+        expect(eventBox.childBoxes.length).toBe(1);
+        expect(eventBox.childBoxes[0].boxId).toBe('child1');
+    
+        eventBox.removeChildBox('child1');
+        expect(eventBox.childBoxes.length).toBe(0);
+    });
+
+    test('events are attached', () => {
+        const collapseEvents = $._data($('#event1-collapse-button')[0], 'events');
+        const expandEvents = $._data($('#event1-expand-button')[0], 'events');
+    
+        expect(collapseEvents.click.length).toBeGreaterThan(0);
+        expect(expandEvents.click.length).toBeGreaterThan(0);
+    });
+    
+});
+
 describe.skip("InteractiveBox", () => {
     let box;
     const { InteractiveBox } = require('./../InteractiveBox');
-
-    beforeAll((done) => {
-        JSDOM.fromFile("index.html", {}).then(dom => {
-            window = dom.window;
-            document = window.document;
-            navigator = window.navigator;
-            $ = jQuery(window);
-    
-            // Add jQuery, document, window, and navigator to the global scope
-            global.jQuery = $;
-            global.document = document;
-            global.window = window;
-            global.navigator = navigator;
-    
-            global.$ = $;
-            require("jquery-ui-dist/jquery-ui");
-            require("jquery-ui/ui/widgets/mouse");
-            require("jquery-ui/ui/widgets/sortable");
-    
-            // Explicitly set the HTML of the body element
-            $('body').html('<div id="test-element"></div>');
-    
-            done();
-        });
-    });    
 
     beforeEach(() => {
         resizableBox = new InteractiveBox('box1', 'Title', '#000', '#fff', '#f00', null, null, $);
@@ -551,7 +469,7 @@ describe.skip("InteractiveBox", () => {
         // Log the innerHTML after the update
         ////console.log("Updating JSDOM representation... new 'document' HTML: \n"+window.document.documentElement.innerHTML);
     });
-    
+
     afterEach(() => {
         // Remove all child elements from the body after each test
         ////console.log("Removing all children elements from body: \n")

@@ -1,6 +1,5 @@
-require('jsdom-global')();
-const $ = require('jquery');
-global.$ = global.jQuery = $;
+//$ = require('jquery');
+//global.$ = global.jQuery = $;
 
 class BoxBase {
     constructor(boxId, title, mainColor, secondaryColor, tertiaryColor, parentBox = null, jsonChildren = null, $ = window.$) {
@@ -57,7 +56,6 @@ class BoxBase {
         }
         return this.domElement;
     }
-
 
     applyDynamicStyles() {
         this.$("#" + this.boxId).css({
@@ -208,17 +206,32 @@ class ResizableBox extends BoxBase {
 class EventBox extends ResizableBox {
     constructor(boxId, title, mainColor, secondaryColor, tertiaryColor, parentBox = null, jsonChildren = null, $ = window.$) {
         super(boxId, title, mainColor, secondaryColor, tertiaryColor, parentBox, jsonChildren, $);
+        this.$ = $;
     }
 
+    render() {
+        // Generate the HTML
+        var html = this.generateHTML();
+        var $ = this.$;
+
+        // Add the HTML to the DOM
+        $(html).appendTo('body');
+    
+        // Attach the events
+        this.attachEvents();
+    }
+    
     attachEvents() {
-        super.attachEvents();
+        //super.attachEvents();
         var box = this;
         var parentId = this.parentBox;
-        var oldWidth = this.$("#" + this.boxId).width();
-        var oldHeight = this.$("#" + this.boxId).height();
-        var oldPadding = this.$("#" + this.boxId).css('padding');
-        var cornerWidth = this.$("#" + this.boxId + "-corner-box").outerWidth();
-        var cornerHeight = this.$("#" + this.boxId + "-corner-box").outerHeight();
+        var $ = this.$;
+        //console.log($.draggable);
+        var oldWidth = $("#" + this.boxId).width();
+        var oldHeight = $("#" + this.boxId).height();
+        var oldPadding = $("#" + this.boxId).css('padding');
+        var cornerWidth = $("#" + this.boxId + "-corner-box").outerWidth();
+        var cornerHeight = $("#" + this.boxId + "-corner-box").outerHeight();
         var minWidth, minHeight;
         var boxId = this.boxId;  // store the boxId in a variable
         var parentId = this.parentId;
@@ -230,6 +243,9 @@ class EventBox extends ResizableBox {
         const setMinSize = () => {
             minWidth = cornerWidth + 103 + $("#" + boxId + "-collapse-button").outerWidth();
             minHeight = cornerHeight + 8;
+            if(!$("#" + boxId).is(':ui-resizable')) {
+                $("#" + boxId).resizable();
+            }
             $("#" + boxId).resizable("option", "minWidth", minWidth);
             $("#" + boxId).resizable("option", "minHeight", minHeight);
         };
@@ -267,7 +283,7 @@ class EventBox extends ResizableBox {
             },
             drop: function (event, ui) {
                 var dropped = ui.helper;
-                var droppedOn = this.$(this);
+                var droppedOn = $(this);
                 if (droppedOn.hasClass('collapsed')) {
                     // If the box is collapsed, find the box beneath it and drop on that instead
                     var beneathBox = droppedOn.parent().closest('.interactive-box');
@@ -304,7 +320,7 @@ class EventBox extends ResizableBox {
                 $(this).hide();
 
                 // Now when you call elementFromPoint, it will return the underlying element
-                var droppedOn = this.$(document.elementFromPoint(event.clientX, event.clientY));
+                var droppedOn = $(document.elementFromPoint(event.clientX, event.clientY));
 
                 // If the droppedOn element is a drag handle, get its parent interactive box
                 if (droppedOn.hasClass('drag-handle')) {
@@ -341,16 +357,15 @@ class EventBox extends ResizableBox {
         setMinSize();
 
         $("#" + boxId + "-corner-box span").on('click', function () {
-            var width = this.$(this).parent().outerWidth() - 20;  // reduce the width by the width of the drag handle
-            var height = this.$(this).parent().outerHeight();
+            var width = $(this).parent().outerWidth() - 20;  // reduce the width by the width of the drag handle
+            var height = $(this).parent().outerHeight();
             $(this).parent().hide();
             $("#" + boxId + "-corner-input").css({ width: width, height: height }).val($(this).text().trim()).show().focus();
             setMinSize();
         });
 
-
         $("#" + boxId + "-corner-input").on('focusout', function () {
-            let newTitle = this.$(this).val();
+            let newTitle = $(this).val();
             $(this).hide();
 
             // Create a new InteractiveBox object with the new title
@@ -377,6 +392,7 @@ class EventBox extends ResizableBox {
     }
 
     childBoxExpanded(childBox) {
+        var $ = this.$;
         // Recalculate oldWidth and oldHeight based on the expanded child box
         console.log("'" + childBox.boxId + "' called size update for '" + this.boxId + "'");
 
@@ -400,11 +416,12 @@ class EventBox extends ResizableBox {
     generateCollapseExpandEvents() {
         var box = this;
         var expanded = this.expanded;
-        var oldWidth = this.$("#" + this.boxId).width();
-        var oldHeight = this.$("#" + this.boxId).height();
-        var oldPadding = this.$("#" + this.boxId).css('padding');
-        var cornerWidth = this.$("#" + this.boxId + "-corner-box").outerWidth();
-        var cornerHeight = this.$("#" + this.boxId + "-corner-box").outerHeight();
+        var $ = this.$;
+        var oldWidth = $("#" + this.boxId).width();
+        var oldHeight = $("#" + this.boxId).height();
+        var oldPadding = $("#" + this.boxId).css('padding');
+        var cornerWidth = $("#" + this.boxId + "-corner-box").outerWidth();
+        var cornerHeight = $("#" + this.boxId + "-corner-box").outerHeight();
         var minWidth, minHeight;
         var boxId = this.boxId;  // store the boxId in a variable
         var parentBox = this.parentBox;
@@ -416,13 +433,17 @@ class EventBox extends ResizableBox {
         var setMinSize = () => {
             minWidth = cornerWidth + 103 + $("#" + boxId + "-collapse-button").outerWidth();
             minHeight = cornerHeight + 8;
+            if(!$("#" + boxId).is(':ui-resizable')) {
+                $("#" + boxId).resizable();
+            }
             $("#" + boxId).resizable("option", "minWidth", minWidth);
             $("#" + boxId).resizable("option", "minHeight", minHeight);
-        };
+        };        
 
         setMinSize();
         console.log("is expanded: " + this.expanded);
         var collapseEvent = (e) => {
+            console.log("Before collapse, width: ", $("#" + boxId).width());
             e.stopPropagation();
             if (expanded) {
                 var collapsedSize = this.calculateCollapsedSize();
@@ -466,6 +487,8 @@ class EventBox extends ResizableBox {
                     });
                 }
                 $("#" + boxId).addClass('collapsed'); // add the collapsed class when the box is collapsed
+
+                console.log("After collapse, width: ", $("#" + boxId).width());
             }
         };
 
@@ -473,6 +496,7 @@ class EventBox extends ResizableBox {
             var generateChildBoxes = this.generateChildBoxes;
             var thisBox = this;
             var boxId = this.boxId;
+            var $ = this.$;
             var childBoxes = this.childBoxes;
             //this.childBoxSize = childBoxSize;
             e.stopPropagation();
@@ -532,6 +556,7 @@ class EventBox extends ResizableBox {
     }
 
     updateCollapseExpandEvents() {
+        var $ = this.$;
         console.log("is expanded: " + this.expanded);
         if (document) {
             // Unbind the current collapse and expand events
@@ -560,6 +585,7 @@ class EventBox extends ResizableBox {
     }
 
     removeChildBox(childBoxId) {
+        var $ = this.$;
         // Find the child box in the array
         const index = this.childBoxes.findIndex(box => box.boxId === childBoxId);
 
@@ -583,6 +609,7 @@ class EventBox extends ResizableBox {
     }
 
     hideChildBoxIfCollapsed(childBox) {
+        var $ = this.$;
         if (document) {
             if (this && this.boxId) {
                 if (childBox && childBox.boxId) {
@@ -601,6 +628,7 @@ class EventBox extends ResizableBox {
     }
 
     hideChildBoxes() {
+        var $ = this.$;
         this.childBoxes.forEach(childBox => {
             $("#" + childBox.boxId).hide();
         });
