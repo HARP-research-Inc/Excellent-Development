@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import sys
 if 'pytest' in sys.modules:
     from src.python.gen_tree_helper import Gen_Tree_Helper as gth
@@ -22,6 +23,7 @@ class Table:
         self.expected_position = expected_position
         self.expected_size = (1,1)
         self.pattern = pattern
+        self.all_blocks = []
         # Get the size of the table after initializing all the attributes
         self.get_size()
 
@@ -111,12 +113,13 @@ class Table:
         return all_mismatches if all_mismatches else True
 
     def to_dataframe(self):
-
+        gth.debug_print(f"Expected_size in table: \n{self.expected_size}")
         # First we will create an empty DataFrame with sizes according to the table size
         df = pd.DataFrame('', index=range(
             self.expected_size[0]), columns=range(self.expected_size[1]))
-        gth.debug_print(f"Data in DF in tble to_df: \n{self.expected_size}\n")
         self.get_child_rel_pos()
+        #gth.debug_print(f"Label blocks in tble to_df: \n{self.all_blocks}\n")
+        
         # Initialize with the maximum possible size
         label_columns = [""] * self.expected_size[1]
         # Initialize with the maximum possible size
@@ -157,6 +160,7 @@ class Table:
         # Convert the DataFrame to have the correct labels as column names and indexes
         #Set the first row as the column names
         
+        gth.debug_print(df)
         df.columns = df.iloc[0]
 
         # Remove the first row from the DataFrame
@@ -169,8 +173,7 @@ class Table:
 
         return df
 
-    def get_blocks(self):
-        self.all_blocks = []
+    def get_blocks(self) -> list:
         if self.data_block:
             self.all_blocks.append(self.data_block)
         for dim in self.label_blocks["same_height"], self.label_blocks["same_width"]:
@@ -238,8 +241,8 @@ class Table:
 
     def get_size(self):
         #print(self.free_blocks)
-        # If data_block is not None, get its size, otherwise, initialize total_size as [0, 0]
-        total_size = list(self.data_block.size) if self.data_block else [0, 0]
+        # If data_block is not None, get its size, otherwise, initialize total_size as [1, 1]
+        total_size = list(self.data_block.size) if self.data_block else [1, 1]
         offsets = [[["same_height", "l0"], [1, 0]], [["same_height", "l1"], [2, 0]], [["same_height", "r0"], [1, 0]], [["same_height", "r1"], [
             2, 0]], [["same_width", "t0"], [0, 1]], [["same_width", "t1"], [0, 2]], [["same_width", "b0"], [0, 1]], [["same_width", "b1"], [0, 2]]]
         # Above offsets specify how the size of each label block contributes to the total size of the table

@@ -17,10 +17,9 @@ class Gen_Tree:
         # The tree can be initialized either with a list of sheets or a dict of sheets
         if json_data:
             self.data = json.loads(json_data)
-            self.sheets = {( 
-                [Sheet(sheet).name for sheet in sheet_data],
-                [Table(json_data=table_data) for table_data in [Sheet(sheet).tables for sheet in sheet_data]]
-                ) for sheet_data in self.data}
+            self.sheets = {
+                (Sheet(sheet).name, [Table(json_data=table_data) for table_data in Sheet(sheet).tables])
+                for sheet in self.data }
         else:
             self.sheets = sheets if isinstance(sheets, dict) or not sheets else {
                 sheet_instance.name: sheet_instance for sheet_instance in sheets}

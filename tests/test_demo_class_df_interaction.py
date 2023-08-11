@@ -25,14 +25,15 @@ label_block_1 = block(cells=[cell_2])
 label_block_2 = block(cells=[cell_3])
 
 # Define table
-tbl_test = table(expected_position=(1,1), free_labels=[label_block_1, label_block_2], free_data=[data_block])
+tbl_test = table(expected_position=(1,1), free_labels=[label_block_1, label_block_2], free_data=[data_block], data_block=data_block)
 
 def test_to_dataframe_data_block(df):
-    print("Data block: {}, block 1: {}, block 2: data_block")
     df = tbl_test.to_dataframe()
+    print(f"label blocks \n1: {label_block_1}\n\n 2: {label_block_2}")
 
     assert df.at[0, 'a'] == 1, "Failed to correctly populate dataframe with data block values"
 
+@pytest.mark.dependency(depends=['test_to_dataframe_data_block'])
 def test_to_dataframe_label_block():
     df = tbl_test.to_dataframe()
 

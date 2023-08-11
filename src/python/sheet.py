@@ -124,9 +124,8 @@ class Sheet:
             table for table in self.tables if table.is_prime() is not None]
         return prime_tables, [table.is_prime() for table in prime_tables if table.is_prime() is not None]
 
-    """ def from_json(cls, json_data):
-
+    def from_json(cls, json_data):
+        # Converts the json to a sheet
         AssertionError(len(json_data) != 1, "")
         for name, sheet in json_data.items():
-
-        json_data.get() """
+            return Sheet(name, json_data.get("tables", []), json_data.get("free_labels", []), json_data.get("free_data", []), json_data.get("tables", []).get("cells"))

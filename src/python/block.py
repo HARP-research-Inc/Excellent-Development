@@ -25,6 +25,7 @@ class Block:
         # Format block data into a CSV format
         self.csv_format()
         self.expected_position = self.corners[0]
+        self.relative_position = self.expected_position
 
     def __str__(self):
         return str(self.to_json())
