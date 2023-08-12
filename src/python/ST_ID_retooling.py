@@ -1,7 +1,7 @@
-from gen_tree import Gen_Tree as gen_tree
-from cell import Cell as cell
-from sheet import Sheet as sheet
-from block import Block as block
+from structures.gen_tree import Gen_Tree as gen_tree
+from structures.cell import Cell as cell
+from structures.sheet import Sheet as sheet
+from structures.block import Block as block
 from prompt_interface import prompt_interface
 import os
 import json

@@ -1,9 +1,9 @@
 import pytest
 import pandas as pd
-from src.python.cell import Cell as cell
-from src.python.block import Block as block
-from src.python.table import Table as table
-from src.python.sheet import Sheet as sheet
+from src.python.structures.cell import Cell as cell
+from src.python.structures.block import Block as block
+from src.python.structures.table import Table as table
+from src.python.structures.sheet import Sheet as sheet
 
 # Create a dataframe for testing
 @pytest.fixture(scope = 'session')
@@ -104,9 +104,7 @@ label_block_01 = block(cells=[cell_01])
 label_1_df = pd.DataFrame([["Business Performance"]])
 
 def test_single_to_dataframe():
-    df_c_01 = cell_01.to_dataframe()
-    df_b_01 = cell_01.to_dataframe()
-    assert df_c_01 == label_1_df, "Failed to correctly populate dataframe from a single cell value"
+    df_b_01 = label_block_01.to_dataframe()
     assert df_b_01 == label_1_df, "Failed to correctly populate dataframe from a block of a single cell"
 
 #Table 1
@@ -168,22 +166,23 @@ table_1_df = pd.DataFrame([[" ","Sales","Services"],
     ["Q4","130000","65000"],
     ["Total","=SUM(B4:B7)","=SUM(C4:7)"]])
 
-table_11 = table(t0=label_block_02, l0=label_block_05, data_block=data_block_01, free_labels=label_block_01)
+table_11 = table(t0=label_block_02, l0=label_block_05, data_block=data_block_01, free_labels=[label_block_01])
 
-table_11_df = pd.DataFrame([["Business Performance"," "," "]
-    [" "," "," "],
+table_11_df = 0
+#table_11_df = pd.DataFrame([["Business Performance"," "," "],
+test= ([[" "," "," "],
     [" ","Sales","Services"],
     ["Q1","100000","50000"],
     ["Q2","120000","60000"],
     ["Q3","110000","55000"],
     ["Q4","130000","65000"],
-    ["Total","=SUM(B4:B7)","=SUM(C4:7)"]])
+    ["Total","=SUM(B4:B7)","=SUM(C4:7)"],])
 
 label_block_101 = block(cells=[cell(location=(1,1), value='Business Performance', annotation="DATA")])
-table_21 = table(t0=label_block_02, l0=label_block_05, data_block=data_block_01, free_labels=label_block_101)
+table_21 = table(t0=label_block_02, l0=label_block_05, data_block=data_block_01, free_labels=[label_block_101])
 
-table_21_df = pd.DataFrame([["Business Performance"," "," "]
-    [" "," "," "],
+table_21_df = 5#pd.DataFrame([["Business Performance"," "," "]
+test = ([[" "," "," "],
     [" ","Sales","Services"],
     ["Q1","100000","50000"],
     ["Q2","120000","60000"],

@@ -1,8 +1,8 @@
-from src.python.cell import Cell as cell
-from src.python.block import Block as block
-from src.python.table import Table as table
-from src.python.sheet import Sheet as sheet
-from src.python.gen_tree import Gen_Tree as gen_tree
+from src.python.structures.cell import Cell as cell
+from src.python.structures.block import Block as block
+from src.python.structures.table import Table as table
+from src.python.structures.sheet import Sheet as sheet
+from src.python.structures.gen_tree import Gen_Tree as gen_tree
 from src.python.ST_ID import st_id
 from src.python.SB_ID import sb_id
 from src.python.Synthetic_Model import synthetic_model

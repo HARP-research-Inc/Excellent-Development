@@ -2,13 +2,13 @@ import pandas as pd
 import numpy as np
 import sys
 if 'pytest' in sys.modules:
-    from src.python.gen_tree_helper import Gen_Tree_Helper as gth
-    from src.python.block import Block as block
-    from src.python.cell import Cell as cell
+    from src.python.structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from src.python.structures.block import Block as block
+    from src.python.structures.cell import Cell as cell
 else:
-    from gen_tree_helper import Gen_Tree_Helper as gth
-    from block import Block as block
-    from cell import Cell as cell
+    from structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from structures.block import Block as block
+    from structures.cell import Cell as cell
 
 class Table:
     def __init__(self, expected_position=(1, 1), free_labels=[], free_data=[], subtables=[], l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data=None, pattern=None):

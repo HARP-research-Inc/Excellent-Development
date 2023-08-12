@@ -2,11 +2,11 @@ import sys
 
 
 if 'pytest' in sys.modules:
-    from src.python.gen_tree_helper import Gen_Tree_Helper as gth
-    from src.python.cell import Cell
+    from src.python.structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from src.python.structures.cell import Cell
 else:
-    from gen_tree_helper import Gen_Tree_Helper as gth
-    from cell import Cell
+    from structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from structures.cell import Cell
 
 class Block:
     def __init__(self, cells: list[Cell] = [], annotation_type=None):

@@ -6,10 +6,10 @@ Last Author:            Dana Solitaire
 import json
 import sys 
 if 'pytest' in sys.modules:
-    from src.python.sheet import Sheet as Sheet
-    from src.python.table import Table as Table
+    from src.python.structures.sheet import Sheet as Sheet
+    from src.python.structures.table import Table as Table
 else:
-    from sheet import Sheet as Sheet
+    from structures.sheet import Sheet as Sheet
 
 
 class Gen_Tree:

@@ -1,14 +1,14 @@
 import sys
 if 'pytest' in sys.modules:
-    from src.python.gen_tree_helper import Gen_Tree_Helper as gth
-    from src.python.cell import Cell as cell
-    from src.python.block import Block as block
-    from src.python.table import Table as table
+    from src.python.structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from src.python.structures.cell import Cell as cel
+    from src.python.structures.block import Block as blk
+    from src.python.structures.table import Table as tbl
 else:
-    from gen_tree_helper import Gen_Tree_Helper as gth
-    from cell import Cell as cel
-    from block import Block as blk
-    from table import Table as tbl
+    from structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from structures.cell import Cell as cel
+    from structures.block import Block as blk
+    from structures.table import Table as tbl
 
 class Sheet:
     def __init__(self, name, tables=[], free_labels=[], free_data=[], cells=None, blocks=None):

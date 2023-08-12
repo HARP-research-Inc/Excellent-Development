@@ -1,10 +1,10 @@
 import pytest
 import json
-from src.python.cell import Cell as cell
-from src.python.block import Block as block
-from src.python.table import Table as table
-from src.python.sheet import Sheet as sheet
-from src.python.gen_tree import Gen_Tree as gen_tree
+from src.python.structures.cell import Cell as cell
+from src.python.structures.block import Block as block
+from src.python.structures.table import Table as table
+from src.python.structures.sheet import Sheet as sheet
+from src.python.structures.gen_tree import Gen_Tree as gen_tree
 
 # Test cases for the Cell class
 def test_valid_cell_creation():

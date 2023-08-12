@@ -1,8 +1,8 @@
-from src.python.cell import Cell as cell
-from src.python.block import Block as block
-from src.python.table import Table as table
-from src.python.sheet import Sheet as sheet
-from src.python.gen_tree import Gen_Tree as gen_tree
+from structures.cell import Cell as cell
+from structures.block import Block as block
+from structures.table import Table as table
+from structures.sheet import Sheet as sheet
+from structures.gen_tree import Gen_Tree as gen_tree
 import json
 from SB_ID import sb_id
 from ST_ID import st_id

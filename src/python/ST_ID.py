@@ -1,9 +1,9 @@
-from src.python.cell import Cell as cell
-from src.python.block import Block as block
-from src.python.table import Table as table
-from src.python.sheet import Sheet as sheet
-from src.python.gen_tree import Gen_Tree as gen_tree
-from src.python.gen_tree_helper import Gen_Tree_Helper as gth
+from structures.cell import Cell as cell
+from structures.block import Block as block
+from structures.table import Table as table
+from structures.sheet import Sheet as sheet
+from structures.gen_tree import Gen_Tree as gen_tree
+from structures.gen_tree_helper import Gen_Tree_Helper as gth
 def st_id(tree: gen_tree):
     # Create a dictionary to store sheet information
     sheet_dict = {}

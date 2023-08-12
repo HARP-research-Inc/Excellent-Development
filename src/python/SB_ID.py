@@ -1,14 +1,14 @@
 import sys
 if 'pytest' in sys.modules:
-    from src.python.gen_tree import Gen_Tree as gen_tree
-    from src.python.cell import Cell as cell
-    from src.python.sheet import Sheet as sheet
-    from src.python.block import Block as block
+    from src.python.structures.gen_tree import Gen_Tree as gen_tree
+    from src.python.structures.cell import Cell as cell
+    from src.python.structures.sheet import Sheet as sheet
+    from src.python.structures.block import Block as block
 else:
-    from src.python.gen_tree import Gen_Tree as gen_tree
-    from src.python.cell import Cell as cell
-    from src.python.sheet import Sheet as sheet
-    from src.python.block import Block as block
+    from structures.gen_tree import Gen_Tree as gen_tree
+    from structures.cell import Cell as cell
+    from structures.sheet import Sheet as sheet
+    from structures.block import Block as block
     
 #from src.python.prompt_interface import prompt_interface
 import os
