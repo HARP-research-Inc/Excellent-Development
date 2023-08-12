@@ -21,7 +21,7 @@ c. Edge cases: Identify edge cases, boundary conditions, or special scenarios th
 
 8) Consider special scenarios: Identify specific scenarios or conditions that might have unique behavior requirements. These could be cases where the unit interacts with external systems, relies on specific states, or handles exceptional events.
 
-Please also add descriptive messages like: "Failed to handle empty sheets"
+Please also add descriptive messages like: "Failed to handle empty sheets" and dependencies using pytest-dependencies
 
 ###Run Script:
 

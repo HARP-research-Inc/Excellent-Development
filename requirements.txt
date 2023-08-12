@@ -6,5 +6,7 @@ tabulate
 pytest
 pytest-cov
 pytest-dependency
+pytest-mock
 flake8
 autopep8
+mocker

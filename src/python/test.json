@@ -1,0 +1,66 @@
+{
+    "data_block": {
+        "start": "(2, 2)",
+        "end": "(4, 4)",
+        "cells": {
+            "(2, 2)": {
+                "value": "10/12/2023",
+                "annotation": "DATA"
+            },
+            "(2, 3)": {
+                "value": "10:15",
+                "annotation": "DATA"
+            },
+            "(2, 4)": {
+                "value": "USA",
+                "annotation": "DATA"
+            },
+            "(3, 2)": {
+                "value": "09/01/2002",
+                "annotation": "DATA"
+            },
+            "(3, 3)": {
+                "value": "14:30",
+                "annotation": "DATA"
+            },
+            "(3, 4)": {
+                "value": "UK",
+                "annotation": "DATA"
+            },
+            "(4, 2)": {
+                "value": "11/22/1963",
+                "annotation": "DATA"
+            },
+            "(4, 3)": {
+                "value": "13:45",
+                "annotation": "DATA"
+            },
+            "(4, 4)": {
+                "value": "Canada",
+                "annotation": "DATA"
+            }
+        },
+        "size": "(3, 3)"
+    },
+    "label_blocks": {
+        "same_height": {
+            "l0": "None",
+            "l1": "None",
+            "r0": "None",
+            "r1": "None"
+        },
+        "same_width": {
+            "t0": "None",
+            "t1": "None",
+            "b0": "None",
+            "b1": "None"
+        }
+    },
+    "subtables": [],
+    "free_blocks": {
+        "LABEL": [],
+        "DATA": []
+    },
+    "size": "(3, 3)",
+    "start": "(1, 1)"
+}
