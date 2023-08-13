@@ -1,17 +1,42 @@
 import pandas as pd
-import numpy as np
 import sys
+
+# Title: table.py
+# Author: Harper Chisari
+# Description: Defines the Table class, representing a complex table structure comprising various blocks, labels, and subtables. Provides methods for DataFrame conversion, validation, JSON serialization, size calculation, and more.
+# Contents:
+#   CLASS - Table:
+#       METHOD - __init__: Initializes a Table object with expected position, labels, data, subtables, and other attributes
+#       METHOD - __str__: String representation of the Table object
+#       METHOD - __repr__: String representation of the Table object
+#       METHOD - check_df_ep: Checks if a DataFrame has a compatible data structure
+#       METHOD - to_dataframe: Transposes and returns a DataFrame representation of the table
+#       METHOD - get_blocks: Returns all blocks within the table
+#       METHOD - get_csv: Builds a CSV representation of all cells in the table
+#       METHOD - is_enclosed: Checks if the table is enclosed by labels
+#       METHOD - is_prime: Checks if the size of the data block is prime
+#       METHOD - get_relative_position: Gets the relative position of the table
+#       METHOD - get_child_rel_pos: Calculates the relative position for each child block and subtable
+#       METHOD - get_size: Computes and returns the size of the table
+#       METHOD - to_json: Serializes the table object into a JSON format
+#       METHOD - to_clean_json: Represents the Table in a cleaner JSON format
+#       METHOD - from_json: Creates a Table object from JSON data
+
+# Version History:
+#   Harper: 8/12/23 - V1.3 - Added title block, redid to_dataframe, added get_corners
+
 if 'pytest' in sys.modules:
-    from src.python.structures.gen_tree_helper import Gen_Tree_Helper as gth
-    from src.python.structures.block import Block as block
-    from src.python.structures.cell import Cell as cell
+    from src.python.structures.utilities import Gen_Tree_Helper as gth
+    from src.python.structures.block import Block as blk
+    from src.python.structures.cell import Cell as cel
 else:
-    from structures.gen_tree_helper import Gen_Tree_Helper as gth
-    from structures.block import Block as block
-    from structures.cell import Cell as cell
+    from structures.utilities import Gen_Tree_Helper as gth
+    from structures.block import Block as blk
+    from structures.cell import Cell as cel
+
 
 class Table:
-    def __init__(self, expected_position=(1, 1), free_labels=[], free_data=[], subtables=[], l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block=None, json_data=None, pattern=None):
+    def __init__(self, free_labels=[], free_data=[], subtables=[], l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block: blk=None, json_data=None, pattern=None):
         assert isinstance(
             free_labels, list), f"expected a list, got f{free_labels}"
         self.data_block = data_block
@@ -19,9 +44,8 @@ class Table:
                                              "r1": r1}, "same_width": {"t0": t0, "t1": t1, "b0": b0, "b1": b1}}
         self.subtables = subtables
         self.free_blocks = {
-            "lable_blocks": free_labels, "data_blocks": free_data}
-        self.expected_position = expected_position
-        self.expected_size = (1,1)
+            "label_blocks": free_labels, "data_blocks": free_data}
+        self.get_corners()
         self.pattern = pattern
         self.all_blocks = []
         # Get the size of the table after initializing all the attributes
@@ -60,7 +84,7 @@ class Table:
                         label_mismatch_dict[label_position] = label_check_result
 
         # Loop over each free label
-        for free_label in self.free_blocks["lable_blocks"]:
+        for free_label in self.free_blocks["label_blocks"]:
             # Use the block's check_df_ep method to check for mismatches
             free_label_check_result = free_label.check_df_ep(df)
 
@@ -113,65 +137,63 @@ class Table:
         return all_mismatches if all_mismatches else True
 
     def to_dataframe(self):
-        gth.debug_print(f"Expected_size in table: \n{self.expected_size}")
-        # First we will create an empty DataFrame with sizes according to the table size
-        df = pd.DataFrame('', index=range(
-            self.expected_size[0]), columns=range(self.expected_size[1]))
-        self.get_child_rel_pos()
-        #gth.debug_print(f"Label blocks in tble to_df: \n{self.all_blocks}\n")
-        
-        # Initialize with the maximum possible size
-        label_columns = [""] * self.expected_size[1]
-        # Initialize with the maximum possible size
-        label_indexes = [""] * self.expected_size[0]
-        
-        gth.debug_print(f"Label Columns: {label_columns}")
-        gth.debug_print(f"Label Indexes: {label_indexes}")
-
-        # We will then fill in the labels (if they exist) in the DataFrame
-        for dim in (('same_width', "t0"), ('same_width', "t1"), ('same_height', "l0"), ('same_height', "l1")):
-            if self.label_blocks[dim[0]][dim[1]]:
-                label_block = self.label_blocks[dim[0]][dim[1]]
-                if dim[0] == 'same_width':
-                    # If it's the same width dimension, labels are placed on top of the DataFrame.
-                    df.iloc[label_block.relative_position[0]:label_block.relative_position[0]+label_block.size[0],
-                            label_block.relative_position[1]:label_block.relative_position[1]+label_block.size[1]] = [[Cell.value] for Cell in label_block.cells]
-                    label_columns[label_block.relative_position[1]:label_block.relative_position[1] +
-                                  label_block.size[1]] = [Cell.value for Cell in label_block.cells]
-                else:
-                    # If it's the same height dimension, labels are placed on the left side of the DataFrame.
-                    df.iloc[label_block.relative_position[0]:label_block.relative_position[0]+label_block.size[0],
-                            label_block.relative_position[1]:label_block.relative_position[1]+label_block.size[1]] = np.array([[Cell.value] for Cell in label_block.cells]).T
-                    label_indexes[label_block.relative_position[0]:label_block.relative_position[0] +
-                                  label_block.size[0]] = [Cell.value for Cell in label_block.cells]
-
-        gth.debug_print(f"Labels in DF: {df}\n")
-        df = df.transpose()
-        # Finally we populate the DataFrame with data block values
+        # Get DataFrames and expected positions (eps) of all free label blocks, free data blocks, label blocks, and the data block
+        all_dfs = []
+        for block_type in [self.free_blocks["label_blocks"], self.free_blocks["data_blocks"], self.label_blocks["same_height"].values(), self.label_blocks["same_width"].values()]:
+            for block in block_type:
+                if block:
+                    all_dfs.append((block.to_dataframe(), block.expected_position))
         if self.data_block:
-            cell_values = [Cell.value for Cell in self.data_block.cells]
-            reshaped_cell_values = [cell_values[i:i+3]
-                                    for i in range(0, len(cell_values), 3)]
+            all_dfs.append((self.data_block.to_dataframe(), self.data_block.expected_position))
 
-            df.iloc[self.data_block.relative_position[0]:self.data_block.relative_position[0]+self.data_block.size[0],
-                    self.data_block.relative_position[1]:self.data_block.relative_position[1]+self.data_block.size[1]] = reshaped_cell_values
-        
-        gth.debug_print(f"Data in DF in tble to_df: \n{df}\n")
-        # Convert the DataFrame to have the correct labels as column names and indexes
-        #Set the first row as the column names
-        
-        gth.debug_print(df)
-        df.columns = df.iloc[0]
+        # Use gth.insert_dataframe to concatenate all DataFrames into a larger one
+        df = pd.DataFrame()
+        for dataframe, expected_position in all_dfs:
+            new_ep = (expected_position[0] - (self.expected_position[0] - 1), expected_position[1] - (self.expected_position[1] - 1))
+            gth.debug_print(f"  Table EP: {self.expected_position}, Block EP: {expected_position}")
+            #gth.debug_print(self.free_blocks)
+            #self.get_corners()
+            #gth.debug_print(self)
+            df = gth.insert_dataframe(df, dataframe, new_ep)
 
-        # Remove the first row from the DataFrame
-        df = df[1:]
-
-        # Set the first column as the index
-        df = df.set_index(df.columns[0])
-        gth.debug_print(f"Indexed DF: \n{df}\n")
-        df=df.transpose()
-
+        # Return and assign the concatenated DataFrame to self.dataframe
+        self.dataframe = df
         return df
+
+    def get_corners(self) -> tuple:
+        #label offset
+        label_offset_x = -2 if self.label_blocks["same_height"]["l1"] else -1 if self.label_blocks["same_height"]["l0"] else 0
+        label_offset_y = -2 if self.label_blocks["same_width"]["t1"] else -1 if self.label_blocks["same_width"]["t0"] else 0
+        label_offset_x1 = 2 if self.label_blocks["same_height"]["r1"] else 1 if self.label_blocks["same_height"]["r0"] else 0
+        label_offset_y1 = 2 if self.label_blocks["same_width"]["b1"] else 1 if self.label_blocks["same_width"]["b0"] else 0
+        #initialize corners
+        self.corners = []
+        #take data block ep and offset table ep depending on labels used
+        self.corners = [(self.data_block.expected_position[0] + label_offset_x, self.data_block.expected_position[1] + label_offset_y), (self.data_block.corners[1][0] + label_offset_x1, self.data_block.corners[1][1] + label_offset_y1)]
+        #see if any free block is further out
+        gth.debug_print(f"  Corners pre-fb check: {self.corners}")
+        free_blocks = self.free_blocks["label_blocks"] + self.free_blocks["data_blocks"]
+        max_corners = self.corners
+        #check free block corners
+        for block in free_blocks:
+            gth.debug_print(f"      Block Corners: {block.corners}")
+            max_corners[0] = (block.corners[0][0], max_corners[0][1]) if block.corners[0][0] < max_corners[0][0] else max_corners[0]
+            max_corners[0] = (max_corners[0][0], block.corners[0][1]) if block.corners[0][1] < max_corners[0][1] else max_corners[0]
+            max_corners[1] = (block.corners[1][0], max_corners[1][1]) if block.corners[1][0] > max_corners[1][0] else max_corners[1]
+            max_corners[1] = (max_corners[1][0], block.corners[1][1]) if block.corners[1][1] > max_corners[1][1] else max_corners[1]
+
+        for subtable in self.subtables:
+            gth.debug_print(f"      Subtable Corners: {subtable.corners}")
+            max_corners[0] = (subtable.corners[0][0], max_corners[0][1]) if subtable.corners[0][0] < max_corners[0][0] else max_corners[0]
+            max_corners[0] = (max_corners[0][0], subtable.corners[0][1]) if subtable.corners[0][1] < max_corners[0][1] else max_corners[0]
+            max_corners[1] = (subtable.corners[1][0], max_corners[1][1]) if subtable.corners[1][0] > max_corners[1][0] else max_corners[1]
+            max_corners[1] = (max_corners[1][0], subtable.corners[1][1]) if subtable.corners[1][1] > max_corners[1][1] else max_corners[1]
+        
+        gth.debug_print(f"  Corners post- item check: {self.corners}")
+
+        #update ep
+        self.expected_position = self.corners[0]
+        return self.expected_position
 
     def get_blocks(self) -> list:
         if self.data_block:
@@ -180,7 +202,7 @@ class Table:
             for key, value in dim.items():
                 if value is not None:
                     self.all_blocks.append(value)
-        for block_list in [self.free_blocks["lable_blocks"], self.free_blocks["data_blocks"]]:
+        for block_list in [self.free_blocks["label_blocks"], self.free_blocks["data_blocks"]]:
             self.all_blocks += block_list
         return self.all_blocks
 
@@ -240,20 +262,7 @@ class Table:
             Table.get_relative_position(origin=self.expected_position) if not Table.relative_position else None
 
     def get_size(self):
-        #print(self.free_blocks)
-        # If data_block is not None, get its size, otherwise, initialize total_size as [1, 1]
-        total_size = list(self.data_block.size) if self.data_block else [1, 1]
-        offsets = [[["same_height", "l0"], [1, 0]], [["same_height", "l1"], [2, 0]], [["same_height", "r0"], [1, 0]], [["same_height", "r1"], [
-            2, 0]], [["same_width", "t0"], [0, 1]], [["same_width", "t1"], [0, 2]], [["same_width", "b0"], [0, 1]], [["same_width", "b1"], [0, 2]]]
-        # Above offsets specify how the size of each label block contributes to the total size of the table
-
-        for offset in offsets:
-            block = self.label_blocks[offset[0][0]][offset[0][1]]
-            if block:  # If the block exists
-                for coord in [0, 1]:  # For each dimension
-                    # Add the contribution of the block to the total size
-                    total_size[coord] += offset[1][coord]
-        self.expected_size = tuple(total_size)  # Set the expected size
+        self.expected_size = (self.corners[1][0] - (self.corners[0][0]-1), self.corners[1][1] - (self.corners[0][1]-1))
         return self.expected_size
 
     def to_json(self):
@@ -274,7 +283,7 @@ class Table:
         #print(self.free_blocks)
         # Convert the free label blocks to JSON
         free_label_blocks_json = [block.to_json()
-                                  for block in self.free_blocks["lable_blocks"]]
+                                  for block in self.free_blocks["label_blocks"]]
         # Convert the free data blocks to JSON
         free_data_blocks_json = [block.to_json()
                                  for block in self.free_blocks["data_blocks"]]
@@ -308,7 +317,7 @@ class Table:
 
         #print(self.free_blocks)
         free_label_blocks_clean_json = [block.to_clean_json(
-        ) for block in self.free_blocks["lable_blocks"]]  # Convert the free label blocks to JSON
+        ) for block in self.free_blocks["label_blocks"]]  # Convert the free label blocks to JSON
         free_data_blocks_clean_json = [block.to_clean_json(
         ) for block in self.free_blocks["data_blocks"]]  # Convert the free data blocks to JSON
 

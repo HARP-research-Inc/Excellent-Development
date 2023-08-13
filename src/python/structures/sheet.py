@@ -1,11 +1,36 @@
 import sys
+import pandas as pd
+
+
+# Title: sheet.py
+# Author: Harper Chisari
+# Description: Defines the Sheet class, representing a sheet containing tables, free labels, free data, cells, and blocks. Provides methods for DataFrame validation, CSV and JSON serialization, block retrieval, and special table analysis.
+# Contents:
+#   CLASS - Sheet:
+#       METHOD - __init__: Initializes a Sheet object with name, tables, free labels, free data, cells, and blocks
+#       METHOD - __str__: String representation of the Sheet object
+#       METHOD - __repr__: String representation of the Sheet object
+#       METHOD - to_dataframe: Builds a DataFrame representation of the sheet by inserting DataFrames for all blocks, tables, free_labels, and free_data blocks using the relative expected_position
+#       METHOD - check_df_ep: Checks if a DataFrame has a compatible data structure
+#       METHOD - get_blocks: Retrieves all blocks within the sheet
+#       METHOD - get_csv: Builds a CSV representation of all cells in the sheet
+#       METHOD - to_csv: Converts the data in the tables to a CSV format
+#       METHOD - to_json: Serializes the sheet object into a JSON format
+#       METHOD - to_clean_json: Represents the Sheet in a cleaner JSON format
+#       METHOD - get_unenclosed_tables: Returns the tables that are not enclosed by labels
+#       METHOD - get_prime_tables: Returns the tables that have a prime number of rows or columns
+#       METHOD - from_json: Creates a Sheet object from JSON data
+
+# Version History:
+#   Harper: 8/13/23 - V1.3 - Added title block, to_dataframe method
+
 if 'pytest' in sys.modules:
-    from src.python.structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from src.python.structures.utilities import Gen_Tree_Helper as gth
     from src.python.structures.cell import Cell as cel
     from src.python.structures.block import Block as blk
     from src.python.structures.table import Table as tbl
 else:
-    from structures.gen_tree_helper import Gen_Tree_Helper as gth
+    from structures.utilities import Gen_Tree_Helper as gth
     from structures.cell import Cell as cel
     from structures.block import Block as blk
     from structures.table import Table as tbl
@@ -32,14 +57,35 @@ class Sheet:
                 if block.annotation_type == "DATA":
                     self.free_data.append(block)
         else:
-            self.free_labels = free_labels
-            self.free_data = free_data
+            self.blocks = []
+            self.blocks.extend(self.free_labels)
+            self.blocks.extend(self.free_data)
+        
+        self.to_dataframe()
 
     def __str__(self):
         return str(self.to_json())
     
     def __repr__(self):
         return str("\n\tName:  {} \n\tCells: {} \n\tBlocks: {} \n\tTables: {} \n\tFree Labels: {} \n\tFree Data: {}").format(self.name, self.cells, self.blocks, self.tables, self.free_labels, self.free_data)
+
+    def to_dataframe(self):
+        # Create an empty DataFrame
+        df = pd.DataFrame()
+
+        # Iterate through all blocks, tables, free labels, and free data blocks
+        for collection in [self.blocks, self.tables, self.free_labels, self.free_data]:
+            for item in collection:
+                expected_position = item.expected_position
+                #gth.debug_print(f"Item EP: {expected_position} ")
+                item_df = item.to_dataframe()
+
+                # Insert the item DataFrame into the main DataFrame at the relative expected position
+                #gth.debug_print(f"Dataframe: \n {item_df}")
+                df = gth.insert_dataframe(df, item_df, expected_position)
+        self.dataframe = df
+        gth.debug_print(f"Sheet Dataframe: \n {df}")
+        return self.dataframe
 
     def check_df_ep(self, df):
         # Initialize a dictionary to store the mismatches

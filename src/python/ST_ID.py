@@ -3,7 +3,7 @@ from structures.block import Block as block
 from structures.table import Table as table
 from structures.sheet import Sheet as sheet
 from structures.gen_tree import Gen_Tree as gen_tree
-from structures.gen_tree_helper import Gen_Tree_Helper as gth
+from structures.utilities import Gen_Tree_Helper as gth
 def st_id(tree: gen_tree):
     # Create a dictionary to store sheet information
     sheet_dict = {}
