@@ -1,11 +1,9 @@
-import pandas as pd
-import sys
+ #? Title: table.py
+ # Author: Harper Chisari
 
-# Title: table.py
-# Author: Harper Chisari
-# Description: Defines the Table class, representing a complex table structure comprising various blocks, labels, and subtables. Provides methods for DataFrame conversion, validation, JSON serialization, size calculation, and more.
-# Contents:
-#   CLASS - Table:
+#? Contents:
+#   CLASS - table: a complex table structure comprising various blocks, labels, and subtables.
+#       #!LAST TESTED: 8/13/23
 #       METHOD - __init__: Initializes a Table object with expected position, labels, data, subtables, and other attributes
 #       METHOD - __str__: String representation of the Table object
 #       METHOD - __repr__: String representation of the Table object
@@ -22,41 +20,53 @@ import sys
 #       METHOD - to_clean_json: Represents the Table in a cleaner JSON format
 #       METHOD - from_json: Creates a Table object from JSON data
 
-# Version History:
+#? Version History:
+#   Harper: 8/17/23 - V1.4: added updated titleblock
 #   Harper: 8/12/23 - V1.3 - Added title block, redid to_dataframe, added get_corners
 
+
+import pandas as pd
+import sys
+
+
 if 'pytest' in sys.modules:
-    from src.python.structures.utilities import Gen_Tree_Helper as gth
+    from src.python.utilities.gen_tree_helper import Gen_Tree_Helper as gth
     from src.python.structures.block import Block as blk
     from src.python.structures.cell import Cell as cel
 else:
-    from structures.utilities import Gen_Tree_Helper as gth
+    from utilities.gen_tree_helper import Gen_Tree_Helper as gth
     from structures.block import Block as blk
     from structures.cell import Cell as cel
 
 
 class Table:
-    def __init__(self, free_labels=[], free_data=[], subtables=[], l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block: blk=None, json_data=None, pattern=None):
+    def __init__(self, free_labels=[], free_data=[], subtables=[], l0=None, l1=None, r0=None, r1=None, t0=None, t1=None, b0=None, b1=None, data_block: blk=None, json_data=None, pattern=None, expected_position=(1, 1), expected_size=(1, 1)):
         assert isinstance(
             free_labels, list), f"expected a list, got f{free_labels}"
+        self.expected_position = expected_position
+        self.expected_size = expected_size
         self.data_block = data_block
         self.label_blocks = {"same_height": {"l0": l0, "l1": l1, "r0": r0,
                                              "r1": r1}, "same_width": {"t0": t0, "t1": t1, "b0": b0, "b1": b1}}
         self.subtables = subtables
         self.free_blocks = {
             "label_blocks": free_labels, "data_blocks": free_data}
+        assert (free_data is not None) or (data_block is not None) or (subtables is not None) or (free_labels is not None), "Tables must have at least one base substructure"
         self.get_corners()
         self.pattern = pattern
         self.all_blocks = []
         # Get the size of the table after initializing all the attributes
         self.get_size()
 
+    # String Representation
     def __str__(self):
         return str(self.to_json())
 
+    # String Representation
     def __repr__(self):
         return str(self.to_json())
-    
+
+    # Check if a DataFrame has a compatible data structure, return difference
     def check_df_ep(self, df):
         # Create an empty dictionary to store mismatches for label blocks
         label_mismatch_dict = {}
@@ -136,6 +146,7 @@ class Table:
         # If not, return True
         return all_mismatches if all_mismatches else True
 
+    # Convert table data into JSON format
     def to_dataframe(self):
         # Get DataFrames and expected positions (eps) of all free label blocks, free data blocks, label blocks, and the data block
         all_dfs = []
@@ -160,6 +171,7 @@ class Table:
         self.dataframe = df
         return df
 
+    # Get the corners of the table
     def get_corners(self) -> tuple:
         #label offset
         label_offset_x = -2 if self.label_blocks["same_height"]["l1"] else -1 if self.label_blocks["same_height"]["l0"] else 0
@@ -169,7 +181,16 @@ class Table:
         #initialize corners
         self.corners = []
         #take data block ep and offset table ep depending on labels used
-        self.corners = [(self.data_block.expected_position[0] + label_offset_x, self.data_block.expected_position[1] + label_offset_y), (self.data_block.corners[1][0] + label_offset_x1, self.data_block.corners[1][1] + label_offset_y1)]
+        self.corners = [
+            (self.data_block.expected_position[0] + label_offset_x,
+             self.data_block.expected_position[1] + label_offset_y),
+            (self.data_block.corners[1][0] + label_offset_x1,
+             self.data_block.corners[1][1] + label_offset_y1)
+            ] if self.data_block else [
+                 (self.expected_position),
+                 (self.expected_position),
+                 (self.expected_position),
+                 (self.expected_position)]
         #see if any free block is further out
         gth.debug_print(f"  Corners pre-fb check: {self.corners}")
         free_blocks = self.free_blocks["label_blocks"] + self.free_blocks["data_blocks"]
@@ -195,6 +216,7 @@ class Table:
         self.expected_position = self.corners[0]
         return self.expected_position
 
+    # Get all blocks within the table
     def get_blocks(self) -> list:
         if self.data_block:
             self.all_blocks.append(self.data_block)
@@ -206,6 +228,7 @@ class Table:
             self.all_blocks += block_list
         return self.all_blocks
 
+    # Returns the CSV of the table
     def get_csv(self):
         self.get_blocks()
         all_cells = []
@@ -213,10 +236,12 @@ class Table:
             all_cells += Block.cells
         return (gth.build_csv(all_cells, self.expected_position))
 
+    # Checks if the table is enclosed by labels from both height and width dimensions
     def is_enclosed(self):
         # Checks if the table is enclosed by labels from both height and width dimensions
         return any(value is not None for value in self.label_blocks["same_height"].values()) and any(value is not None for value in self.label_blocks["same_width"].values())
 
+    # Checks if the size of the data block is prime, returns None if not, else returns the dimensions that are prime
     def is_prime(self):
         # Checks if the size of the data block is prime, returns None if not, else returns the dimensions that are prime
         dims = []
@@ -237,8 +262,8 @@ class Table:
 
         return dims if dims else None  # Return the prime dimensions if any, else return None
 
+    # Gets the relative position of the top left corner of the table based on a given origin
     def get_relative_position(self, origin: tuple):
-        # Gets the relative position of the top left corner of the table based on a given origin
         relative_position = []
         for dimension in [0, 1]:  # For each dimension
             relative_position.append(
@@ -246,8 +271,8 @@ class Table:
         self.relative_position = tuple(relative_position)
         return self.relative_position  # Returns the relative position
 
+    # Calculate the relative position for each child block and subtable
     def get_child_rel_pos(self):
-        # Calculate the relative position for each child block and subtable
         if self.data_block:  # If there is a data block
             self.data_block.get_relative_position(
                 self.expected_position) if not self.data_block.relative_position else None  # Calculate its relative position
@@ -261,10 +286,12 @@ class Table:
             # Calculate its relative position
             Table.get_relative_position(origin=self.expected_position) if not Table.relative_position else None
 
+    # Function to get the size of the table
     def get_size(self):
         self.expected_size = (self.corners[1][0] - (self.corners[0][0]-1), self.corners[1][1] - (self.corners[0][1]-1))
         return self.expected_size
 
+    # Convert table data into JSON format
     def to_json(self):
         self.get_size()
         # Converts the table to a JSON format for easy saving and loading
@@ -299,6 +326,7 @@ class Table:
 
         return table_json  # Return the JSON object
 
+    # Represent the table in a cleaner JSON format
     def to_clean_json(self):
         # Converts the table to a JSON format for easy saving and loading
         data_block_clean_json = self.data_block.to_clean_json(
@@ -330,6 +358,7 @@ class Table:
 
         return table_clean_json  # Return the JSON object
 
+    # Create a table object from JSON data
     def from_json(cls,json_data):
         # Reconstructs the table from a JSON object
         label_blocks_json = json_data.get("label_blocks", {})

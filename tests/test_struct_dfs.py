@@ -253,3 +253,10 @@ def test_sheet_to_dataframe():
     print("Expected DataFrame:")
     print(sheet_1_df)
     assert st_1_df.equals(sheet_1_df), "Failed to correctly populate dataframe from a sheet"
+
+def test_sheet_sb_id():
+    shee = sheet(name= "Business Performance", cells=[
+        cell_01,cell_02,cell_03,cell_010,cell_011,cell_012,cell_013,cell_019,cell_1,cell_2,cell_3,cell_4,cell_5,cell_6,cell_7,cell_8,cell_21,cell_22,cell_04,cell_05,cell_06,cell_27,cell_23,cell_07,cell_08,cell_09,cell_014,cell_015,cell_016,cell_017,cell_018,cell_9,cell_10,cell_11,cell_12,cell_13,cell_14,cell_15,cell_16,cell_17,cell_18,cell_19,cell_20,cell_24,cell_25,cell_26])
+    shee.sb_id()
+    print(shee.to_clean_json())
+    assert(False)

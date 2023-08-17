@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from src.python.structures.utilities import Gen_Tree_Helper as gth
+from src.python.utilities.gen_tree_helper import Gen_Tree_Helper as gth
 #Title: TESTS Utilities
 #Author: Harper Chisari
 

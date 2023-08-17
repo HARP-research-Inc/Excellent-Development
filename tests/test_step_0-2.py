@@ -59,3 +59,16 @@ def test_annotate_cells_ai(mocker):
     openai.Completion.create.return_value = mocker.MagicMock(choices=[mocker.MagicMock(text='Y')])
     result = annotate_cells_ai(output_dict, openai_api_key)
     assert result[0]['Sheet 1']['A1']['annotation'] == 'LABEL', "Failed to annotate a label cell"
+
+import pytest
+from sheet import Sheet, cel
+
+def test_sb_id_valid_cells():
+    cells = [cel(coord=(0, 0), block_type="DATA"), cel(coord=(1, 0), block_type="LABEL")]
+    sheet = Sheet(name='Test Sheet', cells=cells)
+    sheet.sb_id()
+    
+    assert len(sheet.blocks) > 0, "Failed to create blocks from valid cells"
+    assert all(isinstance(block, blk) for block in sheet.blocks), "Failed to create valid blocks from cells"
+
+# Additional test cases can be added to test different types of cells and block types

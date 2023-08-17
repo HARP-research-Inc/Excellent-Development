@@ -6,8 +6,6 @@ from structures.gen_tree import Gen_Tree as gen_tree
 import pandas as pd
 from src.python.SB_ID import sb_id
 from src.python.ST_ID import st_id
-from src.python.chunker import chunk_sheet
-from src.python.annotator import annotate_cells_ai
 from src.python.Multi_DOF_comparison import multi_dof_comparison
 
 #the top level object which can manipulate and compare spreadsheets
@@ -35,6 +33,7 @@ class synthetic_model:
             for instance in instances:
                 self.populate(instance)
 
+    # takes in a file and returns a tree
     def get_sheets(self, filename= None, workbook=None):
         if filename:
             # Determine file type
@@ -55,7 +54,8 @@ class synthetic_model:
 
         self.analyze_file(sheets)
         return self.tree
-    
+
+    # takes in a list of files and returns a tree
     def multi_doc_analyze(self, new_files= None, new_data=None):
         #take in multiple workbooks
         #make a tree for each
@@ -66,6 +66,7 @@ class synthetic_model:
             trees.append(gen_tree(sheets=sheets))
         self.tree = multi_dof_comparison(trees)
 
+    # takes in a list of sheets and analyzes tree
     def analyze_file(self, sheets: dict):
         #for each tree run the full algorithm
         sheets_list = {}
@@ -84,6 +85,7 @@ class synthetic_model:
         cur_tree = ST_sheets
         return cur_tree
 
+    # populates the tree with a new instance
     def populate(self, notebook=None):
         if notebook:
             for name, Sheet in self.tree.sheets.items():
@@ -94,6 +96,7 @@ class synthetic_model:
 
         return self.instances[-1]
 
+# testing function
 def initialize_and_populate_gen_tree():
     # Define cell data for label and data blocks
     label_blocks = [

@@ -3,30 +3,30 @@
         "tables": [
             {
                 "data_block": {
-                    "start": "(1, 2)",
-                    "end": "(3, 3)",
+                    "start": "(0, 1)",
+                    "end": "(2, 2)",
                     "cells": {
-                        "(1, 2)": {
+                        "(0, 1)": {
                             "value": "12",
                             "annotation": "DATA"
                         },
-                        "(2, 2)": {
+                        "(1, 1)": {
                             "value": "crack",
                             "annotation": "DATA"
                         },
-                        "(3, 2)": {
+                        "(2, 1)": {
                             "value": "23",
                             "annotation": "DATA"
                         },
-                        "(1, 3)": {
+                        "(0, 2)": {
                             "value": "13",
                             "annotation": "DATA"
                         },
-                        "(2, 3)": {
+                        "(1, 2)": {
                             "value": "meth",
                             "annotation": "DATA"
                         },
-                        "(3, 3)": {
+                        "(2, 2)": {
                             "value": "45",
                             "annotation": "DATA"
                         }
@@ -42,18 +42,18 @@
                     },
                     "same_width": {
                         "t0": {
-                            "start": "(1, 1)",
-                            "end": "(3, 1)",
+                            "start": "(0, 0)",
+                            "end": "(2, 0)",
                             "cells": {
-                                "(1, 1)": {
+                                "(0, 0)": {
                                     "value": "column_1_name",
                                     "annotation": "LABEL"
                                 },
-                                "(2, 1)": {
+                                "(1, 0)": {
                                     "value": "column_2_name",
                                     "annotation": "LABEL"
                                 },
-                                "(3, 1)": {
+                                "(2, 0)": {
                                     "value": "column_3_name",
                                     "annotation": "LABEL"
                                 }
@@ -70,11 +70,11 @@
                     "LABEL": [],
                     "DATA": []
                 },
-                "size": "(1, 1)",
-                "start": "(1, 1)"
+                "size": "(3, 2)",
+                "start": "(0, 1)"
             }
         ],
         "free_labels": [],
         "free_data": []
     }
-}
+}s

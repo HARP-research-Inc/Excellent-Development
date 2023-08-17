@@ -1,18 +1,13 @@
-import sys
-import pandas as pd
-from pandas import DataFrame
+ #? Title: block.py
+ # Author: Harper Chisari
 
-
-# Title: block.py
-# Author: Harper Chisari
-# Description: Defines the Block class, representing a block of cells with various attributes and methods to manipulate and represent the data.
-# Contents:
-#   CLASS - Block:
+#? Contents:
+#   CLASS - Block: a block of cells with various attributes and methods to manipulate and represent the data.
+#       #!LAST TESTED: 8/16/23
 #       METHOD - __init__: Initializes a Block object with given cells and annotation type
 #       METHOD - __str__: String representation of the Block object
 #       METHOD - __repr__: Dictionary representation of the Block object
 #       METHOD - check_df_ep: Checks if a dataframe has a compatible data structure
-#       METHOD - get_border_eps: Gets the expected positions of label blocks around the border
 #       METHOD - to_dataframe: Returns a dataframe representation of the individual block
 #       METHOD - get_size: Returns the size of the block
 #       METHOD - to_json: Serializes the block object into a JSON format
@@ -24,14 +19,21 @@ from pandas import DataFrame
 #       METHOD - get_relative_position: Gets the position of the block relative to an origin
 #       METHOD - from_json: Creates a block object from JSON data
 
-# Version History:
+#? Version History:
+#   Harper: 8/16/23 - V1.2 - Removed get_border_eps, moved to utilities for use in other classes
 #   Harper: 8/12/23 - V1.1 - added title block and to_dataframe
+
+import sys
+import pandas as pd
 
 
 if 'pytest' in sys.modules:
     from src.python.structures.cell import Cell
+    from src.python.utilities.gen_tree_helper import Gen_Tree_Helper as gth
+
 else:
     from structures.cell import Cell
+    from utilities.gen_tree_helper import Gen_Tree_Helper as gth
 
 class Block:
     def __init__(self, cells: list[Cell] = [], annotation_type=None):
@@ -51,7 +53,7 @@ class Block:
         self.csv_format()
         self.expected_position = self.corners[0]
         self.relative_position = self.expected_position
-        #self.to_dataframe()
+        gth.get_border_eps(self)
 
     # String Representation
     def __str__(self):
@@ -73,31 +75,6 @@ class Block:
         elif not mismatch_dict:
             return True
         return mismatch_dict
-    
-    # Function to get the expected positions of label blocks around the border of the block
-    def get_border_eps(self):
-        offsets = {
-            'same_height': {
-                "l0": (1, 0),
-                "l1": (2, 0),
-                # "r0": (1,0), temp until demo
-                # "r1": (2,0)
-            },
-            "same_width": {
-                "t0": (0, 1),
-                "t1": (0, 2),
-                # "b0": (0,1),
-                # "b1": (0,2)
-            }
-        }
-        self.border_eps = {
-            'same_height': {},
-            "same_width": {}}
-        for directions, val in offsets.items():
-            for label, coord in val.items():
-                self.border_eps[directions][label] = tuple(
-                    x - y for x, y in zip(self.expected_position, coord))
-        return self.border_eps
 
     # Function to return dataframe of individual block
     def to_dataframe(self):
@@ -109,7 +86,7 @@ class Block:
                     for cell in self.cells}
 
         # Initialize an empty DataFrame with the appropriate size based on the corners
-        cols, rows = self.size
+        cols, rows = self.expected_size
         df = pd.DataFrame([[" " for _ in range(cols)] for _ in range(rows)])
 
         # Populate the DataFrame using the cells_dict
@@ -121,8 +98,8 @@ class Block:
 
     # Function to get size of block
     def get_size(self):
-        return self.size
-    
+        return self.expected_size
+
     # Function to serialize the block object into a JSON format
     def to_json(self):
         self.get_corners()
@@ -133,7 +110,7 @@ class Block:
             "start": "("+str(self.corners[0][0]) + ', ' + str(self.corners[0][1])+")",
             "end": "("+str(self.corners[1][0]) + ', ' + str(self.corners[1][1])+")",
             "cells": cells_dict,
-            "size": "("+str(self.size[0]) + ', ' + str(self.size[1])+")",
+            "size": "("+str(self.expected_size[0]) + ', ' + str(self.expected_size[1])+")",
         }
         return block_json
 
@@ -155,7 +132,7 @@ class Block:
                 if cell.coord[direction] < min_coord[direction]:
                     min_coord[direction] = cell.coord[direction]
         self.corners = (tuple(min_coord), tuple(max_coord))
-        self.size = (int(self.corners[1][0]) - int(self.corners[0][0]) + 1,
+        self.expected_size = (int(self.corners[1][0]) - int(self.corners[0][0]) + 1,
                      int(self.corners[1][1]) - int(self.corners[0][1]) + 1)
 
     # Function to check if all cells in the block are of the same type as the block
