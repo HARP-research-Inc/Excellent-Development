@@ -18,10 +18,10 @@
 #       METHOD - csv_format: Converts block data into CSV format
 #       METHOD - get_relative_position: Gets the position of the block relative to an origin
 #       METHOD - from_json: Creates a block object from JSON data
+#       METHOD - is_solid: Checks if a block is solid
 
 #? Version History:
-#   Harper: 8/16/23 - V1.2 - Removed get_border_eps, moved to utilities for use in other classes
-#   Harper: 8/12/23 - V1.1 - added title block and to_dataframe
+#   Harper: 8/17/23 - V1.4 - added support for light blocks, and is_solid method
 
 import sys
 import pandas as pd
@@ -138,16 +138,21 @@ class Block:
     # Function to check if all cells in the block are of the same type as the block
     def check_consistancy(self):
         for cell in self.cells:
-            if self.annotation_type == cell.block_type:
-                pass
+            if (self.annotation_type == cell.block_type) or (cell.block_type == 'EMPTY'):
+                continue
             else:
                 raise ValueError(
                     f"Inconsistent block type, expecting type {self.annotation_type}, found cell with {cell.block_type}")
 
     # Function to get the annotation type of the block
     def get_annotation_type(self):
-        first_cell = self.cells[0]
-        self.annotation_type = first_cell.block_type
+        for cell in self.cells[0]:
+            if cell.block_type != 'EMPTY':
+                self.annotation_type = cell.block_type
+                return
+            else:
+                continue
+        raise ValueError("No annotation type found, empty block")
 
     # Function to convert block data into CSV format
     def csv_format(self):
@@ -179,3 +184,10 @@ class Block:
     # Class method to create a block object from a JSON data
     def from_json(json_data):
         return Block(cells=[Cell.from_json(Cell, cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
+
+    # Class method to check if a block is solid
+    def is_solid(self):
+        for cell in self.cells:
+            if cell.annotation == 'EMPTY':
+                return False
+        return True

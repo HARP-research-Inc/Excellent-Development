@@ -16,7 +16,7 @@
 
 #? Version History:
 # Version History:
-#   Harper: 8/17/23 - V1.1 - added border_id and redid/completed title block
+#   Harper: 8/17/23 - V1.1 - added border_id and redid/completed title block, moved border_id method to utilities/border_id.py
 #   Harper: 8/16/23 - V1.0 - initial commit
 
 
@@ -28,14 +28,14 @@ from io import StringIO
 if 'pytest' in sys.modules:
     from src.python.utilities.gen_tree_helper import Gen_Tree_Helper as gth
     from src.python.utilities.max_area_rectangles import MaxAreaRectangles
-    from src.python.utilities.relative_location_processor import RLP as rlp
+    from src.python.utilities.border_id import Border_Interaction_and_Identification as bii
     from src.python.structures.cell import Cell as cel
     from src.python.structures.block import Block as blk
     from src.python.structures.table import Table as tbl
 else:
     from utilities.gen_tree_helper import Gen_Tree_Helper as gth
     from utilities.max_area_rectangles import MaxAreaRectangles
-    from utilities.relative_location_processor import RLP as rlp
+    from utilities.border_id import Border_Interaction_and_Identification as bii
     from structures.cell import Cell as cel
     from structures.block import Block as blk
     from structures.table import Table as tbl
@@ -214,105 +214,17 @@ class Sheet_Transformer:
                 self.blocks.extend(self.free_labels)
                 self.blocks.extend(self.free_data)
 
-    # Function to get the expected positions of adjacent blocks around the border of the block
-    def border_id(self, border_structures, base_structures, combined_structures, t=None, l=None, r=None, b=None, size_dependent=False):
-        # Initialize dictionaries to hold unused border structures, unused base structures, and new combined structures
-        unused_border_structures = {structure.expected_position: structure for structure in border_structures}
-        unused_base_structures = {structure.expected_position: structure for structure in base_structures}
-        new_combined_structures = {}
-        # Iterate over base structures to process them
-        for base_ep, base_structure in {structure.expected_position: structure for structure in base_structures}.items():
-            # Create an empty dict for Relative Location Processor (RLP) to hold border locations related to the current base structure
-            valid_borders = {
-            'same_height':
-                {'l': {},
-                 'r': {}},
-            'same_width':
-                {'t': {},
-                 'b': {}}}
-
-            # Check for matching border structures by comparing border eps
-            for dimension, directions in rlp(structure=base_structure, t=t, l=l, r=r, b=b).border_eps.items():
-                for direction, border_eps in directions.items():
-                    for border_ep in border_eps:
-                        border_structure = unused_border_structures.get(border_ep)
-                        if border_structure:
-                            valid_borders[dimension][direction][border_ep] = border_structure
-
-            print(f"Base structure {base_ep} border eps: {valid_borders}")
-            # Process used base structures by creating tables and adding relevant blocks and subtables in order of left, top, right, bottom
-            for dimension in [valid_borders['same_height']['l'],
-                              valid_borders['same_width']['t'],
-                              valid_borders['same_height']['r'],
-                              valid_borders['same_width']['b']]:
-
-                for border_ep, border_structure in dimension.items():
-                    table = tbl()  # Create a new table structure to hold the combined structure
-
-                    # If the base structure is a data block, add it as the data block of the table
-                    if base_structure.annotation_type == "DATA":
-                        table.data_block = base_structure
-                        # If the border structure is a label block, add it as a label block border
-                        if border_structure.annotation_type == "LABEL":
-                            keys = ['l0', 'l1', 'r0', 'r1', 't0', 't1', 'b0', 'b1']
-
-                            #Iterate through label block locations
-                            for key in keys:
-                                direction = 'same_height' if key[0] in ['l', 'r'] else 'same_width'
-                                table.label_blocks[direction][key] = dimension.get(base_structure.border_eps[direction][key])
-
-                        # If the border structure is a data block, add it as a free block
-                        elif border_structure.annotation_type == "DATA":
-                            table.free_blocks.append(border_structure)
-
-                    # If the base structure is a label block, add it as a free block
-                    elif base_structure.annotation_type == "LABEL":
-                        table.free_blocks.append(base_structure)
-                        # Add the border structure as a free block, regardless of its annotation type
-                        if border_structure.annotation_type == "LABEL" or border_structure.annotation_type == "DATA":
-                            table.free_blocks.append(border_structure)
-
-                    # If the base structure is a table, add it as a subtable
-                    elif isinstance(base_structure, tbl):
-                        table.subtables.append(base_structure)
-                        # Add the border structure according to its type
-                        if border_structure.annotation_type == "LABEL":
-                            keys = ['l0', 'l1', 'r0', 'r1', 't0', 't1', 'b0', 'b1']
-
-                            #Iterate through label block locations
-                            for key in keys:
-                                direction = 'same_height' if key[0] in ['l', 'r'] else 'same_width'
-                                table.label_blocks[direction][key] = dimension.get(base_structure.border_eps[direction][key])
-
-                        elif border_structure.annotation_type == "DATA":
-                            table.free_blocks.append(border_structure)
-                        elif isinstance(border_structure, tbl):
-                            table.subtables.append(border_structure)
-
-                    # Add the new combined structure to the dictionary
-                    new_combined_structures[base_ep] = table
-
-                    # Remove used border structure from the unused dictionary
-                    unused_border_structures.pop(border_ep)
-
-                    # Remove used base structure from the unused dictionary
-                    unused_base_structures.pop(base_ep)
-
-        # Update original list pointers to reflect the unused and new combined structures
-        border_structures[:] = list(unused_border_structures.values())
-        base_structures[:] = list(unused_base_structures.values())
-        combined_structures[:] = list(new_combined_structures.values())
-
     #Solid Table Identification: groups together adjacent free blocks and/or tables into larger tables
     def st_id(self):
-        self.border_id(border_structures=self.free_labels, base_structures=self.free_data, combined_structures=self.tables)
+        bii.border_id(border_structures=self.free_labels, base_structures=self.free_data, combined_structures=self.tables, size_constrained=(True, True))
 
     #Light Block Identification: Finds blocks that are not part of a table due to their size mismatch within the border eps
     def lb_id(self):
-        #lb ab
+        #light block id: label - find labels within border eps of tables with size flexible on and standard distances.
+
+        #lb ab: iterate through labels and look for data blocks smaller than the label block
         #lb bb
         #lb cb
-        #lb label
         pass
 
     #Solid Table Identification 2: groups together adjacent free blocks and/or tables into larger tables
