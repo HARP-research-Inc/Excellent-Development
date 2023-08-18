@@ -183,6 +183,6 @@ class Sheet(Sheet_Transformer):
     # a method which creates a sheet object from json data
     def from_json(cls, json_data):
         # Converts the json to a sheet
-        AssertionError(len(json_data) != 1, "")
+        assert len(json_data) != 1, "Can only parse one sheet"
         for name, sheet in json_data.items():
             return Sheet(name, json_data.get("tables", []), json_data.get("free_labels", []), json_data.get("free_data", []), json_data.get("tables", []).get("cells"))

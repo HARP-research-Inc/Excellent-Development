@@ -1,0 +1,5 @@
+digraph "classes" {
+rankdir=BT
+charset="utf-8"
+"src.python.structures.sheet.Sheet" [color="black", fontcolor="black", label=<{Sheet|all_blocks : list<br ALIGN="LEFT"/>blocks : list, NoneType<br ALIGN="LEFT"/>cells : NoneType<br ALIGN="LEFT"/>dataframe<br ALIGN="LEFT"/>free_data : list<br ALIGN="LEFT"/>free_labels : list<br ALIGN="LEFT"/>name<br ALIGN="LEFT"/>tables : list<br ALIGN="LEFT"/>|from_json(json_data)<br ALIGN="LEFT"/>get_blocks()<br ALIGN="LEFT"/>get_csv()<br ALIGN="LEFT"/>get_prime_tables(): list<br ALIGN="LEFT"/>get_unenclosed_tables(): list<br ALIGN="LEFT"/>to_clean_json()<br ALIGN="LEFT"/>to_csv()<br ALIGN="LEFT"/>to_dataframe()<br ALIGN="LEFT"/>to_json()<br ALIGN="LEFT"/>transform(csv_data)<br ALIGN="LEFT"/>}>, shape="record", style="solid"];
+}

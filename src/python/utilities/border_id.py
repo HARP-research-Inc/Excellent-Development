@@ -186,7 +186,7 @@ class Border_Interaction_and_Identification:
         # Skip table border structures
         if isinstance(border_structure, tbl):
             return
-        
+
         # If the border structure is a label block, combine and add as free block
         if border_structure.annotation_type == "LABEL":
             # Extend border structure to the table's free blocks

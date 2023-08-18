@@ -28,15 +28,15 @@ import pandas as pd
 
 
 if 'pytest' in sys.modules:
-    from src.python.structures.cell import Cell
+    from src.python.structures.cell import Cell as cel
     from src.python.utilities.gen_tree_helper import Gen_Tree_Helper as gth
 
 else:
-    from structures.cell import Cell
+    from structures.cell import Cell as cel
     from utilities.gen_tree_helper import Gen_Tree_Helper as gth
 
 class Block:
-    def __init__(self, cells: list[Cell] = [], annotation_type=None):
+    def __init__(self, cells: list[cel] = [], annotation_type=None):
         self.cells = cells
         # Ensure that there is at least one cell in the block
         if len(cells) < 1:
@@ -183,7 +183,7 @@ class Block:
 
     # Class method to create a block object from a JSON data
     def from_json(json_data):
-        return Block(cells=[Cell.from_json(Cell, cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
+        return Block(cells=[cel.from_json(cel, cell_data, coord) for coord, cell_data in json_data["cells"].items()]) if json_data else None
 
     # Class method to check if a block is solid
     def is_solid(self):
