@@ -88,6 +88,10 @@ class Sheet(Sheet_Transformer):
         self.st_id()
         print(self)
         print()
+        print("Light Blocked:")
+        self.lb_id()
+        print(self)
+        print()
 
     # a method that returns a string representation of the sheet
     def __str__(self):

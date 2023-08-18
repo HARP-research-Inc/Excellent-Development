@@ -13,6 +13,7 @@
 #       METHOD - cut_csv_into_chunks: Converts a CSV string into a list of cells
 #       METHOD - chunk_csv: Converts a CSV string into a list of cells
 #       METHOD - join_or_concat_with_proper_alignment: Joins or concatenates two lists of lists of cells
+#       METHOD - get_annotated_chunk: Generates a CSV string of the chunk with the current cell highlighted and annotations included
 
 #? Version History:
 #   Harper: 8/17/23 - V1.3 added RLP with generalized border_id method and modified get_border_eps to use RLP, seperated RLP and MAR to seperate files
@@ -233,3 +234,31 @@ class Gen_Tree_Helper:
                                               len(list1[0]))]
         elif action == 'concat':
             return list1 + list2
+
+    # Method to generate a CSV string of the chunk with the current cell highlighted and annotations included
+    def get_annotated_chunk(chunk, current_cell_id, annotated_output):
+        # Generate a CSV string of the chunk with the current cell highlighted and
+        # annotations included
+        formatted_chunk = []
+        for row in chunk:
+            formatted_row = []
+            for cell_id, cell_value in row:
+                # Annotate formula cells
+                if cell_value.strip() == '':
+                    annotation = "[EMPTY]"
+                elif cell_value.startswith('='):
+                    annotation = "[FORMULA]"
+                elif annotated_output.get(cell_id) and len(list(dict(annotated_output.get(cell_id)).values())) == 2:
+                    annotation = f"[{list(dict(annotated_output.get(cell_id)).values())[-1]}] {cell_value}"
+                else:
+                    annotation = cell_value
+                # Highlight the current cell
+                formatted_value = annotation
+                formatted_value = f"{{{formatted_value}}}" if cell_id == current_cell_id else formatted_value
+                formatted_row.append(formatted_value)
+            formatted_chunk.append(formatted_row)
+        # Convert the chunk into a CSV string
+        si = StringIO()
+        cw = csv.writer(si)
+        cw.writerows(formatted_chunk)
+        return si.getvalue().strip()

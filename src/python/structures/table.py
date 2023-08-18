@@ -21,7 +21,7 @@
 #       METHOD - from_json: Creates a Table object from JSON data
 
 #? Version History:
-#   Harper: 8/17/23 - V1.4: added updated titleblock
+#   Harper: 8/17/23 - V1.4: added updated titleblock, fixed from_json block calls to blk
 #   Harper: 8/12/23 - V1.3 - Added title block, redid to_dataframe, added get_corners
 
 
@@ -209,7 +209,7 @@ class Table:
             max_corners[0] = (max_corners[0][0], subtable.corners[0][1]) if subtable.corners[0][1] < max_corners[0][1] else max_corners[0]
             max_corners[1] = (subtable.corners[1][0], max_corners[1][1]) if subtable.corners[1][0] > max_corners[1][0] else max_corners[1]
             max_corners[1] = (max_corners[1][0], subtable.corners[1][1]) if subtable.corners[1][1] > max_corners[1][1] else max_corners[1]
-        
+
         gth.debug_print(f"  Corners post- item check: {self.corners}")
 
         #update ep
@@ -288,6 +288,7 @@ class Table:
 
     # Function to get the size of the table
     def get_size(self):
+        self.get_corners()
         self.expected_size = (self.corners[1][0] - (self.corners[0][0]-1), self.corners[1][1] - (self.corners[0][1]-1))
         return self.expected_size
 
@@ -328,6 +329,7 @@ class Table:
 
     # Represent the table in a cleaner JSON format
     def to_clean_json(self):
+        self.get_size()
         # Converts the table to a JSON format for easy saving and loading
         data_block_clean_json = self.data_block.to_clean_json(
         ) if self.data_block else None  # Convert the data block to JSON if it exists
@@ -364,33 +366,33 @@ class Table:
         label_blocks_json = json_data.get("label_blocks", {})
         label_blocks = {
             "same_height": {
-                "l0": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("l0")),
-                "l1": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("l1")),
-                "r0": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("r0")),
-                "r1": block.from_json(json_data=label_blocks_json.get("same_height", {}).get("r1"))
+                "l0": blk.from_json(json_data=label_blocks_json.get("same_height", {}).get("l0")),
+                "l1": blk.from_json(json_data=label_blocks_json.get("same_height", {}).get("l1")),
+                "r0": blk.from_json(json_data=label_blocks_json.get("same_height", {}).get("r0")),
+                "r1": blk.from_json(json_data=label_blocks_json.get("same_height", {}).get("r1"))
             },
             "same_width": {
-                "t0": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("t0")),
-                "t1": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("t1")),
-                "b0": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("b0")),
-                "b1": block.from_json(json_data=label_blocks_json.get("same_width", {}).get("b1"))
+                "t0": blk.from_json(json_data=label_blocks_json.get("same_width", {}).get("t0")),
+                "t1": blk.from_json(json_data=label_blocks_json.get("same_width", {}).get("t1")),
+                "b0": blk.from_json(json_data=label_blocks_json.get("same_width", {}).get("b0")),
+                "b1": blk.from_json(json_data=label_blocks_json.get("same_width", {}).get("b1"))
             }
         }  # Above recreates the label blocks from JSON
 
-        subtables = [cls.from_json(cell, subtable_data) for subtable_data in json_data.get(
+        subtables = [cls.from_json(cel, subtable_data) for subtable_data in json_data.get(
             "subtables", [])]  # Recreates the subtables from JSON
 
         free_blocks_json = json_data.get("free_blocks", {})
-        free_labels = [block.from_json(json_data=block_data) for block_data in free_blocks_json.get(
+        free_labels = [blk.from_json(json_data=block_data) for block_data in free_blocks_json.get(
             "LABEL", [])]  # Recreates the free label blocks from JSON
-        free_data = [block.from_json(json_data=block_data) for block_data in free_blocks_json.get(
+        free_data = [blk.from_json(json_data=block_data) for block_data in free_blocks_json.get(
             "DATA", [])]  # Recreates the free data blocks from JSON
 
         # parse tuple
         expected_position = tuple(map(int, json_data.get(
             "start", "(0, 0)").strip("()").split(", ")))
 
-        data_block = block.from_json(json_data=json_data.get("data_block")) if json_data.get(
+        data_block = blk.from_json(json_data=json_data.get("data_block")) if json_data.get(
             "data_block") else None  # Recreates the data block from JSON
 
         # Returns the recreated table

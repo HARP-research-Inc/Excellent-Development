@@ -4,7 +4,6 @@
 #? Contents:
 #   CLASS - Sheet_Transformer: Contains all algorithmic transformations and pre-processing for a sheet
 #       #!LAST TESTED: 8/16/23
-#       METHOD - get_annotated_chunk: Generates a CSV string of the chunk with the current cell highlighted and annotations included
 #       METHOD - annotate_cells_ai: Uses OpenAI to predict if the cell is a label or data
 #       METHOD - sb_id: Sorts cells by block_type, groups cells by block_type, creates blocks using MaxAreaRectangles and adds to sheet's blocks
 #       METHOD - border_id: Identifies the border structures of a given base structure
@@ -31,43 +30,17 @@ if 'pytest' in sys.modules:
     from src.python.utilities.border_id import Border_Interaction_and_Identification as bii
     from src.python.structures.cell import Cell as cel
     from src.python.structures.block import Block as blk
-    from src.python.structures.table import Table as tbl
+    #from src.python.structures.table import Table as tbl
 else:
     from utilities.gen_tree_helper import Gen_Tree_Helper as gth
     from utilities.max_area_rectangles import MaxAreaRectangles
     from utilities.border_id import Border_Interaction_and_Identification as bii
     from structures.cell import Cell as cel
     from structures.block import Block as blk
-    from structures.table import Table as tbl
+    #from structures.table import Table as tbl
 
 
 class Sheet_Transformer:
-    def get_annotated_chunk(self, chunk, current_cell_id, annotated_output):
-        # Generate a CSV string of the chunk with the current cell highlighted and
-        # annotations included
-        formatted_chunk = []
-        for row in chunk:
-            formatted_row = []
-            for cell_id, cell_value in row:
-                # Annotate formula cells
-                if cell_value.strip() == '':
-                    annotation = "[EMPTY]"
-                elif cell_value.startswith('='):
-                    annotation = "[FORMULA]"
-                elif annotated_output.get(cell_id) and len(list(dict(annotated_output.get(cell_id)).values())) == 2:
-                    annotation = f"[{list(dict(annotated_output.get(cell_id)).values())[-1]}] {cell_value}"
-                else:
-                    annotation = cell_value
-                # Highlight the current cell
-                formatted_value = annotation
-                formatted_value = f"{{{formatted_value}}}" if cell_id == current_cell_id else formatted_value
-                formatted_row.append(formatted_value)
-            formatted_chunk.append(formatted_row)
-        # Convert the chunk into a CSV string
-        si = StringIO()
-        cw = csv.writer(si)
-        cw.writerows(formatted_chunk)
-        return si.getvalue().strip()
 
     # Function to annotate cells using OpenAI
     def annotate_cells_ai(self, output_dict):
@@ -112,8 +85,8 @@ class Sheet_Transformer:
                                 continue
 
                             # Get the annotated chunk string
-                            chunk_str = self.get_annotated_chunk(
-                                chunk['contextualized_chunk'], cell_id, annotated_output)
+                            chunk_str = gth.get_annotated_chunk(
+                                chunk['contextualized_chunk'], cell_id, annotated_output=annotated_output)
 
                             # Display the chunk to the user
                             reader = csv.reader(StringIO(chunk_str))
@@ -170,7 +143,7 @@ class Sheet_Transformer:
             #print(cells)
             self.cells = cells
 
-    # Function to sort cells by block_type, group cells by block_type, create blocks using MaxAreaRectangles and add to sheet's blocks
+    # Solid Block Identification: Function to sort cells by block_type, group cells by block_type, create blocks using MaxAreaRectangles and add to sheet's blocks
     def sb_id(self):
         if (self.cells != []) and (self.cells != None):
             # Sort cells by block_type
@@ -214,75 +187,34 @@ class Sheet_Transformer:
                 self.blocks.extend(self.free_labels)
                 self.blocks.extend(self.free_data)
 
-    #Solid Table Identification: groups together adjacent free blocks and/or tables into larger tables
+    # Solid Table Identification: groups together adjacent free blocks and/or tables into larger tables
     def st_id(self):
-        bii.border_id(border_structures=self.free_labels, base_structures=self.free_data, combined_structures=self.tables, size_constrained=(True, True))
+        bii(border_structures=self.free_labels, base_structures=self.free_data, combined_structures=self.tables, ).border_id()
 
-    #Light Block Identification: Finds blocks that are not part of a table due to their size mismatch within the border eps
+    # Light Block Identification: Finds blocks that are not part of a table due to their size mismatch within the border eps
     def lb_id(self):
-        #light block id: label - find labels within border eps of tables with size flexible on and standard distances.
+        # for the following, pass tables as combined_structures
 
-        #lb ab: iterate through labels and look for data blocks smaller than the label block
-        #lb bb
-        #lb cb
-        pass
+        # lb label:
+        # use tables as base, find labels within border eps of tables with size flexible on and standard distances.
+        bii(border_structures=self.free_labels, base_structures=self.tables, combined_structures=self.tables, size_flexible=(True, True)).border_id()
 
-    #Solid Table Identification 2: groups together adjacent free blocks and/or tables into larger tables
-    def st_id2(self):
-        # Initialize a dictionary to store leftover structures
-        leftover_structs = {}
+        # lb ab:
+        # use free labels as base and search for data blocks smaller than the label blocks, with search parameters size_flexible x
+        bii(border_structures=self.free_data, base_structures=self.free_labels, combined_structures=self.tables, size_flexible=(True, False)).border_id()
 
-        # Initialize a dictionary to store block or table ep coordinates
-        struct_coords = {}
+        # lb bb:
+        # use free labels as base and search for data blocks smaller than the label blocks, with search parameters size_flexible y
+        bii(border_structures=self.free_data, base_structures=self.free_labels, combined_structures=self.tables, size_flexible=(False, True)).border_id()
 
-        # Initialize a dictionary to store higher level tables, using data coordinates as keys
-        higher_level_table_dict = {}
+        # lb cb:
+        # use free data as base and search for datablocks near other datablocks with size_flexible x and y
+        bii(border_structures=self.free_data, base_structures=self.free_data, combined_structures=self.free_data, size_flexible=(True, True)).border_id()
+        bii(border_structures=self.free_data, base_structures=self.free_data, combined_structures=self.tables, size_flexible=(True, True)).border_id()
 
-        #Fix all below this to work with structs generally
-        # Create a hashmap mapping label coordinate tuples to free label blocks
-        for label_block in self.free_labels:
-            leftover_structs[label_block.expected_position] = label_block
+        # use tables as base, search for label blocks with default size constraints.
+        bii(border_structures=self.free_labels, base_structures=self.tables, combined_structures=self.tables, size_flexible=(True, True)).border_id()
 
-        # Initialize a nested dictionary for storing position data
-        pos_dict = {
-            'same_height':{"l0": {}, "l1": {}, "r0": {}, "r1": {}}, 
-            'same_width': {"t0": {}, "t1": {}, "b0": {}, "b1": {}}
-        }
-
-        # Iterate over data blocks in the Sheet
-        for data_block in self.free_data:
-            # Get the border coordinates for each data block
-            label_eps = data_block.border_eps
-            # Create a hashmap mapping data coordinate tuples to data blocks
-            data_coords[data_block.expected_position] = data_block
-
-            # Check hashmap for free label blocks with the expected_position
-            # If match is found, add the coordinate to the pos_dict 
-            for dim in label_eps.keys():
-                for ep, coord in label_eps[dim].items():
-                    if coord in leftover_labels.keys():
-                        pos_dict[dim][ep][data_block.expected_position] = leftover_labels[coord]
-
-        # Iterate over possible positions
-        for pos in (('same_height',"l0"), ('same_height',"l1"), ('same_width','t0'), ('same_width','t1'),
-                    ('same_height',"r0"), ('same_height',"r1"), ('same_width','b0'), ('same_width','b1')):
-            # Iterate over items in pos_dict corresponding to current position
-            for data_coord, label in pos_dict[pos[0]][pos[1]].items():
-                if label.expected_position in leftover_labels.keys():
-                    # Create a new table if it doesn't already exist in the table dictionary
-                    if not (data_coord in table_dict.keys()):
-                        table_dict[data_coord] = tbl(data_block=data_coords[data_coord])
-                        self.free_data.remove(data_coords[data_coord])
-
-                    # Set the attribute of the table according to the current position
-                    table_dict[data_coord].label_blocks[pos[0]][pos[1]] = leftover_labels[label.expected_position]
-                    # Remove used labels from leftover_labels
-                    leftover_labels.pop(label.expected_position)
-                    self.free_labels.remove(label)
-
-        # Add processed sheet to sheet_dict
-        self.tables=table_dict.values()
-    
     def check_df_ep(self, df):
         # Initialize a dictionary to store the mismatches
         mismatches = {}
